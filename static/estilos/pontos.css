@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* CABEÇALHO */
+header {
+    background-color: #ffecb2;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header #menu-e-logo {
+    display: flex;
+}
+
+header #menu-e-logo #menu {
+    margin-right: 10px;
+}
+
+/* BOTÕES */
+
+#btn-container {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#btn-container #btn-background{
+    background-color: #0d89a3;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#btn-container button {
+    height: 40px;
+    width: 255px;
+    border: none;
+    background: none;
+
+    font-size: large;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#btn-container .ativo{
+    background-color: #e1b951;
+    border-radius: 20px;
+}
+
+#btn-container .ativo button{
+    color: black;
+    border-radius: 20px;
+}
+
+#btn-container .inativo{
+    background: none;
+}
+
+#btn-container .inativo button{
+    color: white;
+}
+
+/* CONTEUDO PRINCIPAL */
+
+main {
+    background-color: #E1D6B3;
+    margin-top: 80px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    align-items: baseline;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+main .ponto {
+    width: 27%;
+    padding: 3%;
+}
+
+main .ponto h2 {
+    color: #1a1a1a;
+}
+
+main .ponto p{
+    color: #363535;
+    width: 90%;
+}
+
+main .ponto img{
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+/* RESPONSIVIDADE */
+
+
+@media (max-width: 700px) {
+    header #menu-e-logo #logo{
+        width: 70%;
+    }
+
+    header #menu-e-logo #menu{
+        width: 40px;
+    }
+
+    header #usuario-icon{
+        width: 60px;
+    }
+
+    main .ponto {
+        width: 40%;
+        padding: 5%;
+    }
+}
+
+@media (max-width: 550px) {
+    #btn-container button {
+        width: 150px;
+
+        font-size: medium;
+    }
+
+
+    main .ponto {
+        width: 95%;
+        padding: 5%;
+        align-self: center;
+    }
+}

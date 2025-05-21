@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #d3cce3, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.Popup_Criar_conta{
+    width: 800px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    display: flex;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.form-Popup {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fcfcfc;
+    position: relative;
+}
+
+.Criar_conta {
+    background: linear-gradient(135deg, #efefef, #0d89a3);
+}
+
+.Faça_login {
+    background: linear-gradient(135deg, #fbfbfb, #498E8C);
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    margin-top: 70px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+input {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+input::placeholder {
+    color: #d37a15;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.btn_criar_conta {
+    margin-top: 1px;
+    padding: 12px 25px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.icon {
+    font-size: 1.5rem;
+}
+
+.logo-ifce1{
+    width: 200px;
+    height: auto;
+    margin-bottom: 0 px;
+    display: block;
+    margin-top: -41px;
+}
+
+.logo-ifce2{
+    width: 200px;
+    height: auto;
+    margin-bottom: 0 px;
+    display: block;
+}
+
+.btn_entrar{
+       margin-top: 30px;
+    padding: 12px 25px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+
+}

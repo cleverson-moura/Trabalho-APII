@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pontos Turisticos</title>
+    <link rel="stylesheet" href="./static/estilos/pontos.css">
+</head>
+<body>
+    <header>
+        <div id="menu-e-logo">
+            <img src="./static/imagens/icons8-menu.svg" alt="" id="menu">
+            <img src="./static/imagens/nome-empresa.png" alt="" id="logo">
+        </div>
+        <a href="/cadastro"><img src="./static/imagens/user.png" alt="" id="usuario-icon"></a>
+    </header>
+    <div id="btn-container">
+        <div id="btn-background">
+            <div id="btn-ponto" class="ativo">
+                <button>Pontos Turisticos</button>
+            </div>
+            <div id="btn-hoteis" class="inativo">
+                <a href="/"><button onclick="next_page('index.html')">Hotéis</button></a>
+            </div>
+        </div>
+    </div>
+    <main id="pontos-container">
+        {%for i in range(tponto):%}
+        <div class="ponto">
+            <img src="./static/imagens/diocese.jpg" alt="" srcset="">
+            <h2>{{ponto[i][1]}}</h2>
+            <p>{{ponto[i][2]}}</p>
+        </div>
+        {%endfor%}
+        
+            
+    </main>
+</body>
+<script src="./static/scripts/index.js"></script>
+</html>
