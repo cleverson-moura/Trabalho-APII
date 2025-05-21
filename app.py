@@ -1,17 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-import sqlite3
+from connect import Database # Importação da Classe com as funções de banco de dados
 import re
 
-def conectar_banco():
-    con = sqlite3.connect("banco_de_dados.db")
-    return con
+# def conectar_banco():
+#     con = sqlite3.connect("banco_de_dados.db")
+#     return con
 
 app = Flask(__name__) 
 
-def get_db_connection():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+# def get_db_connection():
+#     conn = sqlite3.connect('banco_de_dados.db')
+#     conn.row_factory = sqlite3.Row
+#     return conn
 
 @app.route('/')
 def index():
@@ -20,10 +20,13 @@ def index():
 
 @app.route('/pontos')
 def pontos():
-    con = sqlite3.connect("banco_de_dados.db")
-    cursor = con.cursor()
-    ponto = cursor.execute("SELECT * FROM teste").fetchall()
+    # usando o osjeto de conexão com banco de dados
+    db = Database() # cria o objeto
+    db.connect() # conecta ao banco
+    db.execute('SELECT * FROM teste') # executa o SQL
+    ponto = db.fetchall() # retorna uma lista com as linhas da tabela
     tponto = len(ponto)
+    db.close()
     
     
     descricao = "Igreja muito massa"
@@ -34,7 +37,7 @@ def cadastro():
     return render_template('Popup_cadastro.html')
 
 
-#@app.houre('hoteis')
+#@app.route('hoteis')
 #def style():
     #return render_template('')
 

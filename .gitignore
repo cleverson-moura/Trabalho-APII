@@ -1,0 +1,38 @@
+# Bytecode e cache do Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ambiente virtual (ex: venv, env)
+venv/
+env/
+.venv/
+.env/
+
+# Configs locais / variáveis de ambiente
+*.env
+*.env.*
+
+# Banco de dados SQLite (opcional)
+*.db
+*.sqlite3
+
+# Pastas de IDEs
+.vscode/
+.idea/
+
+# Arquivos temporários ou de sistema
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Node (se usar algo com front-end)
+node_modules/
+
+# Compilados do frontend (se usar build)
+dist/
+build/
+
+# Arquivos do sistema operacional
+desktop.ini
