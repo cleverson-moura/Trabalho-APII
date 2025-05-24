@@ -10,8 +10,36 @@
 <body>
     <header>
         <div id="menu-e-logo">
-            <img src="/static/imagens/icons8-menu.svg" alt="" id="menu">
             <img src="/static/imagens/nome-empresa.png" alt="" id="logo">
+            <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+ <script defer>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+</head>
+<body>
+    <!--Início das opções do canto-->
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+  <!-- Menu lateral com as opções -->
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/templates/index.html">Início</a></li>
+        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
+        <li><a href="/templates/contato.html">Contato</a></li>
+        <li><a href="/templates/projeto.html">Projeto</a></li>
+      </ul>
+    </nav>
+  </aside>
+   <!-- Fundo escurecido -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!--Fim das opções do canto-->
         </div><a href="/templates/Popup_cadastro.html">
         <img src="/static/imagens/user.png" alt="" id="usuario-icon"></a>
     </header>
@@ -50,6 +78,16 @@
             
         </main>
     </div>
+    <!--###Rodapé###-->
+      <footer class="rodape">
+    <h2>Contato da equipe</h2>
+    <p>cleverson.moura11@aluno.ifce.edu.br</p>
+    <p>oliveira.mario09@aluno.ifce.edu.br</p>
+    <p>iruan.moura63@aluno.ifce.edu.br</p>
+    <p>carla.mariana08@aluno.ifce.edu.br</p>
+    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+</footer>
+<!--###Rodapé###-->
 </body>
 <script src="/static/scripts/index.js"></script>
 </html>

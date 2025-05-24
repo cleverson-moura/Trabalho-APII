@@ -11,36 +11,33 @@
 
   <header>
     <div class="logo"></div>
-    <h1>Cadastro novo usuário</h1>
+    <h1>Cadastro nova empresa</h1>
   </header>
 
   <div class="container">
-    <h2>Crie sua Conta</h2>
+    <h2>Crie sua conta empresarial</h2>
+    <form method="post" action="/página em flask">
       <!--Aqui o input para o nome-->
-      <form method="POST" action="/páginaemflask">
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" required placeholder="Maria José de Souza">
-      <!--Aqui o input para o cpf-->
-      <label for="cpf">CPF</label>
-      <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00">
+      <label for="nome">Razão social da empresa</label>
+      <input type="text" id="nome" name="nome" required placeholder="DJ hotelaria">
+      <!--Aqui o input para o CNPJ-->
+      <label for="cpf">CNPJ</label>
+      <input type="text" id="cpf" name="cpf" required placeholder="000.000.000/0001-XX">
       <!--Aqui o input para o email-->
       <label for="email">Email</label>
       <input type="email" id="email" name="email" required placeholder="email@gmail.com">
       <!--Aqui o input para a senha-->
       <label for="senha">Senha</label>
       <input type="password" id="senha" name="senha" required placeholder="*********">
-      <a href="/templates/perfil_usuário.html">
-      <button href= "/templates/perfil_usuário.html" type="button">Criar Conta</button></a>
-      </form>
+      <a href="/templates/perfil_empresa.html">
+      <button type="button">Criar Conta</button></a>
+    </form>
     <div class="footer">
       Já tem uma conta? <a href="/templates/Popup_cadastro.html">Entrar</a>
     </div>
   </div>
-  <div class="popup-empresa">
-  <p>Deseja criar uma conta para empresas?</p>
-  <a href="/templates/cadastro_empresas.html" class="botao-empresa">Criar Conta Empresarial</a>
   <!--Início das opções do canto-->
-    <div class="opcoes" onclick="toggleSidebar()">☰</div>
+   <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
  <script defer>
     function toggleSidebar() {
