@@ -74,7 +74,7 @@ input {
 input::placeholder {
     color: #d37a15;
 }
-
+ /* ####Opções#### */
 .options {
     display: flex;
     justify-content: space-between;
@@ -126,3 +126,4 @@ input::placeholder {
     cursor: pointer;
 
 }
+ /* ####Opções#### */

@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff8dc;
+}
+
+.topo {
+  background-color: #f1d487;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.5em;
+  color: #5a3e1b;
+  border-bottom: 4px solid #d3a625;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.card-perfil {
+  background-color: #f9f1dc;
+  border-radius: 16px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 350px;
+}
+
+.foto-perfil {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #d3a625;
+  margin-bottom: 20px;
+}
+
+.card-perfil h2 {
+  margin: 10px 0 5px;
+  color: #4d3a14;
+}
+
+.email, .cpf {
+  color: #7a6846;
+  margin: 5px 0;
+}
+
+.botao-editar {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #d3a625;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.botao-editar:hover {
+  background-color: #b68b1c;
+}
+ /* ####Opções#### */
+.opcoes {
+  font-size: 28px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1003;
+  background-color: #f0e6c2;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #f0e6c2;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  z-index: 1002;
+  padding-top: 80px;
+}
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  padding: 15px 20px;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  transition: background 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #e0d5aa;
+  border-radius: 5px;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.sidebar.active {
+  left: 0;
+}
+ /* ####Opções#### */
+ .popup-reserva {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff8dc;
+  border: 2px solid #d4af37;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  width: 250px;
+}
+
+.popup-reserva p {
+  margin: 0 0 10px;
+  color: #444;
+  font-weight: bold;
+}
+
+.btn-reserva {
+  display: inline-block;
+  background-color: #73c1e0;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+}

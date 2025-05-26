@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Conta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/estilos/estilo_cadastrousuário.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo"></div>
+    <h1>Cadastro novo usuário</h1>
+  </header>
+
+  <div class="container">
+    <h2>Crie sua Conta</h2>
+      <!--Aqui o input para o nome-->
+      <form method="POST" action="/páginaemflask">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" required placeholder="Maria José de Souza">
+      <!--Aqui o input para o cpf-->
+      <label for="cpf">CPF</label>
+      <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00">
+      <!--Aqui o input para o email-->
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="email@gmail.com">
+      <!--Aqui o input para a senha-->
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" required placeholder="*********">
+      <a href="/templates/perfil_usuário.html">
+      <button href= "/templates/perfil_usuário.html" type="button">Criar Conta</button></a>
+      </form>
+    <div class="footer">
+      Já tem uma conta? <a href="/templates/Popup_cadastro.html">Entrar</a>
+    </div>
+  </div>
+  <div class="popup-empresa">
+  <p>Deseja criar uma conta para empresas?</p>
+  <a href="/templates/cadastro_empresas.html" class="botao-empresa">Criar Conta Empresarial</a>
+  <!--Início das opções do canto-->
+    <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+ <script defer>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+</head>
+<body>
+
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+  <!-- Menu lateral com as opções -->
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/templates/index.html">Início</a></li>
+        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
+        <li><a href="/templates/contato.html">Contato</a></li>
+        <li><a href="/templates/projeto.html">Projeto</a></li>
+      </ul>
+    </nav>
+  </aside>
+ <!-- Fundo escurecido -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!--Fim das opções do canto-->
+
+</body>
+</html>

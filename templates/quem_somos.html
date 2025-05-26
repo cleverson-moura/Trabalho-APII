@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quem Somos</title>
+  <link rel="stylesheet" href="/static/estilos/quem_somos.css" />
+  <!--Início das opções do canto-->
+  <script defer>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+</head>
+<body>
+
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+  <!-- Menu lateral com as opções -->
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/templates/index.html">Início</a></li>
+        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
+        <li><a href="/templates/contato.html">Contato</a></li>
+        <li><a href="/templates/projeto.html">Projeto</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <!-- Fundo escurecido -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+<!--Fim das opções do canto-->
+  <!-- Conteúdo principal -->
+  <main class="content">
+    <section class="about-section">
+      <div class="container">
+        <h2>Quem somos</h2>
+        <p>
+          Somos uma equipe formada por cinco integrantes, todos movidos pelo entusiasmo de aprender e pela vontade de colocar em prática os conhecimentos adquiridos ao longo do curso. Acreditamos que o aprendizado se torna mais significativo quando aplicado de forma colaborativa, enfrentando desafios reais e desenvolvendo soluções criativas.
+        </p>
+        <p>
+          Nosso compromisso com este projeto reflete não apenas a nossa dedicação à disciplina de AP2, mas também o nosso desejo de evoluir enquanto estudantes e profissionais. Trabalhamos em conjunto, unindo esforços, ideias e habilidades, com o objetivo de entregar um resultado funcional, coerente e relevante.
+        </p>
+        <p>
+          Este site foi desenvolvido como parte de um projeto acadêmico para a disciplina de AP2. Seu principal propósito é demonstrar, de maneira prática e aplicada, os conhecimentos assimilados durante o semestre, por meio da criação de uma aplicação web que alie usabilidade, conteúdo informativo e propósito educacional.
+        </p>
+      </div>
+     <footer class="rodape">
+    <h2>Contato da equipe</h2>
+    <p>cleverson.moura11@aluno.ifce.edu.br</p>
+    <p>oliveira.mario09@aluno.ifce.edu.br</p>
+    <p>iruan.moura63@aluno.ifce.edu.br</p>
+    <p>carla.mariana08@aluno.ifce.edu.br</p>
+    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+</footer>
+    </section>
+  </main>
+
+</body>
+</html>

@@ -19,8 +19,8 @@ a
         </style>
         </i>
             <h2>Bem Vindo</h2>
-            <h3>Novo Login</h3>
-            <button class="btn_criar_conta">Criar conta</button>
+            <h3>Novo Login</h3><a href="/templates/cadastro_usuario.html">
+            <button class="btn_criar_conta">Criar conta</button></a>
         </div>
         <div class="form-Popup Faça_login">
             <!--###Logo-ifce2###-->
@@ -29,7 +29,9 @@ a
             </i>
             <h2>Faça Login</h2>
            <form action="/receber" method="post">
+            <!--Aqui o input para o email-->
             <input type="text" name="nome" placeholder="Email" required>
+            <!--Aqui o input para a senha-->
             <input type="password" name="senha" placeholder="Senha" required>
             <div class="opcões">
                 <label> <input type="checkbox"></label>
