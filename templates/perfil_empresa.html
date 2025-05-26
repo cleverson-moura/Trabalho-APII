@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil do Usuário</title>
+  <link rel="stylesheet" href="/static/estilos/estilo_perfil_empresa.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Perfil da empresa</h1>
+    <!--Início das opções do canto-->
+  </header>
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+ <script defer>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+</head>
+<body>
+
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+  <!-- Menu lateral com as opções -->
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/templates/index.html">Início</a></li>
+        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
+        <li><a href="/templates/contato.html">Contato</a></li>
+        <li><a href="/templates/projeto.html">Projeto</a></li>
+      </ul>
+    </nav>
+  </aside>
+   <!-- Fundo escurecido -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!--Fim das opções do canto-->
+  <main class="container">
+    <section class="card-perfil">
+      <img src="/static/imagens/user.png" alt="Foto do usuário" class="foto-perfil">
+      <!--Aqui deve-se integrar com o banco de dados-->
+      <h2>{{empresa_banco}}DJ hotelaria</h2>
+      <p class="email">{{email_empresa_banco}}email@gmail.com</p>
+      <p class="cpf">{{CNPJ_banco}}CPF: 000.000.000/001-XX</p>
+      <!--Aqui deve-se integrar com o banco de dados-->
+
+      <a href="#" class="botao-editar">Editar Perfil</a>
+    </section>
+    <div class="popup-reserva">
+  <p><strong>Deseja adicionar alguma reserva?</strong></p>
+  <a href="/templates/reservas.html" class="btn-reserva">Ir para Reservas</a>
+</div>
+  </main> 
+</body>
+</html>

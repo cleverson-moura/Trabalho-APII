@@ -3,21 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pontos Turisticos</title>
-    <link rel="stylesheet" href="./static/estilos/style.css">
+    <title>Home dos hóteis</title>
+    </a>
+    <link rel="stylesheet" href="/static/estilos/style.css">
 </head>
 <body>
     <header>
         <div id="menu-e-logo">
-            <img src="./static/imagens/icons8-menu.svg" alt="" id="menu">
-            <img src="./static/imagens/nome-empresa.png" alt="" id="logo">
-        </div>
-        <img src="./static/imagens/user.png" alt="" id="usuario-icon">
+            <img src="/static/imagens/nome-empresa.png" alt="" id="logo">
+            <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+ <script defer>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+</head>
+<body>
+    <!--Início das opções do canto-->
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+  <!-- Menu lateral com as opções -->
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/templates/index.html">Início</a></li>
+        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
+        <li><a href="/templates/contato.html">Contato</a></li>
+        <li><a href="/templates/projeto.html">Projeto</a></li>
+      </ul>
+    </nav>
+  </aside>
+   <!-- Fundo escurecido -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!--Fim das opções do canto-->
+        </div><a href="/templates/Popup_cadastro.html">
+        <img src="/static/imagens/user.png" alt="" id="usuario-icon"></a>
     </header>
     <div id="btn-container">
         <div id="btn-background">
             <div id="btn-ponto" class="inativo">
-                <a href="/pontos"><button onclick="next_page('pontos.html')">Pontos Turisticos</button></a>
+                <a href="/templates/pontos.html"><button onclick="next_page('pontos.html')">Pontos Turisticos</button></a>
             </div>
             <div id="btn-hoteis" class="ativo">
                 <button onclick="next_page('pontos.html')">Hotéis</button>
@@ -49,6 +78,16 @@
             
         </main>
     </div>
+    <!--###Rodapé###-->
+      <footer class="rodape">
+    <h2>Contato da equipe</h2>
+    <p>cleverson.moura11@aluno.ifce.edu.br</p>
+    <p>oliveira.mario09@aluno.ifce.edu.br</p>
+    <p>iruan.moura63@aluno.ifce.edu.br</p>
+    <p>carla.mariana08@aluno.ifce.edu.br</p>
+    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+</footer>
+<!--###Rodapé###-->
 </body>
-<script src="./static/scripts/index.js"></script>
+<script src="/static/scripts/index.js"></script>
 </html>
