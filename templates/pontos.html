@@ -1,82 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pontos Turísticos</title>
-    <link rel="stylesheet" href="/static/estilos/pontos.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pontos Turísticos</title>
+  <link rel="stylesheet" href="/static/estilos/pontos.css" />
 </head>
 <body>
-    <header>
-        <div id="menu-e-logo"> <!-- ##Quando tiver a logo colocar aqui## -->
-            <img src="" alt="" id="logo">
-            <!-- ##Quando tiver a logo colocar aqui## -->
-        <div id="menu-e-logo"> 
-            <img src="/static/imagens/nome-empresa.png" alt="Logo da Empresa" id="logo">
-        </div>
-        <a href="/templates/Popup_cadastro.html"><img src="/static/imagens/user.png" id="usuario-icon" alt="Usuário"></a>
-    </header>
-
-    <div class="opcoes" onclick="toggleSidebar()">☰</div>
-
-    <!-- Menu lateral com as opções -->
-    <aside id="sidebar" class="sidebar">
-        <nav>
-            <ul>
-                <li><a href="/templates/index.html">Início</a></li>
-                <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
-                <li><a href="/templates/index.html">Quartos</a></li>
-        <li><a href="/templates/pontos.html">Pontos turísticos</a></li>
-                <li><a href="/templates/contato.html">Contato</a></li>
-                <li><a href="/templates/projeto.html">Projeto</a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- Fundo escurecido -->
-    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-
-    <!-- Botões -->
-    <div id="btn-container">
-        <div id="btn-background">
-            <div id="btn-ponto" class="ativo">
-                <button>Pontos Turísticos</button>
-            </div>
-            <div id="btn-hoteis" class="inativo">
-                <a href="/templates/index.html"><button>Hotéis</button></a>
-            </div>
-        </div>
+  <!-- Cabeçalho -->
+  <header>
+    <div id="menu-e-logo">
+        <!-- Logo da empresa -->
+        <img src="" alt="" id="logo">
+      
+      <!-- Botão do menu lateral -->
+      <div class="opcoes" onclick="toggleSidebar()">☰</div>
+      
+      <!-- Ícone do usuário -->
+      <a href="/templates/Popup_cadastro.html">
+        <img src="/static/imagens/user.png" id="usuario-icon" alt="Usuário" />
+      </a>
     </div>
+  </header>
 
-    <!-- Conteúdo Principal -->
-    <main id="pontos-container">
-        {% for ponto in pontos %}
-        <div class="ponto">
-            <img src="{{ ponto.imagem_url }}" alt="Imagem do ponto turístico">
-            <h2>{{ ponto.nome }}</h2>
-            <p>{{ ponto.descricao }}</p>
-        </div>
-        {% endfor %}
-    </main>
+  <!-- Menu lateral -->
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
+        <li><a href="/templates/index.html">Quartos</a></li>
+        <li><a href="/pontos">Pontos turísticos</a></li>
+        <li><a href="/templates/contato.html">Contato</a></li>
+        <li><a href="/templates/projeto.html">Projeto</a></li>
+      </ul>
+    </nav>
+  </aside>
 
-    <!-- Rodapé -->
-    <footer class="rodape">
-        <h2>Contato da equipe</h2>
-        <p>cleverson.moura11@aluno.ifce.edu.br</p>
-        <p>oliveira.mario09@aluno.ifce.edu.br</p>
-        <p>iruan.moura63@aluno.ifce.edu.br</p>
-        <p>carla.mariana08@aluno.ifce.edu.br</p>
-        <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-    </footer>
+  <!-- Fundo escurecido para o menu -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const overlay = document.getElementById("overlay");
-            sidebar.classList.toggle("active");
-            overlay.classList.toggle("active");
-        }
-    </script>
-    <script src="/static/scripts/index.js"></script>
+  <!-- Botões de navegação -->
+  <div id="btn-container">
+    <div id="btn-background">
+      <div id="btn-ponto" class="ativo">
+        <button>Pontos Turísticos</button>
+      </div>
+      <div id="btn-hoteis" class="inativo">
+        <a href="/"><button>Hotéis</button></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <main id="pontos-container">
+    {% for p in ponto %}
+    <div class="ponto">
+      <img src="/static/imagens/diocese.jpg" alt="Imagem do ponto turístico" />
+      <h2>{{ p.nome }}</h2>
+      <p>{{ p.descricao }}</p>
+    </div>
+    {% endfor %}
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <h2>Contato da equipe</h2>
+    <p>cleverson.moura11@aluno.ifce.edu.br</p>
+    <p>oliveira.mario09@aluno.ifce.edu.br</p>
+    <p>iruan.moura63@aluno.ifce.edu.br</p>
+    <p>carla.mariana08@aluno.ifce.edu.br</p>
+    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+  <script src="/static/scripts/index.js"></script>
 </body>
 </html>
