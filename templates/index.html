@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home dos hóteis</title>
-    </a>
-    <link rel="stylesheet" href="/static/estilos/style.css">
-</head>
-<body>
-    <header>
-        <div id="menu-e-logo">  <!-- ##Quando tiver a logo colocar aqui## -->
-            <img src="" alt="" id="logo">
-            <div class="opcoes" onclick="toggleSidebar()">☰</div>
-            <!-- ##Quando tiver a logo colocar aqui## -->
-        <div id="menu-e-logo">
-            <img src="/static/imagens/nome-empresa.png" alt="" id="logo">
-            <div class="opcoes" onclick="toggleSidebar()">☰</div>
-
- <script defer>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home dos Hotéis</title>
+  <link rel="stylesheet" href="/static/estilos/style.css" />
+  <script defer>
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       const overlay = document.getElementById("overlay");
@@ -27,83 +15,86 @@
   </script>
 </head>
 <body>
-    <!--##Início das opções do canto##-->
-  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+  <header>
+    <div id="menu-e-logo">
+      <!-- Logo (quando houver) -->
+      <img src="" alt="" id="logo" />
+      <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
-  <!--##Menu lateral com as opções##-->
-    <!--Início das opções do canto-->
-  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+      <!-- Ícone do usuário -->
+      <a href="/templates/Popup_cadastro.html">
+        <img src="/static/imagens/user.png" alt="Usuário" id="usuario-icon" />
+      </a>
+    </div>
+  </header>
 
-  <!-- Menu lateral com as opções -->
+  <!-- Menu lateral -->
   <aside id="sidebar" class="sidebar">
     <nav>
       <ul>
-        <li><a href="/templates/index.html">Início</a></li>
+        <li><a href="/">Início</a></li>
         <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
         <li><a href="/templates/index.html">Quartos</a></li>
-        <li><a href="/templates/pontos.html">Pontos turísticos</a></li>
-      </ul>
-    </nav>
-  </aside>
-   <!-- ##Fundo escurecido## -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-  <!-- ##Fim das opções do canto## -->
+        <li><a href="/pontos">Pontos turísticos</a></li>
         <li><a href="/templates/contato.html">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
       </ul>
     </nav>
   </aside>
-   <!-- Fundo escurecido -->
+
+  <!-- Fundo escurecido para o menu -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-  <!--Fim das opções do canto-->
-        </div><a href="/templates/Popup_cadastro.html">
-        <img src="/static/imagens/user.png" alt="" id="usuario-icon"></a>
-    </header>
-    <div id="btn-container">
-        <div id="btn-background">
-            <div id="btn-ponto" class="inativo">
-                <a href="/templates/pontos.html"><button onclick="next_page('pontos.html')">Pontos Turisticos</button></a>
-            </div>
-            <div id="btn-hoteis" class="ativo">
-                <button onclick="next_page('pontos.html')">Hotéis</button>
-            </div>
-        </div>
+
+  <!-- Botões principais -->
+  <div id="btn-container">
+    <div id="btn-background">
+      <div id="btn-ponto" class="inativo">
+        <a href="/pontos">
+          <button>Pontos Turísticos</button>
+        </a>
+      </div>
+      <div id="btn-hoteis" class="ativo">
+        <button onclick="next_page('/pontos')">Hotéis</button>
+      </div>
     </div>
-    <div id="main-ad">
-        <main id="pontos-container">
-            <div class="ponto">
-                <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="" srcset="">
-                <h2>D</h4>
-                <p>{{texto}}</p>
-            </div>
-            <div class="ponto">
-                <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="" srcset="">
-                <h2>D</h4>
-                <p>Ave Maria, cheia de graça, o Senhor é convosco, bendita sois Vós entre as mulheres, bendito é o fruto em Vosso ventre, Jesus. Santa Maria Mãe de Deus, rogai por nós, os pecadores, agora e na hora da nossa morte. Amém.</p>
-            </div>
-            <div class="ponto">
-                <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="" srcset="">
-                <h2>D</h4>
-                <p>Ave Maria, cheia de graça, o Senhor é convosco, bendita sois Vós entre as mulheres, bendito é o fruto em Vosso ventre, Jesus. Santa Maria Mãe de Deus, rogai por nós, os pecadores, agora e na hora da nossa morte. Amém.</p>
-            </div>
-            <div class="ponto">
-                <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="" srcset="">
-                <h2>D</h4>
-                <p>Ave Maria, cheia de graça, o Senhor é convosco, bendita sois Vós entre as mulheres, bendito é o fruto em Vosso ventre, Jesus. Santa Maria Mãe de Deus, rogai por nós, os pecadores, agora e na hora da nossa morte. Amém.</p>
-            </div>
-            
-        </main>
-    </div>
-    <!--###Rodapé###-->
-      <footer class="rodape">
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div id="main-ad">
+    <main id="pontos-container">
+      <div class="ponto">
+        <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
+        <h2>D</h2>
+        <p>{{texto}}</p>
+      </div>
+      <div class="ponto">
+        <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
+        <h2>D</h2>
+        <p>Ave Maria, cheia de graça, o Senhor é convosco...</p>
+      </div>
+      <div class="ponto">
+        <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
+        <h2>D</h2>
+        <p>Ave Maria, cheia de graça, o Senhor é convosco...</p>
+      </div>
+      <div class="ponto">
+        <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
+        <h2>D</h2>
+        <p>Ave Maria, cheia de graça, o Senhor é convosco...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
     <h2>Contato da equipe</h2>
     <p>cleverson.moura11@aluno.ifce.edu.br</p>
     <p>oliveira.mario09@aluno.ifce.edu.br</p>
     <p>iruan.moura63@aluno.ifce.edu.br</p>
     <p>carla.mariana08@aluno.ifce.edu.br</p>
     <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-</footer>
-<!--###Rodapé###-->
+  </footer>
+
+  <script src="/static/scripts/index.js"></script>
 </body>
-<script src="/static/scripts/index.js"></script>
 </html>

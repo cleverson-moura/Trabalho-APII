@@ -16,7 +16,12 @@ header {
 
 header #menu-e-logo {
     display: flex;
-    
+    justify-content: space-between;
+    width: 100%;
+}
+
+header #menu-e-logo #logo{
+    display: flex;
 }
 
 header #menu-e-logo #menu {
@@ -139,23 +144,13 @@ main .ponto img{
 .rodape {
     width: 100%;
     background: #a1cfa3 ;
+    margin-top: 100px;
     padding: 30px 20px;
     text-align: center;
     font-family: Arial, sans-serif;
     color: #ffffff;
-
-/* Aqui é o rodape q fica no fundo */
-.rodape {
-    width: 100%;
-    background-color: #dbeafe;
-    padding: 30px 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    color: #1e3a8a;
-main
-    box-sizing: border-box;
-    margin-top: 100px;
 }
+
 .rodape h2 {
     margin-bottom: 15px;
     font-size: 1.5em;

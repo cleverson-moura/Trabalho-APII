@@ -25,12 +25,10 @@ def pontos():
     db.connect() # conecta ao banco
     db.execute('SELECT * FROM teste') # executa o SQL
     ponto = db.fetchall() # retorna uma lista com as linhas da tabela
-    tponto = len(ponto)
     db.close()
     
     
-    descricao = "Igreja muito massa"
-    return render_template('pontos.html', descricao=descricao, ponto=ponto, tponto=tponto)
+    return render_template('pontos.html', ponto=ponto)
 
 @app.route('/cadastro')
 def cadastro():
