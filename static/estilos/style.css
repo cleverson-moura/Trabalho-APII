@@ -143,6 +143,16 @@ main .ponto img{
     text-align: center;
     font-family: Arial, sans-serif;
     color: #ffffff;
+
+/* Aqui é o rodape q fica no fundo */
+.rodape {
+    width: 100%;
+    background-color: #dbeafe;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #1e3a8a;
+main
     box-sizing: border-box;
     margin-top: 100px;
 }
