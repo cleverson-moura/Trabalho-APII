@@ -44,11 +44,11 @@ def cadastro_empresas():
 
 @app.route('/perfil-empresas')
 def perfil_empresas():
-    return render_template('perfil_empresas.html')
+    return render_template('perfil_empresa.html')
 
 @app.route('/perfil-usuarios')
 def perfil_usuarios():
-    return render_template('perfil_usuarios.html')
+    return render_template('perfil_usuario.html')
 
 @app.route('/reservas')
 def reservas():
