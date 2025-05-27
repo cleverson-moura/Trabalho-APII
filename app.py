@@ -34,6 +34,32 @@ def pontos():
 def cadastro():
     return render_template('Popup_cadastro.html')
 
+@app.route('/cadastro-usuario')
+def cadastro_usuario():
+    return render_template('cadastro_usuario.html')
+
+@app.route('/cadastro-empresas')
+def cadastro_empresas():
+    return render_template('cadastro_empresas.html')
+
+@app.route('/perfil-empresas')
+def perfil_empresas():
+    return render_template('perfil_empresas.html')
+
+@app.route('/perfil-usuarios')
+def perfil_usuarios():
+    return render_template('perfil_usuarios.html')
+
+@app.route('/reservas')
+def reservas():
+    return render_template('reservas.html')
+
+@app.route('/quem-somos')
+def quem_somos():
+    return render_template('quem_somos.html')
+
+
+
 
 #@app.route('hoteis')
 #def style():
