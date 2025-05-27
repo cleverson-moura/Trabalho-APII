@@ -5,7 +5,7 @@ body {
 
 /* CABEÇALHO */
 header {
-    background-color: #ffecb2;
+    background: linear-gradient(to right, #3F8583, #ffecb2);
     max-width: 100%;
     display: flex;
     justify-content: space-between;
@@ -140,6 +140,11 @@ main .ponto img{
 }
 .rodape {
     width: 100%;
+    background: #a1cfa3 ;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
     background-color: #dbeafe;
     padding: 30px 20px;
     text-align: center;

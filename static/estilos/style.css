@@ -6,7 +6,7 @@ body {
 
 /* CABEÇALHO */
 header {
-    background-color: #3F8583;
+    background: linear-gradient(to right, #3F8583, #ffecb2);
     max-width: 100%;
     display: flex;
     justify-content: space-between;
@@ -16,6 +16,7 @@ header {
 
 header #menu-e-logo {
     display: flex;
+    
 }
 
 header #menu-e-logo #menu {
@@ -133,6 +134,16 @@ main .ponto img{
         align-self: center;
     }
 }
+
+/* ##Aqui é o rodape q fica no fundo## */
+.rodape {
+    width: 100%;
+    background: #a1cfa3 ;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+
 /* Aqui é o rodape q fica no fundo */
 .rodape {
     width: 100%;
@@ -141,6 +152,7 @@ main .ponto img{
     text-align: center;
     font-family: Arial, sans-serif;
     color: #1e3a8a;
+main
     box-sizing: border-box;
     margin-top: 100px;
 }
@@ -153,6 +165,8 @@ main .ponto img{
     margin: 6px 0;
     font-size: 1em;
 }
+/* ##Aqui é o rodape q fica no fundo## */
+
  /* ####Opções#### */
 .opcoes {
   font-size: 28px;

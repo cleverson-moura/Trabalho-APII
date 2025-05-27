@@ -103,6 +103,11 @@ body {
 
 .rodape {
     width: 100%;
+    background: #a1cfa3 ;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
     background-color: #dbeafe;
     padding: 30px 20px;
     text-align: center;
@@ -121,3 +126,27 @@ body {
     font-size: 1em;
 }
  /* ####Opções#### */
+ /* ###Cabeçalho### */
+ 
+ header {
+    background: linear-gradient(to right, #3F8583, #ffecb2);
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header #menu-e-logo {
+    display: flex;
+    
+}
+
+header #menu-e-logo #menu {
+    margin-right: 10px;
+}
+
+/* ###Cabeçalho### */
+
+ /* ####Opções#### */
+main

@@ -9,6 +9,10 @@
 </head>
 <body>
     <header>
+        <div id="menu-e-logo">  <!-- ##Quando tiver a logo colocar aqui## -->
+            <img src="" alt="" id="logo">
+            <div class="opcoes" onclick="toggleSidebar()">☰</div>
+            <!-- ##Quando tiver a logo colocar aqui## -->
         <div id="menu-e-logo">
             <img src="/static/imagens/nome-empresa.png" alt="" id="logo">
             <div class="opcoes" onclick="toggleSidebar()">☰</div>
@@ -23,6 +27,10 @@
   </script>
 </head>
 <body>
+    <!--##Início das opções do canto##-->
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+  <!--##Menu lateral com as opções##-->
     <!--Início das opções do canto-->
   <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
@@ -32,6 +40,14 @@
       <ul>
         <li><a href="/templates/index.html">Início</a></li>
         <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
+        <li><a href="/templates/index.html">Quartos</a></li>
+        <li><a href="/templates/pontos.html">Pontos turísticos</a></li>
+      </ul>
+    </nav>
+  </aside>
+   <!-- ##Fundo escurecido## -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!-- ##Fim das opções do canto## -->
         <li><a href="/templates/contato.html">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
       </ul>
