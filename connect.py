@@ -1,7 +1,7 @@
 import sqlite3
 
 class Database:
-    def __init__(self, db_name="banco_de_dados.db"):
+    def __init__(self, db_name="SITE.db"):
         self.db_name = db_name
         self.conn = None
         self.cursor = None

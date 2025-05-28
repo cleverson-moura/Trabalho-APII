@@ -16,7 +16,7 @@
 
   <div class="container">
     <h2>Crie sua conta empresarial</h2>
-    <form method="post" action="/página em flask">
+    <form action="/cadastro_empresas" method="post">
       <!--Aqui o input para o nome-->
       <label for="nome">Razão social da empresa</label>
       <input type="text" id="nome" name="nome" required placeholder="DJ hotelaria">
@@ -29,11 +29,10 @@
       <!--Aqui o input para a senha-->
       <label for="senha">Senha</label>
       <input type="password" id="senha" name="senha" required placeholder="*********">
-      <a href="/templates/perfil_empresa.html">
-      <button type="button">Criar Conta</button></a>
+      <button type="submit">Criar Conta</button>
     </form>
     <div class="footer">
-      Já tem uma conta? <a href="/templates/Popup_cadastro.html">Entrar</a>
+      Já tem uma conta? <a href="/cadastro">Entrar</a>
     </div>
   </div>
   <!--Início das opções do canto-->
@@ -56,10 +55,10 @@
   <aside id="sidebar" class="sidebar">
     <nav>
       <ul>
-        <li><a href="/templates/index.html">Início</a></li>
-        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
-        <li><a href="/templates/index.html">Quartos</a></li>
-        <li><a href="/templates/pontos.html">Pontos turísticos</a></li>
+        <li><a href="/">Início</a></li>
+        <li><a href="/quem_somos">Quem Somos</a></li>
+        <li><a href="/">Quartos</a></li>
+        <li><a href="/pontos">Pontos turísticos</a></li>
         <li><a href="/templates/contato.html">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
       </ul>

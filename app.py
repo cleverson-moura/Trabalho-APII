@@ -1,12 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from connect import Database # Importação da Classe com as funções de banco de dados
+import sqlite3
 import re
 
 # def conectar_banco():
 #     con = sqlite3.connect("banco_de_dados.db")
 #     return con
 
-app = Flask(__name__) 
+app = Flask(__name__)
+app.secret_key = "123"
 
 # def get_db_connection():
 #     conn = sqlite3.connect('banco_de_dados.db')
@@ -21,40 +23,124 @@ def index():
 @app.route('/pontos')
 def pontos():
     # usando o osjeto de conexão com banco de dados
-    db = Database() # cria o objeto
-    db.connect() # conecta ao banco
-    db.execute('SELECT * FROM teste') # executa o SQL
-    ponto = db.fetchall() # retorna uma lista com as linhas da tabela
-    db.close()
+    connect = sqlite3.connect("banco_de_dados.db") # cria o objeto
+    cursor = connect.cursor() # conecta ao banco
+    cursor.execute('SELECT * FROM teste') # executa o SQL
+    ponto = cursor.fetchall() # retorna uma lista com as linhas da tabela
+    tamanho = len(ponto)
+    connect.close()
     
     
-    return render_template('pontos.html', ponto=ponto)
+    return render_template('pontos.html', ponto=ponto, tamanho=tamanho)
 
-@app.route('/cadastro')
+@app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
+    email = request.form.get("nome")
+    senha = request.form.get("senha")
+    connect = sqlite3.connect("SITE.db")
+    cursor = connect.cursor()
+    sql = ('SELECT * FROM usuarios WHERE email=? AND senha=?')
+    cursor.execute(sql,(email, senha))
+    usuario = cursor.fetchone()
+    sql = "SELECT * FROM administradores WHERE email=? AND senha=?"
+    cursor.execute(sql,(email, senha))
+    empresa = cursor.fetchone()
+    connect.close()
+    if usuario:
+        session['usuario'] = usuario[0]
+        return redirect(url_for("perfil_usuarios"))
+    elif empresa:
+        session['empresa'] = empresa[0]
+        return redirect(url_for("perfil_empresas"))
+    else:
+        print("Erro")
+        
+    
     return render_template('Popup_cadastro.html')
 
-@app.route('/cadastro-usuario')
+@app.route('/cadastro_usuario', methods=['GET', 'POST'])
 def cadastro_usuario():
+    if request.method == "POST":
+        nome_usuario = request.form.get('nome')
+        cpf_usuario = request.form.get('cpf')
+        email_usuario = request.form.get('email')
+        senha_usuario = request.form.get('senha')
+        connect = sqlite3.connect('SITE.db')
+        cursor = connect.cursor()
+        sql = ('INSERT INTO usuarios(nome, email, senha, cpf) VALUES (?, ?, ?, ?)')
+        cursor.execute(sql, (nome_usuario, email_usuario,senha_usuario,cpf_usuario))
+        connect.commit()
+        sql = "SELECT * FROM usuarios WHERE email=? and senha=?"
+        cursor.execute(sql, (email_usuario, senha_usuario))
+        usuario = cursor.fetchone()
+        connect.close()
+        session['usuario'] = usuario[0]
+        return redirect(url_for('perfil_usuarios'))
     return render_template('cadastro_usuario.html')
 
-@app.route('/cadastro-empresas')
+@app.route('/cadastro_empresas', methods=['GET', 'POST'])
 def cadastro_empresas():
+    if request.method == "POST":
+        nome_empresa = request.form.get("nome")
+        email_empresa = request.form.get("email")
+        senha_empresa = request.form.get("senha")
+        cpf_empresa = request.form.get("cpf")
+        connect = sqlite3.connect("SITE.db")
+        cursor = connect.cursor()
+        sql = "INSERT INTO administradores(nome, cpf, email, senha) VALUES (?, ?, ?, ?)"
+        cursor.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa))
+        connect.commit()
+        sql = "SELECT * FROM administradores WHERE email=? and senha=?"
+        cursor.execute(sql, (email_empresa, senha_empresa))
+        empresa = cursor.fetchone()
+        connect.close()
+        session['empresa'] = empresa[0]
+        return redirect(url_for('perfil_empresas'))
     return render_template('cadastro_empresas.html')
 
-@app.route('/perfil-empresas')
+@app.route('/perfil_empresas', methods=['GET', 'POST'])
 def perfil_empresas():
-    return render_template('perfil_empresa.html')
+    id = session['empresa']
+    connect = sqlite3.connect("SITE.db")
+    cursor = connect.cursor()
+    sql = "SELECT * FROM administradores WHERE id=?"
+    cursor.execute(sql, (id,))
+    empresa = cursor.fetchone()
+    connect.close()
+    nome_empresa = empresa[1]
+    cpf_empresa = empresa[2]
+    email_empresa = empresa[3]
+    return render_template('perfil_empresa.html', email_empresa=email_empresa, nome_empresa=nome_empresa, cpf_empresa=cpf_empresa)
 
-@app.route('/perfil-usuarios')
+@app.route("/perfil_usuarios", methods=['GET','POST'])
 def perfil_usuarios():
-    return render_template('perfil_usuario.html')
+    id = session['usuario']
+    connect = sqlite3.connect("SITE.db")
+    cursor = connect.cursor()
+    sql = "SELECT * FROM usuarios WHERE id=?"
+    cursor.execute(sql, (id,))
+    usuario = cursor.fetchone()
+    connect.close()
+    nome_usuario = usuario[1]
+    email_usuario = usuario[2]
+    cpf_usuario = usuario[4]
+    return render_template('perfil_usuario.html', nome_usuario=nome_usuario, email_usuario=email_usuario, cpf_usuario=cpf_usuario)
 
-@app.route('/reservas')
+@app.route('/reservas', methods=['GET', 'POST'])
 def reservas():
+    imagem = request.form.get("foto")
+    id = 18
+    db = Database() 
+    db.connect() 
+    sql = 'UPDATE usuarios SET imagem=? WHERE id=?'
+    db.execute(sql, (imagem, id))
+    db.commit()
+
+    db.close()
+    
     return render_template('reservas.html')
 
-@app.route('/quem-somos')
+@app.route('/quem_somos')
 def quem_somos():
     return render_template('quem_somos.html')
 

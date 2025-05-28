@@ -17,7 +17,7 @@
   <div class="container">
     <h2>Crie sua Conta</h2>
       <!--Aqui o input para o nome-->
-      <form method="POST" action="/páginaemflask">
+      <form action="/cadastro_usuario" method="post" >
       <label for="nome">Nome</label>
       <input type="text" id="nome" name="nome" required placeholder="Maria José de Souza">
       <!--Aqui o input para o cpf-->
@@ -29,16 +29,15 @@
       <!--Aqui o input para a senha-->
       <label for="senha">Senha</label>
       <input type="password" id="senha" name="senha" required placeholder="*********">
-      <a href="/templates/perfil_usuário.html">
-      <button href= "/templates/perfil_usuário.html" type="button">Criar Conta</button></a>
+      <button type="submit">Criar Conta</button>
       </form>
     <div class="footer">
-      Já tem uma conta? <a href="/templates/Popup_cadastro.html">Entrar</a>
+      Já tem uma conta? <a href="/cadastro">Entrar</a>
     </div>
   </div>
   <div class="popup-empresa">
   <p>Deseja criar uma conta para empresas?</p>
-  <a href="/templates/cadastro_empresas.html" class="botao-empresa">Criar Conta Empresarial</a>
+  <a href="/cadastro_empresas" class="botao-empresa">Criar Conta Empresarial</a>
   <!--Início das opções do canto-->
     <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
@@ -63,10 +62,10 @@
   <aside id="sidebar" class="sidebar">
     <nav>
       <ul>
-        <li><a href="/templates/index.html">Início</a></li>
-        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
-        <li><a href="/templates/index.html">Quartos</a></li>
-        <li><a href="/templates/pontos.html">Pontos turísticos</a></li>
+        <li><a href="/">Início</a></li>
+        <li><a href="/quem_somos">Quem Somos</a></li>
+        <li><a href="/">Quartos</a></li>
+        <li><a href="/pontos">Pontos turísticos</a></li>
       </ul>
     </nav>
   </aside>

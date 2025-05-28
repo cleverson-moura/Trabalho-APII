@@ -28,8 +28,8 @@
     <nav>
       <ul>
         <li><a href="/">Início</a></li>
-        <li><a href="/templates/quem_somos.html">Quem Somos</a></li>
-        <li><a href="/templates/index.html">Quartos</a></li>
+        <li><a href="/quem_somos">Quem Somos</a></li>
+        <li><a href="/">Quartos</a></li>
         <li><a href="/pontos">Pontos turísticos</a></li>
         <li><a href="/templates/contato.html">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
@@ -57,8 +57,8 @@
     {% for p in ponto %}
     <div class="ponto">
       <img src="/static/imagens/diocese.jpg" alt="Imagem do ponto turístico" />
-      <h2>{{ p.nome }}</h2>
-      <p>{{ p.descricao }}</p>
+      <h2>{{ ponto[1] }}</h2>
+      <p>{{ ponto[2] }}</p>
     </div>
     {% endfor %}
   </main>
