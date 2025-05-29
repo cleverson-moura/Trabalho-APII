@@ -42,11 +42,13 @@
   <main class="container">
     <!--Fim das opções do canto-->
     <section class="card-perfil">
-      <img src="/static/imagens/user.png" alt="Foto do usuário" class="foto-perfil">
+      <div class="foto-perfil">
+        <img src="{{ url_for('static', filename=usuario.foto) }}" alt="Foto do usuário">
+      </div>
       <!--Aqui deve-se integrar com o banco de dados-->
-      <h2>{{nome_usuario}}</h2>
-      <p class="email">Email: {{email_usuario}}</p>
-      <p class="cpf">CPF: {{cpf_usuario}}</p>
+      <h2>{{session['usuario']['nome']}}</h2>
+      <p class="email">{{session['usuario']['cpf']}}</p>
+      <p class="cpf">{{session['usuario']['email']}}</p>
       <!--Aqui deve-se integrar com o banco de dados-->
 
       <a href="#" class="botao-editar">Editar Perfil</a>
