@@ -16,7 +16,7 @@
 
   <div class="container">
     <h2>Crie sua conta empresarial</h2>
-    <form action="/cadastro_empresas" method="post">
+    <form action="/cadastro_empresas" method="post" enctype="multipart/form-data">
       <!--Aqui o input para o nome-->
       <label for="nome">Razão social da empresa</label>
       <input type="text" id="nome" name="nome" required placeholder="DJ hotelaria">
@@ -29,6 +29,10 @@
       <!--Aqui o input para a senha-->
       <label for="senha">Senha</label>
       <input type="password" id="senha" name="senha" required placeholder="*********">
+      <!--Aqui o input da imagem-->
+      <label for="foto">Foto</label>
+      <input type="file" name="foto-empresa" id="foto-empresa">
+
       <button type="submit">Criar Conta</button>
     </form>
     <div class="footer">

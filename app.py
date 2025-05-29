@@ -63,7 +63,8 @@ def cadastro():
                     'nome': empresa[1],
                     'cpf': empresa[2],
                     'email': empresa[3],
-                    'senha': empresa[4]
+                    'senha': empresa[4],
+                    'imagem': empresa[5]
                 }
         return redirect(url_for("perfil_empresas"))
     else:
@@ -121,27 +122,36 @@ def cadastro_empresas():
         email_empresa = request.form.get("email")
         senha_empresa = request.form.get("senha")
         cpf_empresa = request.form.get("cpf")
+        foto_empresa = request.files['foto-empresa']
 
-        db = Database()
-        db.connect()
-        sql = "INSERT INTO administradores(nome, cpf, email, senha) VALUES (?, ?, ?, ?)"
-        db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa))
-        db.commit()
+        if foto_empresa:
+            filename = secure_filename(foto_empresa.filename)
+            caminho_foto_empresa = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            foto_empresa.save(caminho_foto_empresa)
+            
+            caminho_relativo_foto_empresa = f'uploads/{filename}'
 
-        sql = "SELECT * FROM administradores WHERE email=? and senha=?"
-        db.execute(sql, (email_empresa, senha_empresa))
-        resultado = db.fetchone()
-        
-        if resultado:
-            session['empresa'] = {
-                'id': resultado[0],
-                'nome': resultado[1],
-                'cpf': resultado[2],
-                'email': resultado[3],
-                'senha': resultado[4]
-            }
-        db.close()
-        return redirect(url_for('perfil_empresas'))
+            db = Database()
+            db.connect()
+            sql = "INSERT INTO administradores(nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
+            db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa, caminho_relativo_foto_empresa))
+            db.commit()
+
+            sql = "SELECT * FROM administradores WHERE email=? and senha=?"
+            db.execute(sql, (email_empresa, senha_empresa))
+            resultado = db.fetchone()
+            
+            if resultado:
+                session['empresa'] = {
+                    'id': resultado[0],
+                    'nome': resultado[1],
+                    'cpf': resultado[2],
+                    'email': resultado[3],
+                    'senha': resultado[4],
+                    'foto': resultado[5]
+                }
+            db.close()
+            return redirect(url_for('perfil_empresas'))
     return render_template('cadastro_empresas.html')
 
 @app.route('/perfil_empresas', methods=['GET', 'POST'])
