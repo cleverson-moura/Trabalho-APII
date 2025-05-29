@@ -34,20 +34,37 @@ def pontos():
 def cadastro():
     email = request.form.get("nome")
     senha = request.form.get("senha")
-    connect = sqlite3.connect("SITE.db")
-    cursor = connect.cursor()
+
+    db = Database()
+    db.connect()
+
     sql = ('SELECT * FROM usuarios WHERE email=? AND senha=?')
-    cursor.execute(sql,(email, senha))
-    usuario = cursor.fetchone()
+    db.execute(sql,(email, senha))
+    usuario = db.fetchone()
+
     sql = "SELECT * FROM administradores WHERE email=? AND senha=?"
-    cursor.execute(sql,(email, senha))
-    empresa = cursor.fetchone()
-    connect.close()
+    db.execute(sql,(email, senha))
+    empresa = db.fetchone()
+
+    db.close()
     if usuario:
-        session['usuario'] = usuario[0]
+        session['usuario'] = {
+                    'id': usuario[0],
+                    'nome': usuario[1],
+                    'email': usuario[2],
+                    'senha': usuario[3],
+                    'cpf': usuario[4],
+                    'foto': usuario[5]
+                }
         return redirect(url_for("perfil_usuarios"))
     elif empresa:
-        session['empresa'] = empresa[0]
+        session['empresa'] = {
+                    'id': empresa[0],
+                    'nome': empresa[1],
+                    'cpf': empresa[2],
+                    'email': empresa[3],
+                    'senha': empresa[4]
+                }
         return redirect(url_for("perfil_empresas"))
     else:
         print("Erro")
@@ -87,6 +104,7 @@ def cadastro_usuario():
                     'id': resultado[0],
                     'nome': resultado[1],
                     'email': resultado[2],
+                    'senha': resultado[3],
                     'cpf': resultado[4],
                     'foto': resultado[5]
                 }
@@ -103,35 +121,40 @@ def cadastro_empresas():
         email_empresa = request.form.get("email")
         senha_empresa = request.form.get("senha")
         cpf_empresa = request.form.get("cpf")
-        connect = sqlite3.connect("SITE.db")
-        cursor = connect.cursor()
+
+        db = Database()
+        db.connect()
         sql = "INSERT INTO administradores(nome, cpf, email, senha) VALUES (?, ?, ?, ?)"
-        cursor.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa))
-        connect.commit()
+        db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa))
+        db.commit()
+
         sql = "SELECT * FROM administradores WHERE email=? and senha=?"
-        cursor.execute(sql, (email_empresa, senha_empresa))
-        empresa = cursor.fetchone()
-        connect.close()
-        session['empresa'] = empresa[0]
+        db.execute(sql, (email_empresa, senha_empresa))
+        resultado = db.fetchone()
+        
+        if resultado:
+            session['empresa'] = {
+                'id': resultado[0],
+                'nome': resultado[1],
+                'cpf': resultado[2],
+                'email': resultado[3],
+                'senha': resultado[4]
+            }
+        db.close()
         return redirect(url_for('perfil_empresas'))
     return render_template('cadastro_empresas.html')
 
 @app.route('/perfil_empresas', methods=['GET', 'POST'])
 def perfil_empresas():
-    id = session['empresa']
-    connect = sqlite3.connect("SITE.db")
-    cursor = connect.cursor()
-    sql = "SELECT * FROM administradores WHERE id=?"
-    cursor.execute(sql, (id,))
-    empresa = cursor.fetchone()
-    connect.close()
-    nome_empresa = empresa[1]
-    cpf_empresa = empresa[2]
-    email_empresa = empresa[3]
-    return render_template('perfil_empresa.html', email_empresa=email_empresa, nome_empresa=nome_empresa, cpf_empresa=cpf_empresa)
+    if 'empresa' not in session:
+        return redirect(url_for('cadastro_empresas'))
+    else:
+        empresa = session['empresa']
+        return render_template('perfil_empresa.html',empresa=empresa)
 
 @app.route("/perfil_usuarios", methods=['GET','POST'])
 def perfil_usuarios():
+    # verifica se o usuario está logado
     if 'usuario' not in session:
         return redirect(url_for('cadastro_usuario'))
     else:
