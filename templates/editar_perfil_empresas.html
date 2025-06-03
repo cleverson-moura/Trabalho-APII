@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Conta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/estilos/estilo_editar_perfil.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo"></div>
+    <h1>Editar perfil</h1>
+  </header>
+
+  <div class="container">
+    <h2>Editar Perfil</h2>
+      <!--##Aqui o placeholdes com o nome antigo##-->
+      <!--##Lembrar de colocar a action##-->
+      <form action="/" method="post" enctype="multipart/form-data">
+        <label for="nome">Razão social</label>
+        <input type="text" id="nome" name="nome" required placeholder="##{{Aqui deve ficar a razão social da empresa cadastrado anteriormente}}##">
+         <!--##Aqui o placeholdes com o e-mail antigo##-->
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="##{{Aqui deve ficar o e-mail cadastrado anteriormente}}##">
+        <!--Aqui o input para a senha-->
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required placeholder="Digite sua nova senha!">
+        <!--Aqui o input da imagem-->
+        <label for="foto">Foto</label>
+        <input type="file" name="foto" id="foto">
+        
+        
+        <button type="submit">Salvar mudanças</button>
+      </form>
+  </div>
+ <script defer>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+</head>
+<body>
+
+  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+
+  <!-- ##Menu lateral com as opções## -->
+
+  <!-- Menu lateral com as opções -->
+
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/quem_somos">Quem Somos</a></li>
+        <li><a href="/">Quartos</a></li>
+        <li><a href="/pontos">Pontos turísticos</a></li>
+      </ul>
+    </nav>
+  </aside>
+ <!-- ##Fundo escurecido## -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!--##Fim das opções do canto##-->
+      </ul>
+    </nav>
+  </aside>
+ <!-- Fundo escurecido -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!--Fim das opções do canto-->
+
+</body>
+</html>
