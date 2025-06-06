@@ -1,7 +1,7 @@
 
 # Arquivo para os dados dos usuários: #
 
-arquivo_users = open('users.txt', 'w')
+arquivo_users = open('./registros/users.txt', 'w')
 arquivo_users.write('Usuários\n\n')
 arquivo_users.close()
 
