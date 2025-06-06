@@ -34,7 +34,7 @@ def cadastrar_hotel():
     con.commit()
     con.close()
 
-    arquivo_hoteis = open('hoteis.txt', 'a')
+    arquivo_hoteis = open('registros/hoteis.txt', 'a')
     arquivo_hoteis.write(f'{nome}, {cidade}, {bairro}, {rua}, {numero}, {cnpj}\n')
     arquivo_hoteis.close()
     

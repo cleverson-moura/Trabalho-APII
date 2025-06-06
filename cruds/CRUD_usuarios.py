@@ -1,121 +1,85 @@
-import pickle
-import sqlite3
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from connect import Database
 
-dicionario_usuarios = {
-"Nome": 'digite',
-"Email": 'digite',
-"Senha": 'digite',
-"CPF": 'digite'
-}
+db = Database()
 
-
-
-'''
-Sistema
-
-'''
-
-    
 def cadastrar_usuario():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
-
-
+    db.connect()
+    
     nome = str(input('Nome do usuario a cadastrar: ')).lower()
     email = str(input('E-mail do usuario a cadastrar: '))
     senha = str(input('Senha do usuario a cadastrar: '))
-    cpf = str(input('CPF somentecom números: '))
+    cpf = str(input('CPF somente com números: '))
     img_perfil = "imagens/foto_perfil.jpg"
-
-    dicionario_usuarios.update({
-    "Nome": nome,
-    "Email": email,
-    "Senha": senha,
-    "CPF": cpf
-    })
-
-    cursor.execute('''INSERT INTO usuarios(nome, email, senha, cpf, imagem)
-                   VALUES(?, ?, ?, ?, ?)''',
-                   (nome, email, senha, cpf, img_perfil))
-    con.commit()
-    con.close()
-    a = ' '
-    for chave, valor in dicionario_usuarios.items():
-        a += (f'{chave}: {valor}, ')
-
-    arquivo_users = open('users.txt', 'a')
-    arquivo_users.write(f'{a}\n\n')
-    arquivo_users.close()
     
+    sql = '''INSERT INTO usuarios(nome, email, senha, cpf, imagem)
+             VALUES (?, ?, ?, ?, ?)'''
+    db.execute(sql, (nome, email, senha, cpf, img_perfil))
+    db.commit()
+    
+    with open('usuarios.txt', 'a') as arquivo_usuarios:
+        arquivo_usuarios.write(f'{nome}, {email}, {senha}, {cpf}\n')
+    
+    db.close()
+
 def ver_usuario():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
-
-
+    db.connect()
+    
     acao = int(input('Ver todos os usuarios(1), ver um usuario(2): '))
     
     if acao == 1:
-        cursor.execute('SELECT * FROM usuarios')
-        
-        todos_os_usuarios = cursor.fetchall()
-        
-        for usuario in todos_os_usuarios:
+        sql = 'SELECT * FROM usuarios'
+        usuarios = db.query(sql)
+        for usuario in usuarios:
             print(usuario)
-        
     elif acao == 2:
-        nome_usuario = str(input('Nome do usuario cadastrado: '))
-        
-        cursor.execute('SELECT * FROM usuarios WHERE nome = ?', (nome_usuario,))
-        
-        dados_usuario = cursor.fetchone()
-        
-        print(dados_usuario)
+        nome_usuario = str(input('Nome do usuario cadastrado: ')).lower()
+        sql = 'SELECT * FROM usuarios WHERE nome = ?'
+        usuario = db.query(sql, (nome_usuario,))
+        if usuario:
+            print(usuario[0])
+        else:
+            print('Usuário não encontrado.')
+    else:
+        print('Ação inválida.')
+    
+    db.close()
 
-    con.commit()
-    con.close()
-
-
-        
 def atualizar_usuario():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
-
-
+    db.connect()
+    
     id_usuario = int(input('Id do usuário para atualização: '))
     nome = str(input('Novo nome do usuario a atualizar: ')).lower()
     email = str(input('Novo e-mail do usuario a atualizar: '))
     senha = str(input('Nova senha do usuario a atualizar: '))
     cpf = str(input('Novo CPF somente com números: '))
-
-    cursor.execute('''UPDATE usuarios 
-                   SET nome = ?,email = ?,senha = ?,cpf = ?
-                   WHERE id = ?''', (nome, email, senha, cpf, id_usuario))
-    con.commit()
-    con.close()
-
+    
+    sql = '''UPDATE usuarios
+             SET nome = ?, email = ?, senha = ?, cpf = ?
+             WHERE id = ?'''
+    db.execute(sql, (nome, email, senha, cpf, id_usuario))
+    db.commit()
+    db.close()
 
 def deletar_usuario():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
-
-
+    db.connect()
+    
     id_usuario = int(input('Id do usuário que deseja deletar: '))
-    acao = str(input(f'Tem certeza que deseja deletar o cadastro do usuário de id = {id_usuario}?')).lower()
-    if acao == 'sim' or acao == 's':
-        cursor.execute('DELETE FROM usuarios WHERE id_usuario = ?',(id_usuario,))
-        con.commit()
-    con.commit()
-    con.close()
-
+    acao = input(f'Tem certeza que deseja deletar o cadastro do usuário id={id_usuario}? (s/n): ').lower()
+    
+    if acao in ['s', 'sim']:
+        sql = 'DELETE FROM usuarios WHERE id = ?'
+        db.execute(sql, (id_usuario,))
+        db.commit()
+    
+    db.close()
 
 def main():
-
-    acao = int(input('Cadastrar(1), ver usuarios(2), atualizar cadastro(3), deletar usuario(4): '))
+    acao = int(input('Cadastrar(1), ver usuários(2), atualizar cadastro(3), deletar usuário(4): '))
+    
     if acao == 1:
         cadastrar_usuario()
     elif acao == 2:
@@ -125,14 +89,7 @@ def main():
     elif acao == 4:
         deletar_usuario()
     else:
-        print('Erro')
-        return
-    
-main()
+        print('Erro: ação inválida.')
 
-def deletar_todos_usuarios():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute('DELETE FROM usuarios')
-    con.commit()
-    con.close()
+if __name__ == '__main__':
+    main()

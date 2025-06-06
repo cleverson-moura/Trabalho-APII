@@ -31,7 +31,7 @@ def cadastrar_administrador():
     con.commit()
     con.close()
 
-    arquivo_adms = open('adms.txt', 'a')
+    arquivo_adms = open('registros/adms.txt', 'a')
     arquivo_adms.write(f'{nome}, {email}, {senha}, {cpf}\n')
     arquivo_adms.close()
     

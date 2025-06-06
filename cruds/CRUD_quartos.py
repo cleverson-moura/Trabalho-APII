@@ -25,14 +25,15 @@ def cadastrar_quarto():
     numero = str(input('Numero do quarto a cadastrar: '))
     numero_reserva = str(input('Número da reserva do quarto a cadastrar: '))
     chave_quarto = str(input('Chave do quarto a cadastrar: '))
+    id_hotel = int(input('Id do hotel que o quarto pertence: '))
 
-    cursor.execute('''INSERT INTO quartos(andar, numero, numero_reserva, chave_quarto)
-                   VALUES(?, ?, ?, ?)''',
-                   (andar, numero, numero_reserva, chave_quarto))
+    cursor.execute('''INSERT INTO quartos(andar, numero, numero_reserva, chave_quarto, id_hotel)
+                   VALUES(?, ?, ?, ?, ?)''',
+                   (andar, numero, numero_reserva, chave_quarto, id_hotel))
     con.commit()
     con.close()
 
-    arquivo_quartos = open('quartos.txt', 'a')
+    arquivo_quartos = open('registros/quartos.txt', 'a')
     arquivo_quartos.write(f'{andar}, {numero}, {numero_reserva}, {chave_quarto}\n')
     arquivo_quartos.close()
     
@@ -94,7 +95,7 @@ def deletar_quarto():
     id_quarto = int(input('Id do quarto que deseja deletar: '))
     acao = str(input(f'Tem certeza que deseja deletar o cadastro do quarto de id = {id_quarto}?')).lower()
     if acao == 'sim' or acao == 's':
-        cursor.execute('DELETE FROM quartos WHERE id = ?',(id_quarto,))
+        cursor.execute('DELETE FROM quartos WHERE id_quarto = ?',(id_quarto,))
 
     con.commit()
     con.close()

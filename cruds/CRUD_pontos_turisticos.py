@@ -34,7 +34,7 @@ def cadastrar_ponto_turistico():
     con.commit()
     con.close()
 
-    arquivo_pontos_turisticos = open('pontos_turisticos.txt', 'a')
+    arquivo_pontos_turisticos = open('registros/pontos_turisticos.txt', 'a')
     arquivo_pontos_turisticos.write(f'{nome}, {cidade}, {bairro}, {rua}, {numero}, {info}\n')
     arquivo_pontos_turisticos.close()
     
