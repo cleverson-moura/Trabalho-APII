@@ -175,22 +175,8 @@ def perfil_usuarios():
         db.connect()
         sql = "SELECT * FROM reservas WHERE id_usuario=?"
         db.execute(sql, (usuario['id'],))
-        reservas_row = db.fetchall()
-        len_reservas = len(reservas_row)
-
-        reservas = []
-
-        if len_reservas > 0:
-            for reserva in reservas_row:
-                sql = "SELECT * FROM quartos WHERE id_quarto=?"
-                db.execute(sql, (reserva['id_quarto'],))
-                quarto = db.fetchone()
-
-            reserva_completa = {
-                **reserva,
-                'quarto': quarto
-            }
-            reservas.append(reserva_completa)
+        reservas = db.fetchall()
+        len_reservas = len(reservas)
         db.close()
 
 
