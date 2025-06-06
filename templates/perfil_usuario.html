@@ -53,6 +53,33 @@
 
       <a href="/templates/editar_perfil_usuário.html" class="botao-editar">Editar Perfil</a>
     </section>
+    <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ID RESERVA</th>
+        <th>ID QUARTO</th>
+        <th>TEMPO ESTADIA</th>
+        <!-- Adicione mais colunas conforme os dados de cada reserva -->
+      </tr>
+    </thead>
+    <tbody>
+      {% if len_reservas > 0 %}
+      {% for reserva in reservas %}
+      <tr>
+        <td>{{ reserva.id_reserva }}</td>
+        <td>{{ reserva.id_quarto }}</td>
+        <td>{{ reserva.tempo_estadia }}</td>
+        <!-- Continue com os campos necessários -->
+      </tr>
+      {% endfor %}
+      {% else %}
+      <tr>
+        <td colspan="3">Nenhuma reserva encontrada.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+
   </main>
   
 </body>

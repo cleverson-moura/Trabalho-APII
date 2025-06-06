@@ -169,7 +169,32 @@ def perfil_usuarios():
         return redirect(url_for('cadastro_usuario'))
     else:
         usuario = session['usuario']
-        return render_template('perfil_usuario.html',usuario=usuario)
+
+        # Faz a busca pelas reservas do usuario
+        db = Database()
+        db.connect()
+        sql = "SELECT * FROM reservas WHERE id_usuario=?"
+        db.execute(sql, (usuario['id'],))
+        reservas_row = db.fetchall()
+        len_reservas = len(reservas_row)
+
+        reservas = []
+
+        if len_reservas > 0:
+            for reserva in reservas_row:
+                sql = "SELECT * FROM quartos WHERE id_quarto=?"
+                db.execute(sql, (reserva['id_quarto'],))
+                quarto = db.fetchone()
+
+            reserva_completa = {
+                **reserva,
+                'quarto': quarto
+            }
+            reservas.append(reserva_completa)
+        db.close()
+
+
+        return render_template('perfil_usuario.html',usuario=usuario, reservas=reservas, len_reservas=len_reservas)
 
 @app.route('/reservas', methods=['GET', 'POST'])
 def reservas():
