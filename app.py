@@ -49,22 +49,22 @@ def cadastro():
     db.close()
     if usuario:
         session['usuario'] = {
-                    'id': usuario[0],
-                    'nome': usuario[1],
-                    'email': usuario[2],
-                    'senha': usuario[3],
-                    'cpf': usuario[4],
-                    'foto': usuario[5]
+                    'id': usuario['id_usuario'],
+                    'nome': usuario['nome'],
+                    'email': usuario['email'],
+                    'senha': usuario['senha'],
+                    'cpf': usuario['cpf'],
+                    'foto': usuario['imagem']
                 }
         return redirect(url_for("perfil_usuarios"))
     elif empresa:
         session['empresa'] = {
-                    'id': empresa[0],
-                    'nome': empresa[1],
-                    'cpf': empresa[2],
-                    'email': empresa[3],
-                    'senha': empresa[4],
-                    'imagem': empresa[5]
+                    'id': empresa['id_adm'],
+                    'nome': empresa['nome'],
+                    'cpf': empresa['cpf'],
+                    'email': empresa['email'],
+                    'senha': empresa['senha']
+                    # 'imagem': empresa[5]
                 }
         return redirect(url_for("perfil_empresas"))
     else:

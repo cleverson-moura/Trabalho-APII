@@ -47,8 +47,8 @@
       </div>
       <!--Aqui deve-se integrar com o banco de dados-->
       <h2>{{session['usuario']['nome']}}</h2>
-      <p class="email">{{session['usuario']['cpf']}}</p>
-      <p class="cpf">{{session['usuario']['email']}}</p>
+      <p class="email">CPF: {{session['usuario']['cpf']}}</p>
+      <p class="cpf">Email: {{session['usuario']['email']}}</p>
       <!--Aqui deve-se integrar com o banco de dados-->
 
       <a href="/templates/editar_perfil_usuário.html" class="botao-editar">Editar Perfil</a>
