@@ -216,6 +216,26 @@ def reservas():
     
     return render_template('reservas.html')
 
+@app.route('/cancelar_reserva', methods=['GET', 'POST'])
+def cancelar_reserva():
+    if request.method == 'POST':
+        reserva_id = request.form.get('id_reserva')
+        
+        db = Database()
+        db.connect()
+        
+        sql = "DELETE FROM reservas WHERE id_reserva=?"
+        db.execute(sql, (reserva_id,))
+        db.commit()
+        
+        db.close()
+        
+        flash('Reserva cancelada com sucesso!', 'success')
+        return redirect(url_for('perfil_usuarios'))
+    
+    flash('Erro ao cancelar a reserva.', 'error')
+    return redirect(url_for('perfil_usuarios'))
+
 @app.route('/quem_somos')
 def quem_somos():
     return render_template('quem_somos.html')

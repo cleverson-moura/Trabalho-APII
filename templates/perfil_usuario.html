@@ -54,6 +54,7 @@
       <a href="/templates/editar_perfil_usuário.html" class="botao-editar">Editar Perfil</a>
     </section>
   </main>
+  <h2 style="text-align: center;">MINHAS RESERVAS</h2>
   <table border="1" cellpadding="8" cellspacing="0" style="text-align: center;">
     <thead>
       <tr>
@@ -94,6 +95,12 @@
             <td>{{ item.hotel.bairro }}</td>
             <td>{{ item.hotel.rua }}</td>
             <td>{{ item.hotel.numero }}</td>
+            <td>
+              <form action="/cancelar_reserva" method="post">
+                <input type="hidden" name="id_reserva" value="{{ item.reserva.id_reserva }}">
+                <button type="submit" class="botao-cancelar">Cancelar</button>
+              </form>
+            </td>
           </tr>
         {% endfor %}
       {% else %}
