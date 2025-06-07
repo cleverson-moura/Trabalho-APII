@@ -170,17 +170,37 @@ def perfil_usuarios():
     else:
         usuario = session['usuario']
 
-        # Faz a busca pelas reservas do usuario
+        # Conecta ao banco
         db = Database()
         db.connect()
+
+        # Busca reservas do usuário
         sql = "SELECT * FROM reservas WHERE id_usuario=?"
         db.execute(sql, (usuario['id'],))
         reservas = db.fetchall()
-        len_reservas = len(reservas)
-        db.close()
 
+        # Lista com todas as informações combinadas
+        reservas_detalhadas = []
 
-        return render_template('perfil_usuario.html',usuario=usuario, reservas=reservas, len_reservas=len_reservas)
+        for reserva in reservas:
+            # Pega o quarto
+            db.execute("SELECT * FROM quartos WHERE id_quarto=?", (reserva['id_quarto'],))
+            quarto = db.fetchone()
+
+            # Pega o hotel do quarto
+            db.execute("SELECT * FROM hoteis WHERE id_hotel=?", (quarto['id_hotel'],))
+            hotel = db.fetchone()
+
+            # Junta tudo num dicionário
+            reservas_detalhadas.append({
+                'reserva': reserva,
+                'quarto': quarto,
+                'hotel': hotel
+            })
+
+            db.close()
+
+        return render_template('perfil_usuario.html', usuario=usuario, reservas=reservas_detalhadas)
 
 @app.route('/reservas', methods=['GET', 'POST'])
 def reservas():

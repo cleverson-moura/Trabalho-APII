@@ -53,34 +53,55 @@
 
       <a href="/templates/editar_perfil_usuário.html" class="botao-editar">Editar Perfil</a>
     </section>
-    <table border="1" cellpadding="5" cellspacing="0">
+  </main>
+  <table border="1" cellpadding="8" cellspacing="0" style="text-align: center;">
     <thead>
       <tr>
-        <th>ID RESERVA</th>
-        <th>ID QUARTO</th>
-        <th>TEMPO ESTADIA</th>
-        <!-- Adicione mais colunas conforme os dados de cada reserva -->
+        <th colspan="3">Reserva</th>
+        <th colspan="3">Quarto</th>
+        <th colspan="5">Hotel</th>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <th>ID Quarto</th>
+        <th>Tempo de Estadia</th>
+
+        <th>Andar</th>
+        <th>Número</th>
+        <th>Chave</th>
+
+        <th>Nome</th>
+        <th>Cidade</th>
+        <th>Bairro</th>
+        <th>Rua</th>
+        <th>Número</th>
       </tr>
     </thead>
     <tbody>
-      {% if len_reservas > 0 %}
-      {% for reserva in reservas %}
-      <tr>
-        <td>{{ reserva.id_reserva }}</td>
-        <td>{{ reserva.id_quarto }}</td>
-        <td>{{ reserva.tempo_estadia }}</td>
-        <!-- Continue com os campos necessários -->
-      </tr>
-      {% endfor %}
+      {% if reservas %}
+        {% for item in reservas %}
+          <tr>
+            <td>{{ item.reserva.id_reserva }}</td>
+            <td>{{ item.reserva.id_quarto }}</td>
+            <td>{{ item.reserva.tempo_estadia }}</td>
+
+            <td>{{ item.quarto.andar }}</td>
+            <td>{{ item.quarto.numero }}</td>
+            <td>{{ item.quarto.chave_quarto }}</td>
+
+            <td>{{ item.hotel.nome }}</td>
+            <td>{{ item.hotel.cidade }}</td>
+            <td>{{ item.hotel.bairro }}</td>
+            <td>{{ item.hotel.rua }}</td>
+            <td>{{ item.hotel.numero }}</td>
+          </tr>
+        {% endfor %}
       {% else %}
-      <tr>
-        <td colspan="3">Nenhuma reserva encontrada.</td>
-      </tr>
+        <tr>
+          <td colspan="11" style="text-align: center;">Nenhuma reserva encontrada.</td>
+        </tr>
       {% endif %}
     </tbody>
-  </table>
-
-  </main>
-  
+    </table>
 </body>
 </html>

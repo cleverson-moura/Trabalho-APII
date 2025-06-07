@@ -10,7 +10,7 @@ db.connect()
 
 def criar_reserva(id_usuario, id_quarto, tempo_estadia):
     sql = '''INSERT INTO reservas (id_usuario, id_quarto, tempo_estadia)
-             VALUES (?, ?, ?, ?)'''
+             VALUES (?, ?, ?)'''
     db.execute(sql, (id_usuario, id_quarto, tempo_estadia))
     db.commit()
 
