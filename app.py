@@ -236,6 +236,25 @@ def cancelar_reserva():
     flash('Erro ao cancelar a reserva.', 'error')
     return redirect(url_for('perfil_usuarios'))
 
+@app.route('/quartos', methods=['GET', 'POST'])
+def quartos():
+    mes_disponivel = request.form.get("mes")
+    imagem = request.form.get("foto")
+    andar = request.form.get("andar")
+    numero_quarto = request.form.get("quarto")
+    preco = request.form.get("preco")
+    id_hotel = request.form.get("id_hotel")
+
+    db = Database() 
+    db.connect() 
+    sql = 'UPDATE quartos SET andar=?, numero_quarto=?, preco=?, mes_disponivel=?, imagem=?, id_hotel=? WHERE id = ?'
+    db.execute(sql, (andar, numero_quarto, preco, mes_disponivel, imagem, id_hotel, id))
+    db.commit()
+
+    db.close()
+    
+    return render_template('quartos.html')
+
 @app.route('/quem_somos')
 def quem_somos():
     return render_template('quem_somos.html')

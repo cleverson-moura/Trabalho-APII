@@ -23,7 +23,9 @@ administradores
     nome VARCHAR,
     email VARCHAR,
     senha VARCHAR,
-    cpf INTEGER
+    cpf INTEGER,
+    id_hotel INTEGER,
+    FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel)
 )'''
 cursor.execute(criar_tabela_administradores)
 
@@ -50,9 +52,7 @@ hoteis
     rua TEXT,
     numero INTEGER,
     cnpj INTEGER,
-    id_adm INTEGER,
     id_ponto_turistico INTEGER,
-    FOREIGN KEY (id_adm) REFERENCES administradores(id_adm),
     FOREIGN KEY (id_ponto_turistico) REFERENCES pontos_turisticos(id_ponto_turistico)
 )'''
 cursor.execute(criar_tabela_hoteis)
@@ -62,10 +62,11 @@ quartos
 (
     id_quarto INTEGER PRIMARY KEY AUTOINCREMENT,
     andar TEXT,
-    numero TEXT,
-    numero_reserva TEXT,
-    chave_quarto TEXT,
-    id_hotel INTEGER,
+    numero_quarto TEXT,
+    preco TEXT,
+    imagem TEXT,
+    mes_disponivel TEXT,
+    id_hotel INTEGER,   
     id_usuario INTEGER,
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel)
