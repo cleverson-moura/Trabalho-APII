@@ -17,8 +17,8 @@
       <div class="opcoes" onclick="toggleSidebar()">☰</div>
       
       <!-- Ícone do usuário -->
-      <a href="/cadastro">
-        <img src="/static/imagens/user.png" id="usuario-icon" alt="Usuário" />
+      <a href="{{endereco}}">
+        <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
       </a>
     </div>
   </header>
@@ -54,11 +54,11 @@
 
   <!-- Conteúdo Principal -->
   <main id="pontos-container">
-    {% for p in ponto %}
+    {% for i in range(5) %}
     <div class="ponto">
       <img src="/static/imagens/diocese.jpg" alt="Imagem do ponto turístico" />
-      <h2>{{ ponto[1] }}</h2>
-      <p>{{ ponto[2] }}</p>
+      <h2>{{ Teste }}</h2>
+      <p>{{ Teste2 }}</p>
     </div>
     {% endfor %}
   </main>
