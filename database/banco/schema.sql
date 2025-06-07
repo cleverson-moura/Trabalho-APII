@@ -1,5 +1,5 @@
 import sqlite3
-con = sqlite3.connect("SITE.db")
+con = sqlite3.connect("database/banco/SITE.db")
 cursor = con.cursor()
 
 cursor.execute("PRAGMA foreign_keys = ON;")

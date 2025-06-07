@@ -4,6 +4,7 @@ import sqlite3
 import re
 import os
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = "123"
@@ -14,13 +15,21 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def index():
+    ## Parte q registra o acesso em arquivo.txt ##
+    ip_usuario = request.remote_addr
+    tempo_acesso = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    url_visitada = request.path
+    ip_usuario = request.remote_addr
+    with open('registros/registros_acessos.txt', 'w') as f:
+        f.write(f'{tempo_acesso} | IP:{ip_usuario} | URL:{url_visitada}\n')
+        ## Parte q registra o acesso em arquivo.txt ##
     texto = "Vamos ver"
     return render_template('index.html', texto=texto)
 
 @app.route('/pontos')
 def pontos():
     # usando o osjeto de conexão com banco de dados
-    connect = sqlite3.connect("banco_de_dados.db") # cria o objeto
+    connect = sqlite3.connect("database/banco/banco_de_dados.db") # cria o objeto
     cursor = connect.cursor() # conecta ao banco
     cursor.execute('SELECT * FROM teste') # executa o SQL
     ponto = cursor.fetchall() # retorna uma lista com as linhas da tabela
@@ -133,7 +142,7 @@ def cadastro_empresas():
 
             db = Database()
             db.connect()
-            sql = "INSERT INTO administradores(nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
+            sql = "INSERT INTO administradores(nome, cpf, email, senha, foto) VALUES (?, ?, ?, ?, ?)"
             db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa, caminho_relativo_foto_empresa))
             db.commit()
 
