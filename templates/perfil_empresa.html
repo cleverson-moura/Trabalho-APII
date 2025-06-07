@@ -44,7 +44,11 @@
   <main class="container">
     <section class="card-perfil">
       <div class="foto-perfil">
-        <img src="{{ url_for('static', filename=empresa.imagem) }}" alt="Foto Empresa">
+        {% if empresa and empresa.foto %}
+    <img src="{{ url_for('static', filename=empresa.foto) }}" alt="Foto Empresa">
+  {% else %}
+    <img src="{{ url_for('static', filename='imagens/default_empresa.png') }}" alt="Foto Padrão">
+  {% endif %}
       </div>
       <!--Aqui deve-se integrar com o banco de dados-->
       <h2>{{session['empresa']['nome']}}</h2>

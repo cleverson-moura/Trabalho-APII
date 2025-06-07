@@ -4,6 +4,16 @@ import sqlite3
 import re
 import os
 from werkzeug.utils import secure_filename
+from datetime import datetime
+
+def registrar():
+    ip_usuario = request.remote_addr
+    tempo_acesso = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    url_visitada = request.path
+    ip_usuario = request.remote_addr
+    with open('registros/registros_acessos.txt', 'w') as f:
+        f.write(f'{tempo_acesso} | IP:{ip_usuario} | URL:{url_visitada}\n')
+        ## Parte q registra o acesso em arquivo.txt ##
 
 app = Flask(__name__)
 app.secret_key = "123"
@@ -14,13 +24,15 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def index():
+    registrar()
     texto = "Vamos ver"
     return render_template('index.html', texto=texto)
 
 @app.route('/pontos')
 def pontos():
+    registrar()
     # usando o osjeto de conexão com banco de dados
-    connect = sqlite3.connect("banco_de_dados.db") # cria o objeto
+    connect = sqlite3.connect("database/banco/banco_de_dados.db") # cria o objeto
     cursor = connect.cursor() # conecta ao banco
     cursor.execute('SELECT * FROM teste') # executa o SQL
     ponto = cursor.fetchall() # retorna uma lista com as linhas da tabela
@@ -32,6 +44,7 @@ def pontos():
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
+    registrar()
     email = request.form.get("nome")
     senha = request.form.get("senha")
 
@@ -63,8 +76,8 @@ def cadastro():
                     'nome': empresa['nome'],
                     'cpf': empresa['cpf'],
                     'email': empresa['email'],
-                    'senha': empresa['senha']
-                    # 'imagem': empresa[5]
+                    'senha': empresa['senha'],
+                    'foto': empresa['foto']
                 }
         return redirect(url_for("perfil_empresas"))
     else:
@@ -75,12 +88,13 @@ def cadastro():
 
 @app.route('/cadastro_usuario', methods=['GET', 'POST'])
 def cadastro_usuario():
+    registrar()
     if request.method == "POST":
         nome_usuario = request.form.get('nome')
         cpf_usuario = request.form.get('cpf')
         email_usuario = request.form.get('email')
         senha_usuario = request.form.get('senha')
-        foto_usuario = request.files['foto']
+        foto_usuario = request.files['imagem']
 
         if foto_usuario:
             filename = secure_filename(foto_usuario.filename)
@@ -117,6 +131,7 @@ def cadastro_usuario():
 
 @app.route('/cadastro_empresas', methods=['GET', 'POST'])
 def cadastro_empresas():
+    registrar()
     if request.method == "POST":
         nome_empresa = request.form.get("nome")
         email_empresa = request.form.get("email")
@@ -133,7 +148,7 @@ def cadastro_empresas():
 
             db = Database()
             db.connect()
-            sql = "INSERT INTO administradores(nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
+            sql = "INSERT INTO administradores(nome, cpf, email, senha, foto) VALUES (?, ?, ?, ?, ?)"
             db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa, caminho_relativo_foto_empresa))
             db.commit()
 
@@ -156,6 +171,7 @@ def cadastro_empresas():
 
 @app.route('/perfil_empresas', methods=['GET', 'POST'])
 def perfil_empresas():
+    registrar()
     if 'empresa' not in session:
         return redirect(url_for('cadastro_empresas'))
     else:
@@ -164,6 +180,7 @@ def perfil_empresas():
 
 @app.route("/perfil_usuarios", methods=['GET','POST'])
 def perfil_usuarios():
+    registrar()
     # verifica se o usuario está logado
     if 'usuario' not in session:
         return redirect(url_for('cadastro_usuario'))
@@ -204,6 +221,7 @@ def perfil_usuarios():
 
 @app.route('/reservas', methods=['GET', 'POST'])
 def reservas():
+    registrar()
     imagem = request.form.get("foto")
     id = 18
     db = Database() 
@@ -218,6 +236,7 @@ def reservas():
 
 @app.route('/cancelar_reserva', methods=['GET', 'POST'])
 def cancelar_reserva():
+    registrar()
     if request.method == 'POST':
         reserva_id = request.form.get('id_reserva')
         
