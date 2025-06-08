@@ -1,1 +1,1 @@
-2025-06-08 11:38:10 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 12:02:42 | IP:127.0.0.1 | URL:/cadastro_empresa

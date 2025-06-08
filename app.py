@@ -40,7 +40,10 @@ def index():
         icone = "/static/imagens/user.png"
         endereco = "/cadastro"
     texto = "Vamos ver"
-    return render_template('index.html', texto=texto, icone=icone, endereco=endereco)
+
+    hoteis_model = HotelModel()
+    hoteis = hoteis_model.buscar_todos_hoteis()
+    return render_template('index.html', texto=texto, icone=icone, endereco=endereco, hoteis=hoteis)
 
 @app.route('/pontos')
 def pontos():
@@ -233,6 +236,41 @@ def editar_perfil_adm():
         return redirect(url_for('perfil_adm'))
     return render_template('/administrador/editar_perfil_adm.html')
 
+@app.route('/cadastro_empresa', methods=['GET', 'POST'])
+def cadastro_empresa():
+    registrar()
+    if request.method == "POST":
+        nome_empresa = request.form.get("nome")
+        cidade_empresa = request.form.get("cidade")
+        bairro_empresa = request.form.get("bairro")
+        rua_empresa = request.form.get("rua")
+        numero_empresa = request.form.get("numero")
+        cnpj_empresa = request.form.get("cnpj")
+        id_ponto = request.form.get("id_ponto")
+
+        # Verifica se o CNPJ é válido
+        # if not re.match(r'^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$', cnpj_empresa):
+        #     flash('CNPJ inválido. Formato esperado: XX.XXX.XXX/XXXX-XX', 'error')
+        #     return redirect(url_for('cadastro_empresa'))
+
+        # Cria o objeto HotelModel
+        hotel_model = HotelModel(
+            nome=nome_empresa,
+            cidade=cidade_empresa,
+            bairro=bairro_empresa,
+            rua=rua_empresa,
+            numero=numero_empresa,
+            cnpj=cnpj_empresa,
+            id_ponto=id_ponto
+        )
+
+        # Insere os dados no banco de dados
+        hotel_model.inserir()
+
+        flash('Empresa cadastrada com sucesso!', 'success')
+        return redirect(url_for('index'))
+
+    return render_template('empresa/cadastro_empresa.html')
 
 @app.route("/perfil_usuarios", methods=['GET','POST'])
 def perfil_usuarios():

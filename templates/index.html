@@ -64,26 +64,21 @@
   <!-- Conteúdo principal -->
   <div id="main-ad">
     <main id="pontos-container">
+      {% if hoteis %}
+        {% for hotel in hoteis %}
+          <div class="ponto">
+            <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
+            <h2>{{ hotel.nome }}</h2>
+            <p>{{texto}}</p>
+          </div>
+        {% endfor %}
+      {% else %}
       <div class="ponto">
         <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
-        <h2>D</h2>
-        <p>{{texto}}</p>
+        <h2>Hotel não encontrado</h2>
+        <p>Desculpe, não conseguimos encontrar o hotel solicitado.</p>
       </div>
-      <div class="ponto">
-        <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
-        <h2>D</h2>
-        <p>Ave Maria, cheia de graça, o Senhor é convosco...</p>
-      </div>
-      <div class="ponto">
-        <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
-        <h2>D</h2>
-        <p>Ave Maria, cheia de graça, o Senhor é convosco...</p>
-      </div>
-      <div class="ponto">
-        <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
-        <h2>D</h2>
-        <p>Ave Maria, cheia de graça, o Senhor é convosco...</p>
-      </div>
+      {% endif %}
     </main>
   </div>
 

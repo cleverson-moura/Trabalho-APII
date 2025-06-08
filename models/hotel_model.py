@@ -19,11 +19,21 @@ class HotelModel:
         hotel = db.fetchone()
         db.close()
         return hotel
+    
+    def buscar_todos_hoteis(self):
+        db = Database()
+        db.connect()
+        sql = "SELECT * FROM hoteis"
+        db.execute(sql)
+        hoteis = db.fetchall()
+        db.close()
+        return hoteis
 
-    # def inserir(self):
-    #     db = Database()
-    #     db.connect()
-    #     sql = "INSERT INTO hoteis (nome, endereco, telefone, email, imagem) VALUES (?, ?, ?, ?, ?)"
-    #     db.execute(sql, (self.nome, self.endereco, self.telefone, self.email, self.imagem))
-    #     db.commit()
-    #     db.close()
+
+    def inserir(self):
+        db = Database()
+        db.connect()
+        sql = "INSERT INTO hoteis (nome, cidade, bairro, rua, numero, cnpj, id_ponto_turistico) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        db.execute(sql, (self.nome, self.cidade, self.bairro, self.rua, self.numero, self.cnpj, self.id_ponto))
+        db.commit()
+        db.close()
