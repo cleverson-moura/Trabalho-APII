@@ -23,6 +23,22 @@ header #menu-e-logo #menu {
     margin-right: 10px;
 }
 
+.icone-usuario{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.icone-usuario img {
+    width: auto;
+    height: 100%;
+}
+
 /* BOTÕES */
 
 #btn-container {

@@ -18,18 +18,18 @@
     <h2>Editar Perfil</h2>
       <!--##Aqui o placeholdes com o nome antigo##-->
       <!--##Lembrar de colocar a action##-->
-      <form action="/editar_perfil_empresa" method="post" enctype="multipart/form-data">
+      <form action="/editar_perfil_adm" method="post" enctype="multipart/form-data">
         <label for="nome">Razão social</label>
-        <input type="text" id="nome" name="nome" required value="{{session['empresa']['nome']}}">
+        <input type="text" id="nome" name="nome" required value="{{session['adm']['nome']}}">
          <!--##Aqui o placeholdes com o e-mail antigo##-->
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required value="{{session['empresa']['email']}}">
+        <input type="email" id="email" name="email" required value="{{session['adm']['email']}}">
         <!--Aqui o input para a senha-->
         <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" required value="{{session['empresa']['senha']}}">
+        <input type="password" id="senha" name="senha" required value="{{session['adm']['senha']}}">
         <!--Aqui o input da imagem-->
-        <label for="foto">Foto</label>
-        <input type="file" name="foto" id="foto">
+        <label for="imagem">Foto</label>
+        <input type="file" name="imagem" id="imagem">
         
         
         <button type="submit">Salvar mudanças</button>

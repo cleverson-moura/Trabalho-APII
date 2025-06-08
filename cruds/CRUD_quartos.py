@@ -1,120 +1,95 @@
-from flask import Flask
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import sqlite3
+from models.connect import Database  # ou from database import Database
 
-con = sqlite3.connect("SITE.db")
-                               
-cursor = con.cursor()
-
-
-
-'''
-Sistema
-
-'''
-
-
-    
 def cadastrar_quarto():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
+
+    andar = input('Andar do quarto a cadastrar: ')
+    numero = input('Número do quarto a cadastrar: ')
+    preco = input('Número da reserva do quarto a cadastrar: ')
+    id_hotel = input('Chave do quarto a cadastrar: ')
+    id_usuario = int(input('ID do hotel que o quarto pertence: '))
+
+    sql = '''
+        INSERT INTO quartos (andar, numero_quarto, preco, id_hotel, id_usuario)
+        VALUES (?, ?, ?, ?, ?)
+    '''
+    db.execute(sql, (andar, numero, preco, id_hotel, id_usuario))
+    db.commit()
+    db.close()
+
+    # with open('registros/quartos.txt', 'a') as arquivo:
+    #     arquivo.write(f'{andar}, {numero}, {numero_reserva}, {chave_quarto}\n')
 
 
-    andar = str(input('Andar do quarto a cadastrar: '))
-    numero = str(input('Numero do quarto a cadastrar: '))
-    numero_reserva = str(input('Número da reserva do quarto a cadastrar: '))
-    chave_quarto = str(input('Chave do quarto a cadastrar: '))
-    id_hotel = int(input('Id do hotel que o quarto pertence: '))
-
-    cursor.execute('''INSERT INTO quartos(andar, numero, numero_reserva, chave_quarto, id_hotel)
-                   VALUES(?, ?, ?, ?, ?)''',
-                   (andar, numero, numero_reserva, chave_quarto, id_hotel))
-    con.commit()
-    con.close()
-
-    arquivo_quartos = open('registros/quartos.txt', 'a')
-    arquivo_quartos.write(f'{andar}, {numero}, {numero_reserva}, {chave_quarto}\n')
-    arquivo_quartos.close()
-    
 def ver_quarto():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    acao = int(input('Ver todos os quartos (1), ver um quarto (2): '))
 
-    acao = int(input('Ver todos os quartos(1), ver um quarto(2): '))
-    
     if acao == 1:
-        cursor.execute('SELECT * FROM quartos')
-        
-        todos_os_quartos = cursor.fetchall()
-        
-        for quarto in todos_os_quartos:
-            print(quarto)
-        
+        resultado = db.execute("SELECT * FROM quartos").fetchall()
+        for quarto in resultado:
+            print(dict(quarto))
     elif acao == 2:
-        numero_quarto = str(input('Número do quarto cadastrado: '))
-        
-        cursor.execute('SELECT * FROM quartos WHERE numero = ?', (numero_quarto,))
-        
-        dados_quarto = cursor.fetchone()
-        
-        print(dados_quarto)
+        numero_quarto = input('Número do quarto cadastrado: ')
+        resultado = db.execute("SELECT * FROM quartos WHERE numero = ?", (numero_quarto,)).fetchone()
+        print(dict(resultado) if resultado else "Quarto não encontrado.")
 
-    con.commit()
-    con.close()
+    db.close()
 
 
-        
 def atualizar_quarto():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    id_quarto = int(input('ID do quarto para atualização: '))
+    andar = input('Novo andar: ')
+    numero = input('Novo número: ')
+    numero_reserva = input('Novo número de reserva: ')
+    chave_quarto = input('Nova chave: ')
 
-    id_quarto = int(input('Id do quarto para atualização: '))
-    andar = str(input('Andar do quarto a cadastrar: '))
-    numero = str(input('Numero do quarto a cadastrar: '))
-    numero_reserva = str(input('Número da reserva do quarto a cadastrar: '))
-    chave_quarto = str(input('Chave do quarto a cadastrar: '))
-
-    cursor.execute('''UPDATE quartos 
-                   SET andar = ?,numero = ?,numero_reserva = ?,chave_quarto = ?
-                   WHERE id = ?''', (andar, numero, numero_reserva, chave_quarto, id_quarto))
-    con.commit()
-    con.close()
+    sql = '''
+        UPDATE quartos
+        SET andar = ?, numero = ?, numero_reserva = ?, chave_quarto = ?
+        WHERE id_quarto = ?
+    '''
+    db.execute(sql, (andar, numero, numero_reserva, chave_quarto, id_quarto))
+    db.commit()
+    db.close()
 
 
 def deletar_quarto():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    id_quarto = int(input('ID do quarto a deletar: '))
+    confirm = input(f'Deseja realmente deletar o quarto ID={id_quarto}? (s/n): ').lower()
 
-    id_quarto = int(input('Id do quarto que deseja deletar: '))
-    acao = str(input(f'Tem certeza que deseja deletar o cadastro do quarto de id = {id_quarto}?')).lower()
-    if acao == 'sim' or acao == 's':
-        cursor.execute('DELETE FROM quartos WHERE id_quarto = ?',(id_quarto,))
+    if confirm in ['s', 'sim']:
+        db.execute('DELETE FROM quartos WHERE id_quarto = ?', (id_quarto,))
+        db.commit()
 
-    con.commit()
-    con.close()
+    db.close()
 
 
 def main():
-
-    acao = int(input('Cadastrar(1), ver quartos(2), atualizar cadastro(3), deletar quarto(4): '))
-    if acao == 1:
+    op = int(input('Cadastrar (1), Ver (2), Atualizar (3), Deletar (4): '))
+    if op == 1:
         cadastrar_quarto()
-    elif acao == 2:
+    elif op == 2:
         ver_quarto()
-    elif acao == 3:
+    elif op == 3:
         atualizar_quarto()
-    elif acao == 4:
+    elif op == 4:
         deletar_quarto()
     else:
-        print('Erro')
-        return
-    
-main()
-con.close()
+        print('Opção inválida.')
+
+if __name__ == "__main__":
+    main()

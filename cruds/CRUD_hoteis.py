@@ -1,123 +1,98 @@
-from flask import Flask
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import sqlite3
+from models.connect import Database  # ou from database import Database
 
-con = sqlite3.connect("SITE.db")
-                               
-cursor = con.cursor()
-
-
-
-'''
-Sistema
-
-'''
-
-
-    
 def cadastrar_hotel():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
-
-    nome = str(input('Nome do hotel a cadastrar: '))
-    cidade = str(input('Cidade do hotel a cadastrar: '))
-    bairro = str(input('Bairro do hotel a cadastrar: '))
-    rua = str(input('Rua do hotel a cadastrar: '))
-    numero = str(input('Número do hotel a cadastrar: '))
+    nome = input('Nome do hotel a cadastrar: ')
+    cidade = input('Cidade do hotel a cadastrar: ')
+    bairro = input('Bairro do hotel a cadastrar: ')
+    rua = input('Rua do hotel a cadastrar: ')
+    numero = input('Número do hotel a cadastrar: ')
     cnpj = int(input('CNPJ somente com números: '))
 
-    cursor.execute('''INSERT INTO hoteis(nome, cidade, bairro, rua, numero, cnpj)
-                   VALUES(?, ?, ?, ?, ?, ?)''',
-                   (nome, cidade, bairro, rua, numero, cnpj))
-    con.commit()
-    con.close()
+    sql = '''
+        INSERT INTO hoteis (nome, cidade, bairro, rua, numero, cnpj)
+        VALUES (?, ?, ?, ?, ?, ?)
+    '''
+    db.execute(sql, (nome, cidade, bairro, rua, numero, cnpj))
+    db.commit()
+    db.close()
 
-    arquivo_hoteis = open('registros/hoteis.txt', 'a')
-    arquivo_hoteis.write(f'{nome}, {cidade}, {bairro}, {rua}, {numero}, {cnpj}\n')
-    arquivo_hoteis.close()
-    
+    with open('registros/hoteis.txt', 'a') as arquivo:
+        arquivo.write(f'{nome}, {cidade}, {bairro}, {rua}, {numero}, {cnpj}\n')
+
+
 def ver_hotel():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    acao = int(input('Ver todos os hotéis (1), ver um hotel (2): '))
 
-    acao = int(input('Ver todos os hoteis(1), ver um hotel(2): '))
-    
     if acao == 1:
-        cursor.execute('SELECT * FROM hoteis')
-        
-        todos_os_hoteis = cursor.fetchall()
-        
-        for hotel in todos_os_hoteis:
-            print(hotel)
-        
+        resultado = db.execute("SELECT * FROM hoteis").fetchall()
+        for hotel in resultado:
+            print(dict(hotel))
     elif acao == 2:
-        nome_hotel = str(input('Nome do hotel cadastrado: '))
-        
-        cursor.execute('SELECT * FROM hoteis WHERE nome = ?', (nome_hotel,))
-        
-        dados_hotel = cursor.fetchone()
-        
-        print(dados_hotel)
+        nome_hotel = input('Nome do hotel cadastrado: ')
+        resultado = db.execute("SELECT * FROM hoteis WHERE nome = ?", (nome_hotel,)).fetchone()
+        print(dict(resultado) if resultado else "Hotel não encontrado.")
 
-    con.commit()
-    con.close()
+    db.close()
 
 
-        
 def atualizar_hotel():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    id_hotel = int(input('ID do hotel para atualização: '))
+    nome = input('Novo nome: ')
+    cidade = input('Nova cidade: ')
+    bairro = input('Novo bairro: ')
+    rua = input('Nova rua: ')
+    numero = input('Novo número: ')
+    cnpj = int(input('Novo CNPJ: '))
 
-    id_hotel = int(input('Id do hotel para atualização: '))
-    nome = str(input('Nome do hotel a cadastrar: '))
-    cidade = str(input('Cidade do hotel a cadastrar: '))
-    bairro = str(input('Bairro do hotel a cadastrar: '))
-    rua = str(input('Rua do hotel a cadastrar: '))
-    numero = str(input('Número do hotel a cadastrar: '))
-    cnpj = int(input('CNPJ somente com números: '))
-
-    cursor.execute('''UPDATE hoteis 
-                   SET nome = ?,cidade = ?,bairro = ?,rua = ?, numero = ?, cnpj = ?
-                   WHERE id = ?''', (nome, cidade, bairro, rua, numero, cnpj, id_hotel))
-    con.commit()
-    con.close()
+    sql = '''
+        UPDATE hoteis 
+        SET nome = ?, cidade = ?, bairro = ?, rua = ?, numero = ?, cnpj = ?
+        WHERE id = ?
+    '''
+    db.execute(sql, (nome, cidade, bairro, rua, numero, cnpj, id_hotel))
+    db.commit()
+    db.close()
 
 
 def deletar_hotel():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    id_hotel = int(input('ID do hotel que deseja deletar: '))
+    confirm = input(f'Deseja realmente deletar o hotel de ID = {id_hotel}? (s/n): ').lower()
 
-    id_hotel = int(input('Id do hotel que deseja deletar: '))
-    acao = str(input(f'Tem certeza que deseja deletar o cadastro do hotel de id = {id_hotel}?')).lower()
-    if acao == 'sim' or acao == 's':
-        cursor.execute('DELETE FROM hoteis WHERE id = ?',(id_hotel,))
+    if confirm in ['s', 'sim']:
+        db.execute('DELETE FROM hoteis WHERE id = ?', (id_hotel,))
+        db.commit()
 
-    con.commit()
-    con.close()
+    db.close()
 
 
 def main():
-
-    acao = int(input('Cadastrar(1), ver hoteis(2), atualizar cadastro(3), deletar hotel(4): '))
-    if acao == 1:
+    op = int(input('Cadastrar (1), Ver (2), Atualizar (3), Deletar (4): '))
+    if op == 1:
         cadastrar_hotel()
-    elif acao == 2:
+    elif op == 2:
         ver_hotel()
-    elif acao == 3:
+    elif op == 3:
         atualizar_hotel()
-    elif acao == 4:
+    elif op == 4:
         deletar_hotel()
     else:
-        print('Erro')
-        return
-    
-main()
-con.close()
+        print('Opção inválida.')
+
+if __name__ == "__main__":
+    main()

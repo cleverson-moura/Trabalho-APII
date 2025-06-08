@@ -43,7 +43,7 @@
     <!--Fim das opções do canto-->
     <section class="card-perfil">
       <div class="foto-perfil">
-        <img src="{{ url_for('static', filename=usuario.foto) }}" alt="Foto do usuário">
+        <img src="{{ url_for('static', filename=usuario.imagem) }}" alt="Foto do usuário">
       </div>
       <!--Aqui deve-se integrar com o banco de dados-->
       <h2>{{session['usuario']['nome']}}</h2>
@@ -87,7 +87,7 @@
             <td>{{ item.reserva.tempo_estadia }}</td>
 
             <td>{{ item.quarto.andar }}</td>
-            <td>{{ item.quarto.numero }}</td>
+            <td>{{ item.quarto.numero_quarto }}</td>
             <td>{{ item.quarto.chave_quarto }}</td>
 
             <td>{{ item.hotel.nome }}</td>
