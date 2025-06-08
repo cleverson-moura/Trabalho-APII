@@ -8,7 +8,9 @@ class Database:
 
     def connect(self):
         self.conn = sqlite3.connect(self.db_name)
+        #tupla
         self.conn.row_factory = sqlite3.Row  # Para retornar dicionários
+        #tupla
         self.cursor = self.conn.cursor()
 
     def execute(self, query, params=None):

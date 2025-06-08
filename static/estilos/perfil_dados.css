@@ -72,6 +72,23 @@ body {
 .botao-editar:hover {
   background-color: #b68b1c;
 }
+.botao-excluir{
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #d32525;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.botao-excluir:hover {
+  background-color: #b61c1c;
+}
+
+
  /* ####Opções#### */
 .opcoes {
   font-size: 28px;
