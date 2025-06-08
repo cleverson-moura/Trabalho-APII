@@ -1,1 +1,15 @@
 2025-06-08 15:46:22 | IP:127.0.0.1 | URL:/cadastro_usuario
+2025-06-08 16:33:34 | IP:127.0.0.1 | URL:/
+2025-06-08 16:33:42 | IP:127.0.0.1 | URL:/pontos
+2025-06-08 16:33:43 | IP:127.0.0.1 | URL:/
+2025-06-08 16:33:46 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:17:58 | IP:127.0.0.1 | URL:/
+2025-06-08 20:18:38 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:23:51 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:24:09 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:25:19 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:25:23 | IP:127.0.0.1 | URL:/cancelar_reserva
+2025-06-08 20:25:23 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:28:25 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:29:15 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-08 20:30:08 | IP:127.0.0.1 | URL:/perfil_usuarios
