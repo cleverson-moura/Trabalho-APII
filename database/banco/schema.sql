@@ -24,8 +24,7 @@ administradores
     email VARCHAR,
     senha VARCHAR,
     cpf INTEGER,
-    id_hotel INTEGER,
-    FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel)
+    imagem TEXT
 )'''
 cursor.execute(criar_tabela_administradores)
 
@@ -52,8 +51,11 @@ hoteis
     rua TEXT,
     numero INTEGER,
     cnpj INTEGER,
+    id_adm INTEGER,
     id_ponto_turistico INTEGER,
-    FOREIGN KEY (id_ponto_turistico) REFERENCES pontos_turisticos(id_ponto_turistico)
+    FOREIGN KEY (id_ponto_turistico) REFERENCES pontos_turisticos(id_ponto_turistico),
+    FOREIGN KEY (id_adm) REFERENCES administradores(id_adm)
+
 )'''
 cursor.execute(criar_tabela_hoteis)
 

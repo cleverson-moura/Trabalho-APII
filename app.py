@@ -83,7 +83,7 @@ def cadastro():
                     'email': usuario['email'],
                     'senha': usuario['senha'],
                     'cpf': usuario['cpf'],
-                    'foto': usuario['imagem']
+                    'imagem': usuario['imagem']
                 }
         return redirect(url_for("perfil_usuarios"))
     elif empresa:
@@ -93,7 +93,7 @@ def cadastro():
                     'cpf': empresa['cpf'],
                     'email': empresa['email'],
                     'senha': empresa['senha'],
-                    'foto': empresa['foto']
+                    'imagem': empresa['imagem']
                 }
         return redirect(url_for("perfil_empresas"))
     else:
@@ -164,7 +164,7 @@ def cadastro_empresas():
 
             db = Database()
             db.connect()
-            sql = "INSERT INTO administradores(nome, cpf, email, senha, foto) VALUES (?, ?, ?, ?, ?)"
+            sql = "INSERT INTO administradores(nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
             db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa, caminho_relativo_foto_empresa))
             db.commit()
 
@@ -344,12 +344,12 @@ def cancelar_reserva():
 
 @app.route('/quartos', methods=['GET', 'POST'])
 def quartos():
-    mes_disponivel = request.form.get("mes")
-    imagem = request.form.get("foto")
+    mes_disponivel = request.form.get("mes_disponivel")
+    imagem = request.form.get("imagem")
     andar = request.form.get("andar")
-    numero_quarto = request.form.get("quarto")
+    numero_quarto = request.form.get("numero_quarto")
     preco = request.form.get("preco")
-    id_hotel = request.form.get("id_hotel")
+    id_hotel = session["empresa"]["id"]
 
     db = Database() 
     db.connect() 
