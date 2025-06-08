@@ -14,8 +14,8 @@ env/
 *.env.*
 
 # Banco de dados SQLite (opcional)
-# *.db
-# *.sqlite3
+*.db
+*.sqlite3
 
 # Pastas de IDEs
 .vscode/

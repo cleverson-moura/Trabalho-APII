@@ -8,6 +8,9 @@ from datetime import datetime
 
 from models.usuario_model import UsuarioModel
 from models.administrador_model import AdministradorModel
+from models.reserva_model import ReservaModel
+from models.quarto_model import QuartoModel
+from models.hotel_model import HotelModel
 
 def registrar():
     ip_usuario = request.remote_addr
@@ -239,38 +242,30 @@ def perfil_usuarios():
         return redirect(url_for('cadastro_usuario'))
     else:
         usuario = session['usuario']
+        
+        reserva_model = ReservaModel(usuario['id'], None, None, None)
+        reservas = reserva_model.buscar_por_reservas()
 
-        # Conecta ao banco
-        # db = Database()
-        # db.connect()
+        # Lista com todas as informações combinadas
+        reservas_detalhadas = []
 
-        # # Busca reservas do usuário
-        # sql = "SELECT * FROM reservas WHERE id_usuario=?"
-        # db.execute(sql, (usuario['id'],))
-        # reservas = db.fetchall()
+        for reserva in reservas:
+            # Pega o quarto
+            quarto_model = QuartoModel(reserva['id_quarto'], None, None, None, None, None, None, None)
+            quarto = quarto_model.buscar_por_quarto()
 
-        # # Lista com todas as informações combinadas
-        # reservas_detalhadas = []
+            # Pega o hotel do quarto
+            hotel_model = HotelModel(quarto['id_hotel'], None, None, None, None, None, None, None)
+            hotel = hotel_model.buscar_por_hotel()
 
-        # for reserva in reservas:
-        #     # Pega o quarto
-        #     db.execute("SELECT * FROM quartos WHERE id_quarto=?", (reserva['id_quarto'],))
-        #     quarto = db.fetchone()
+            # Junta tudo num dicionário
+            reservas_detalhadas.append({
+                'reserva': reserva,
+                'quarto': quarto,
+                'hotel': hotel
+            })
 
-        #     # Pega o hotel do quarto
-        #     db.execute("SELECT * FROM hoteis WHERE id_hotel=?", (quarto['id_hotel'],))
-        #     hotel = db.fetchone()
-
-        #     # Junta tudo num dicionário
-        #     reservas_detalhadas.append({
-        #         'reserva': reserva,
-        #         'quarto': quarto,
-        #         'hotel': hotel
-        #     })
-
-        #     db.close()
-
-        return render_template('/usuario/perfil_usuario.html', usuario=usuario) #reservas=reservas_detalhadas
+        return render_template('/usuario/perfil_usuario.html', usuario=usuario, reservas=reservas_detalhadas)
 
 @app.route("/editar_perfil_usuario", methods=['GET', 'POST'])
 def editar_perfil_usuario():
@@ -349,12 +344,12 @@ def editar_perfil_usuario():
 
 # @app.route('/quartos', methods=['GET', 'POST'])
 # def quartos():
-#     mes_disponivel = request.form.get("mes")
-#     imagem = request.form.get("foto")
+#     mes_disponivel = request.form.get("mes_disponivel")
+#     imagem = request.form.get("imagem")
 #     andar = request.form.get("andar")
-#     numero_quarto = request.form.get("quarto")
+#     numero_quarto = request.form.get("numero_quarto")
 #     preco = request.form.get("preco")
-#     id_hotel = request.form.get("id_hotel")
+#     id_hotel = session["empresa"]["id"]
 
 #     db = Database() 
 #     db.connect() 
