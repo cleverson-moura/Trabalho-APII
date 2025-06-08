@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from connect import Database # Importação da Classe com as funções de banco de dados
+#from models.connect import Database # Importação da Classe com as funções de banco de dados
 import sqlite3
 import re
 import os
@@ -28,10 +28,10 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 @app.route('/')
 def index():
     if 'usuario' in session:
-        icone = "/static/{}".format(session['usuario']['foto'])
+        icone = "/static/{}".format(session['usuario']['imagem'])
         endereco = "/perfil_usuarios"
     elif 'adm' in session:
-        icone = "/static/{}".format(session['adm']['foto'])
+        icone = "/static/{}".format(session['adm']['imagem'])
         endereco = "/perfil_adm"
     else:
         icone = "/static/imagens/user.png"
@@ -42,10 +42,10 @@ def index():
 @app.route('/pontos')
 def pontos():
     if 'usuario' in session:
-        icone = "/static/{}".format(session['usuario']['foto'])
+        icone = "/static/{}".format(session['usuario']['imagem'])
         endereco = "/perfil_usuarios"
     elif 'adm' in session:
-        icone = "/static/{}".format(session['adm']['foto'])
+        icone = "/static/{}".format(session['adm']['imagem'])
         endereco = "/perfil_adm"
     else:
         icone = "/static/imagens/user.png"
@@ -67,8 +67,11 @@ def cadastro():
     email = request.form.get("nome")
     senha = request.form.get("senha")
 
-    usuario = UsuarioModel.buscar_por_email_senha(email, senha)
-    adm
+    usuario_model = UsuarioModel(email=email, senha=senha)
+    usuario = usuario_model.buscar_por_email_senha()
+
+    adm_model = AdministradorModel(email=email, senha=senha)
+    adm = adm_model.buscar_por_email_senha()
     
     if usuario:
         session['usuario'] = {
@@ -77,7 +80,7 @@ def cadastro():
                     'email': usuario['email'],
                     'senha': usuario['senha'],
                     'cpf': usuario['cpf'],
-                    'foto': usuario['imagem']
+                    'imagem': usuario['imagem']
                 }
         return redirect(url_for("perfil_usuarios"))
     elif adm:
@@ -87,7 +90,7 @@ def cadastro():
                     'cpf': adm['cpf'],
                     'email': adm['email'],
                     'senha': adm['senha'],
-                    'foto': adm['foto']
+                    'imagem': adm['imagem']
                 }
         return redirect(url_for("perfil_adm"))
     else:
@@ -114,26 +117,27 @@ def cadastro_usuario():
             # Salvar caminho relativo no banco
             caminho_relativo = f'uploads/{filename}'
 
-            db = Database()
-            db.connect()
-            sql = "INSERT INTO usuarios (nome, cpf, email, senha, imagem) VALUES (?,?,?,?,?)"
-            db.execute(sql,(nome_usuario,cpf_usuario,email_usuario,senha_usuario,caminho_relativo))
-            db.commit()
+            usuario = UsuarioModel(
+                nome=nome_usuario,
+                cpf=cpf_usuario,
+                email=email_usuario,
+                senha=senha_usuario,
+                imagem=caminho_relativo
+            )
+            usuario.inserir()
 
-            sql = "SELECT * FROM usuarios WHERE email=? and senha=?"
-            db.execute(sql, (email_usuario, senha_usuario))
-            resultado = db.fetchone()
+            resultado = usuario.buscar_por_email_senha()
             if resultado:
                 # Guarda na session os dados do usuario em forma de dicionario
                 session['usuario'] = {
-                    'id': resultado[0],
-                    'nome': resultado[1],
-                    'email': resultado[2],
-                    'senha': resultado[3],
-                    'cpf': resultado[4],
-                    'foto': resultado[5]
+                    'id': resultado['id_usuario'],
+                    'nome': resultado['nome'],
+                    'email': resultado['email'],
+                    'senha': resultado['senha'],
+                    'cpf': resultado['cpf'],
+                    'imagem': resultado['imagem']
                 }
-            db.close()
+            
 
             return redirect(url_for('perfil_usuarios'))
         
@@ -156,15 +160,17 @@ def cadastro_adm():
             
             caminho_relativo_foto_adm = f'uploads/{filename}'
 
-            db = Database()
-            db.connect()
-            sql = "INSERT INTO administradores(nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
-            db.execute(sql, (nome_adm, cpf_adm, email_adm, senha_adm, caminho_relativo_foto_adm))
-            db.commit()
+            adm = AdministradorModel(
+                nome=nome_adm,
+                cpf=cpf_adm,
+                email=email_adm,
+                senha=senha_adm,
+                imagem=caminho_relativo_foto_adm
+            )
 
-            sql = "SELECT * FROM administradores WHERE email=? and senha=?"
-            db.execute(sql, (email_adm, senha_adm))
-            resultado = db.fetchone()
+            adm.inserir()
+
+            resultado = adm.buscar_por_email_senha()
             
             if resultado:
                 session['adm'] = {
@@ -176,7 +182,6 @@ def cadastro_adm():
                     'id_hotel': resultado['id_hotel'],
                     'imagem': resultado['imagem']
                 }
-            db.close()
             return redirect(url_for('perfil_adm'))
     return render_template('administrador/cadastro_adm.html')
 
@@ -196,7 +201,7 @@ def editar_perfil_adm():
     nome = request.form.get("nome")
     email = request.form.get("email")
     senha = request.form.get("senha")
-    foto = request.files.get('foto')
+    foto = request.files.get('imagem')
     if foto:
         foto_nome = "uploads/{}".format(foto.filename)
         caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
@@ -204,15 +209,15 @@ def editar_perfil_adm():
     else:
         foto_nome = session['adm']['imagem']
     if nome:
-        db = Database()
-        db.connect()
-        sql = "UPDATE administradores SET nome=?, email=?, senha=?, imagem=? WHERE id_adm=?"
-        db.execute(sql, (nome, email, senha, foto_nome, id))
-        db.commit()
-        sql = "SELECT * FROM administradores WHERE id_adm=?"
-        db.execute(sql, (id,))
-        adm = db.fetchone()
-        db.close()
+        adm_model = AdministradorModel(
+            id_administrador=id,
+            nome=nome,
+            email=email,
+            senha=senha,
+            imagem=foto_nome
+        )
+        adm_model.atualizar()
+        adm = adm_model.buscar_por_id()
         session['adm'] = {
                     'id': adm['id_adm'],
                     'nome': adm['nome'],
@@ -236,36 +241,36 @@ def perfil_usuarios():
         usuario = session['usuario']
 
         # Conecta ao banco
-        db = Database()
-        db.connect()
+        # db = Database()
+        # db.connect()
 
-        # Busca reservas do usuário
-        sql = "SELECT * FROM reservas WHERE id_usuario=?"
-        db.execute(sql, (usuario['id'],))
-        reservas = db.fetchall()
+        # # Busca reservas do usuário
+        # sql = "SELECT * FROM reservas WHERE id_usuario=?"
+        # db.execute(sql, (usuario['id'],))
+        # reservas = db.fetchall()
 
-        # Lista com todas as informações combinadas
-        reservas_detalhadas = []
+        # # Lista com todas as informações combinadas
+        # reservas_detalhadas = []
 
-        for reserva in reservas:
-            # Pega o quarto
-            db.execute("SELECT * FROM quartos WHERE id_quarto=?", (reserva['id_quarto'],))
-            quarto = db.fetchone()
+        # for reserva in reservas:
+        #     # Pega o quarto
+        #     db.execute("SELECT * FROM quartos WHERE id_quarto=?", (reserva['id_quarto'],))
+        #     quarto = db.fetchone()
 
-            # Pega o hotel do quarto
-            db.execute("SELECT * FROM hoteis WHERE id_hotel=?", (quarto['id_hotel'],))
-            hotel = db.fetchone()
+        #     # Pega o hotel do quarto
+        #     db.execute("SELECT * FROM hoteis WHERE id_hotel=?", (quarto['id_hotel'],))
+        #     hotel = db.fetchone()
 
-            # Junta tudo num dicionário
-            reservas_detalhadas.append({
-                'reserva': reserva,
-                'quarto': quarto,
-                'hotel': hotel
-            })
+        #     # Junta tudo num dicionário
+        #     reservas_detalhadas.append({
+        #         'reserva': reserva,
+        #         'quarto': quarto,
+        #         'hotel': hotel
+        #     })
 
-            db.close()
+        #     db.close()
 
-        return render_template('/usuario/perfil_usuario.html', usuario=usuario, reservas=reservas_detalhadas)
+        return render_template('/usuario/perfil_usuario.html', usuario=usuario) #reservas=reservas_detalhadas
 
 @app.route("/editar_perfil_usuario", methods=['GET', 'POST'])
 def editar_perfil_usuario():
@@ -273,89 +278,93 @@ def editar_perfil_usuario():
     nome = request.form.get("nome")
     email = request.form.get("email")
     senha = request.form.get("senha")
-    foto = request.files['foto']
+    foto = request.files.get('imagem')
     if foto:
         foto_nome = "uploads/{}".format(foto.filename)
         caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
         foto.save(caminho)
     else:
-        foto_nome = session['usuario']['foto']
+        foto_nome = session['usuario']['imagem']
     if nome:
-        db = Database()
-        db.connect()
-        sql = "UPDATE usuarios SET nome=?, email=?, senha=?, imagem=? WHERE id_usuario=?"
-        db.execute(sql, (nome, email, senha, foto_nome, id))
-        db.commit()
-        sql = "SELECT * FROM usuarios WHERE id_usuario=?"
-        db.execute(sql, (id,))
-        usuario = db.fetchone()
-        db.close()
+        atualiza_usuario = UsuarioModel(
+            id_usuario=id,
+            nome=nome,
+            email=email,
+            senha=senha,
+            imagem=foto_nome
+        )
+
+        atualiza_usuario.atualizar()
+
+        usuario_model = UsuarioModel(id_usuario=id)
+        usuario = usuario_model.buscar_por_id()
+
         session['usuario'] = {
-                    'id': usuario[0],
-                    'nome': usuario[1],
-                    'email': usuario[2],
-                    'senha': usuario[3],
-                    'cpf': usuario[4],
-                    'foto': usuario[5]
+                    'id': usuario['id_usuario'],
+                    'nome': usuario['nome'],
+                    'email': usuario['email'],
+                    'senha': usuario['senha'],
+                    'cpf': usuario['cpf'],
+                    'imagem': usuario['imagem']
                     }             
         return redirect(url_for('perfil_usuarios'))
     return render_template('/usuario/editar_perfil_usuario.html')
 
 
-@app.route('/reservas', methods=['GET', 'POST'])
-def reservas():
-    registrar()
-    imagem = request.form.get("foto")
-    id = 18
-    db = Database() 
-    db.connect() 
-    sql = 'UPDATE usuarios SET imagem=? WHERE id=?'
-    db.execute(sql, (imagem, id))
-    db.commit()
+# @app.route('/reservas', methods=['GET', 'POST'])
+# def reservas():
+#     registrar()
+#     imagem = request.form.get("foto")
+#     id = 18
+#     db = Database() 
+#     db.connect() 
+#     sql = 'UPDATE usuarios SET imagem=? WHERE id=?'
+#     db.execute(sql, (imagem, id))
+#     db.commit()
 
-    db.close()
+#     db.close()
     
-    return render_template('reservas.html')
+#     return render_template('reservas.html')
 
-@app.route('/cancelar_reserva', methods=['GET', 'POST'])
-def cancelar_reserva():
-    registrar()
-    if request.method == 'POST':
-        reserva_id = request.form.get('id_reserva')
+# @app.route('/cancelar_reserva', methods=['GET', 'POST'])
+# def cancelar_reserva():
+#     registrar()
+#     if request.method == 'POST':
+#         reserva_id = request.form.get('id_reserva')
         
-        db = Database()
-        db.connect()
+#         db = Database()
+#         db.connect()
         
-        sql = "DELETE FROM reservas WHERE id_reserva=?"
-        db.execute(sql, (reserva_id,))
-        db.commit()
+#         sql = "DELETE FROM reservas WHERE id_reserva=?"
+#         db.execute(sql, (reserva_id,))
+#         db.commit()
         
-        db.close()
+#         db.close()
         
-        flash('Reserva cancelada com sucesso!', 'success')
-        return redirect(url_for('perfil_usuarios'))
+#         flash('Reserva cancelada com sucesso!', 'success')
+#         return redirect(url_for('perfil_usuarios'))
     
-    flash('Erro ao cancelar a reserva.', 'error')
-    return redirect(url_for('perfil_usuarios'))
+#     flash('Erro ao cancelar a reserva.', 'error')
+#     return redirect(url_for('perfil_usuarios'))
 
-@app.route('/quartos', methods=['GET', 'POST'])
-def quartos():
-    mes_disponivel = request.form.get("mes")
-    imagem = request.form.get("foto")
-    andar = request.form.get("andar")
-    numero_quarto = request.form.get("quarto")
-    preco = request.form.get("preco")
-    id_hotel = request.form.get("id_hotel")
+# @app.route('/quartos', methods=['GET', 'POST'])
+# def quartos():
+#     mes_disponivel = request.form.get("mes")
+#     imagem = request.form.get("foto")
+#     andar = request.form.get("andar")
+#     numero_quarto = request.form.get("quarto")
+#     preco = request.form.get("preco")
+#     id_hotel = request.form.get("id_hotel")
 
-    db = Database() 
-    db.connect() 
-    sql = 'UPDATE quartos SET andar=?, numero_quarto=?, preco=?, mes_disponivel=?, imagem=?, id_hotel=? WHERE id = ?'
-    db.execute(sql, (andar, numero_quarto, preco, mes_disponivel, imagem, id_hotel, id))
-    db.commit()
+#     db = Database() 
+#     db.connect() 
+#     sql = 'UPDATE quartos SET andar=?, numero_quarto=?, preco=?, mes_disponivel=?, imagem=?, id_hotel=? WHERE id = ?'
+#     db.execute(sql, (andar, numero_quarto, preco, mes_disponivel, imagem, id_hotel, id))
+#     db.commit()
 
-    db.close()
+#     db.close()
     
-    return render_template('quartos.html')
+#     return render_template('quartos.html')
 
 @app.route('/quem_somos')
 def quem_somos():
