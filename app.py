@@ -4,6 +4,16 @@ import sqlite3
 import re
 import os
 from werkzeug.utils import secure_filename
+from datetime import datetime
+
+def registrar():
+    ip_usuario = request.remote_addr
+    tempo_acesso = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    url_visitada = request.path
+    ip_usuario = request.remote_addr
+    with open('registros/registros_acessos.txt', 'w') as f:
+        f.write(f'{tempo_acesso} | IP:{ip_usuario} | URL:{url_visitada}\n')
+        ## Parte q registra o acesso em arquivo.txt ##
 
 app = Flask(__name__)
 app.secret_key = "123"
@@ -14,24 +24,43 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def index():
+    if 'usuario' in session:
+        icone = "/static/{}".format(session['usuario']['foto'])
+        endereco = "/perfil_usuarios"
+    elif 'empresa' in session:
+        icone = "/static/{}".format(session['empresa']['foto'])
+        endereco = "/perfil_empresas"
+    else:
+        icone = "/static/imagens/user.png"
+        endereco = "/cadastro"
     texto = "Vamos ver"
-    return render_template('index.html', texto=texto)
+    return render_template('index.html', texto=texto, icone=icone, endereco=endereco)
 
 @app.route('/pontos')
 def pontos():
+    if 'usuario' in session:
+        icone = "/static/{}".format(session['usuario']['foto'])
+        endereco = "/perfil_usuarios"
+    elif 'empresa' in session:
+        icone = "/static/{}".format(session['empresa']['foto'])
+        endereco = "/perfil_empresas"
+    else:
+        icone = "/static/imagens/user.png"
+        endereco = "/cadastro"
+    texto = "Vamos ver"
+    #registrar()
     # usando o osjeto de conexão com banco de dados
-    connect = sqlite3.connect("banco_de_dados.db") # cria o objeto
-    cursor = connect.cursor() # conecta ao banco
-    cursor.execute('SELECT * FROM teste') # executa o SQL
-    ponto = cursor.fetchall() # retorna uma lista com as linhas da tabela
-    tamanho = len(ponto)
-    connect.close()
-    
-    
-    return render_template('pontos.html', ponto=ponto, tamanho=tamanho)
+    #connect = sqlite3.connect("database/banco/banco_de_dados.db") # cria o objeto
+    #cursor = connect.cursor() # conecta ao banco
+    #cursor.execute('SELECT * FROM teste') # executa o SQL
+    #ponto = cursor.fetchall() # retorna uma lista com as linhas da tabela
+    #tamanho = len(ponto)
+    #connect.close()
+    return render_template('pontos.html', icone=icone, endereco=endereco)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
+    registrar()
     email = request.form.get("nome")
     senha = request.form.get("senha")
 
@@ -63,8 +92,8 @@ def cadastro():
                     'nome': empresa['nome'],
                     'cpf': empresa['cpf'],
                     'email': empresa['email'],
-                    'senha': empresa['senha']
-                    # 'imagem': empresa[5]
+                    'senha': empresa['senha'],
+                    'foto': empresa['foto']
                 }
         return redirect(url_for("perfil_empresas"))
     else:
@@ -75,12 +104,13 @@ def cadastro():
 
 @app.route('/cadastro_usuario', methods=['GET', 'POST'])
 def cadastro_usuario():
+    registrar()
     if request.method == "POST":
         nome_usuario = request.form.get('nome')
         cpf_usuario = request.form.get('cpf')
         email_usuario = request.form.get('email')
         senha_usuario = request.form.get('senha')
-        foto_usuario = request.files['foto']
+        foto_usuario = request.files['imagem']
 
         if foto_usuario:
             filename = secure_filename(foto_usuario.filename)
@@ -117,6 +147,7 @@ def cadastro_usuario():
 
 @app.route('/cadastro_empresas', methods=['GET', 'POST'])
 def cadastro_empresas():
+    registrar()
     if request.method == "POST":
         nome_empresa = request.form.get("nome")
         email_empresa = request.form.get("email")
@@ -133,7 +164,7 @@ def cadastro_empresas():
 
             db = Database()
             db.connect()
-            sql = "INSERT INTO administradores(nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
+            sql = "INSERT INTO administradores(nome, cpf, email, senha, foto) VALUES (?, ?, ?, ?, ?)"
             db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa, caminho_relativo_foto_empresa))
             db.commit()
 
@@ -156,14 +187,52 @@ def cadastro_empresas():
 
 @app.route('/perfil_empresas', methods=['GET', 'POST'])
 def perfil_empresas():
+
+    registrar()
     if 'empresa' not in session:
         return redirect(url_for('cadastro_empresas'))
     else:
         empresa = session['empresa']
         return render_template('perfil_empresa.html',empresa=empresa)
+    
+@app.route("/editar_perfil_empresa", methods=['GET', 'POST'])
+def editar_perfil_empresa():
+    id = session['empresa']['id']
+    nome = request.form.get("nome")
+    email = request.form.get("email")
+    senha = request.form.get("senha")
+    foto = request.files.get("foto")
+    if foto:
+        foto_nome = "uploads/{}".format(foto.filename)
+        caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
+        foto.save(caminho)
+    else:
+        foto_nome = session['empresa']['foto']
+    if nome:
+        db = Database()
+        db.connect()
+        sql = "UPDATE administradores SET nome=?, email=?, senha=?, foto=? WHERE id_adm=?"
+        db.execute(sql, (nome, email, senha, foto_nome, id))
+        db.commit()
+        sql = "SELECT * FROM administradores WHERE id_adm=?"
+        db.execute(sql, (id,))
+        empresa = db.fetchone()
+        db.close()
+        session['empresa'] = {
+                    'id': empresa[0],
+                    'nome': empresa[1],
+                    'email': empresa[2],
+                    'senha': empresa[3],
+                    'cpf': empresa[4],
+                    'foto': empresa[5]
+                    }             
+        return redirect(url_for('perfil_empresas'))
+    return render_template('editar_perfil_empresas.html')
+
 
 @app.route("/perfil_usuarios", methods=['GET','POST'])
 def perfil_usuarios():
+    registrar()
     # verifica se o usuario está logado
     if 'usuario' not in session:
         return redirect(url_for('cadastro_usuario'))
@@ -202,8 +271,44 @@ def perfil_usuarios():
 
         return render_template('perfil_usuario.html', usuario=usuario, reservas=reservas_detalhadas)
 
+@app.route("/editar_perfil_usuario", methods=['GET', 'POST'])
+def editar_perfil_usuario():
+    id = session['usuario']['id']
+    nome = request.form.get("nome")
+    email = request.form.get("email")
+    senha = request.form.get("senha")
+    foto = request.files.get("foto")
+    if foto:
+        foto_nome = "uploads/{}".format(foto.filename)
+        caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
+        foto.save(caminho)
+    else:
+        foto_nome = session['usuario']['foto']
+    if nome:
+        db = Database()
+        db.connect()
+        sql = "UPDATE usuarios SET nome=?, email=?, senha=?, imagem=? WHERE id_usuario=?"
+        db.execute(sql, (nome, email, senha, foto_nome, id))
+        db.commit()
+        sql = "SELECT * FROM usuarios WHERE id_usuario=?"
+        db.execute(sql, (id,))
+        usuario = db.fetchone()
+        db.close()
+        session['usuario'] = {
+                    'id': usuario[0],
+                    'nome': usuario[1],
+                    'email': usuario[2],
+                    'senha': usuario[3],
+                    'cpf': usuario[4],
+                    'foto': usuario[5]
+                    }             
+        return redirect(url_for('perfil_usuarios'))
+    return render_template('editar_perfil_usuario.html')
+
+
 @app.route('/reservas', methods=['GET', 'POST'])
 def reservas():
+    registrar()
     imagem = request.form.get("foto")
     id = 18
     db = Database() 
@@ -218,6 +323,7 @@ def reservas():
 
 @app.route('/cancelar_reserva', methods=['GET', 'POST'])
 def cancelar_reserva():
+    registrar()
     if request.method == 'POST':
         reserva_id = request.form.get('id_reserva')
         
