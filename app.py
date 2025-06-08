@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 #from models.connect import Database # Importação da Classe com as funções de banco de dados
-import sqlite3
-import re
 import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -30,6 +28,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def index():
+    registrar()
     if 'usuario' in session:
         icone = "/static/{}".format(session['usuario']['imagem'])
         endereco = "/perfil_usuarios"
@@ -57,7 +56,7 @@ def pontos():
         icone = "/static/imagens/user.png"
         endereco = "/cadastro"
     texto = "Vamos ver"
-    #registrar()
+    registrar()
     # usando o osjeto de conexão com banco de dados
     #connect = sqlite3.connect("database/banco/banco_de_dados.db") # cria o objeto
     #cursor = connect.cursor() # conecta ao banco
