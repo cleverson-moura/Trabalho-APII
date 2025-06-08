@@ -6,6 +6,9 @@ import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
+from models.usuario_model import UsuarioModel
+from models.administrador_model import AdministradorModel
+
 def registrar():
     ip_usuario = request.remote_addr
     tempo_acesso = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -27,9 +30,9 @@ def index():
     if 'usuario' in session:
         icone = "/static/{}".format(session['usuario']['foto'])
         endereco = "/perfil_usuarios"
-    elif 'empresa' in session:
-        icone = "/static/{}".format(session['empresa']['foto'])
-        endereco = "/perfil_empresas"
+    elif 'adm' in session:
+        icone = "/static/{}".format(session['adm']['foto'])
+        endereco = "/perfil_adm"
     else:
         icone = "/static/imagens/user.png"
         endereco = "/cadastro"
@@ -41,9 +44,9 @@ def pontos():
     if 'usuario' in session:
         icone = "/static/{}".format(session['usuario']['foto'])
         endereco = "/perfil_usuarios"
-    elif 'empresa' in session:
-        icone = "/static/{}".format(session['empresa']['foto'])
-        endereco = "/perfil_empresas"
+    elif 'adm' in session:
+        icone = "/static/{}".format(session['adm']['foto'])
+        endereco = "/perfil_adm"
     else:
         icone = "/static/imagens/user.png"
         endereco = "/cadastro"
@@ -64,18 +67,9 @@ def cadastro():
     email = request.form.get("nome")
     senha = request.form.get("senha")
 
-    db = Database()
-    db.connect()
-
-    sql = ('SELECT * FROM usuarios WHERE email=? AND senha=?')
-    db.execute(sql,(email, senha))
-    usuario = db.fetchone()
-
-    sql = "SELECT * FROM administradores WHERE email=? AND senha=?"
-    db.execute(sql,(email, senha))
-    empresa = db.fetchone()
-
-    db.close()
+    usuario = UsuarioModel.buscar_por_email_senha(email, senha)
+    adm
+    
     if usuario:
         session['usuario'] = {
                     'id': usuario['id_usuario'],
@@ -86,16 +80,16 @@ def cadastro():
                     'foto': usuario['imagem']
                 }
         return redirect(url_for("perfil_usuarios"))
-    elif empresa:
-        session['empresa'] = {
-                    'id': empresa['id_adm'],
-                    'nome': empresa['nome'],
-                    'cpf': empresa['cpf'],
-                    'email': empresa['email'],
-                    'senha': empresa['senha'],
-                    'foto': empresa['foto']
+    elif adm:
+        session['adm'] = {
+                    'id': adm['id_adm'],
+                    'nome': adm['nome'],
+                    'cpf': adm['cpf'],
+                    'email': adm['email'],
+                    'senha': adm['senha'],
+                    'foto': adm['foto']
                 }
-        return redirect(url_for("perfil_empresas"))
+        return redirect(url_for("perfil_adm"))
     else:
         print("Erro")
         
@@ -110,7 +104,7 @@ def cadastro_usuario():
         cpf_usuario = request.form.get('cpf')
         email_usuario = request.form.get('email')
         senha_usuario = request.form.get('senha')
-        foto_usuario = request.files['imagem']
+        foto_usuario = request.files.get('imagem')
 
         if foto_usuario:
             filename = secure_filename(foto_usuario.filename)
@@ -143,91 +137,93 @@ def cadastro_usuario():
 
             return redirect(url_for('perfil_usuarios'))
         
-    return render_template('cadastro_usuario.html')
+    return render_template('/usuario/cadastro_usuario.html')
 
-@app.route('/cadastro_empresas', methods=['GET', 'POST'])
-def cadastro_empresas():
+@app.route('/cadastro_adm', methods=['GET', 'POST'])
+def cadastro_adm():
     registrar()
     if request.method == "POST":
-        nome_empresa = request.form.get("nome")
-        email_empresa = request.form.get("email")
-        senha_empresa = request.form.get("senha")
-        cpf_empresa = request.form.get("cpf")
-        foto_empresa = request.files['foto-empresa']
+        nome_adm = request.form.get("nome")
+        email_adm = request.form.get("email")
+        senha_adm = request.form.get("senha")
+        cpf_adm = request.form.get("cpf")
+        foto_adm = request.files.get('foto-adm')
 
-        if foto_empresa:
-            filename = secure_filename(foto_empresa.filename)
-            caminho_foto_empresa = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            foto_empresa.save(caminho_foto_empresa)
+        if foto_adm:
+            filename = secure_filename(foto_adm.filename)
+            caminho_foto_adm = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            foto_adm.save(caminho_foto_adm)
             
-            caminho_relativo_foto_empresa = f'uploads/{filename}'
+            caminho_relativo_foto_adm = f'uploads/{filename}'
 
             db = Database()
             db.connect()
-            sql = "INSERT INTO administradores(nome, cpf, email, senha, foto) VALUES (?, ?, ?, ?, ?)"
-            db.execute(sql, (nome_empresa, cpf_empresa, email_empresa, senha_empresa, caminho_relativo_foto_empresa))
+            sql = "INSERT INTO administradores(nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
+            db.execute(sql, (nome_adm, cpf_adm, email_adm, senha_adm, caminho_relativo_foto_adm))
             db.commit()
 
             sql = "SELECT * FROM administradores WHERE email=? and senha=?"
-            db.execute(sql, (email_empresa, senha_empresa))
+            db.execute(sql, (email_adm, senha_adm))
             resultado = db.fetchone()
             
             if resultado:
-                session['empresa'] = {
-                    'id': resultado[0],
-                    'nome': resultado[1],
-                    'cpf': resultado[2],
-                    'email': resultado[3],
-                    'senha': resultado[4],
-                    'foto': resultado[5]
+                session['adm'] = {
+                    'id': resultado['id_adm'],
+                    'nome': resultado['nome'],
+                    'email': resultado['email'],
+                    'senha': resultado['senha'],
+                    'cpf': resultado['cpf'],
+                    'id_hotel': resultado['id_hotel'],
+                    'imagem': resultado['imagem']
                 }
             db.close()
-            return redirect(url_for('perfil_empresas'))
-    return render_template('cadastro_empresas.html')
+            return redirect(url_for('perfil_adm'))
+    return render_template('administrador/cadastro_adm.html')
 
-@app.route('/perfil_empresas', methods=['GET', 'POST'])
-def perfil_empresas():
+@app.route('/perfil_adm', methods=['GET', 'POST'])
+def perfil_adm():
 
     registrar()
-    if 'empresa' not in session:
-        return redirect(url_for('cadastro_empresas'))
+    if 'adm' not in session:
+        return redirect(url_for('cadastro_adm'))
     else:
-        empresa = session['empresa']
-        return render_template('perfil_empresa.html',empresa=empresa)
+        adm = session['adm']
+        return render_template('administrador/perfil_adm.html',adm=adm)
     
-@app.route("/editar_perfil_empresa", methods=['GET', 'POST'])
-def editar_perfil_empresa():
-    id = session['empresa']['id']
+@app.route("/editar_perfil_adm", methods=['GET', 'POST'])
+def editar_perfil_adm():
+    id = session['adm']['id']
     nome = request.form.get("nome")
     email = request.form.get("email")
     senha = request.form.get("senha")
-    foto = request.files.get("foto")
+    foto = request.files.get('foto')
     if foto:
         foto_nome = "uploads/{}".format(foto.filename)
         caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
         foto.save(caminho)
     else:
-        foto_nome = session['empresa']['foto']
+        foto_nome = session['adm']['imagem']
     if nome:
         db = Database()
         db.connect()
-        sql = "UPDATE administradores SET nome=?, email=?, senha=?, foto=? WHERE id_adm=?"
+        sql = "UPDATE administradores SET nome=?, email=?, senha=?, imagem=? WHERE id_adm=?"
         db.execute(sql, (nome, email, senha, foto_nome, id))
         db.commit()
         sql = "SELECT * FROM administradores WHERE id_adm=?"
         db.execute(sql, (id,))
-        empresa = db.fetchone()
+        adm = db.fetchone()
         db.close()
-        session['empresa'] = {
-                    'id': empresa[0],
-                    'nome': empresa[1],
-                    'email': empresa[2],
-                    'senha': empresa[3],
-                    'cpf': empresa[4],
-                    'foto': empresa[5]
+        session['adm'] = {
+                    'id': adm['id_adm'],
+                    'nome': adm['nome'],
+                    'email': adm['email'],
+                    'senha': adm['senha'],
+                    'id_hotel': adm['id_hotel'],
+                    'cpf': adm['cpf'],
+                    'imagem': adm['imagem']
                     }             
-        return redirect(url_for('perfil_empresas'))
-    return render_template('editar_perfil_empresas.html')
+        return redirect(url_for('perfil_adm'))
+    return render_template('/administrador/editar_perfil_adm.html')
 
 
 @app.route("/perfil_usuarios", methods=['GET','POST'])
@@ -269,7 +265,7 @@ def perfil_usuarios():
 
             db.close()
 
-        return render_template('perfil_usuario.html', usuario=usuario, reservas=reservas_detalhadas)
+        return render_template('/usuario/perfil_usuario.html', usuario=usuario, reservas=reservas_detalhadas)
 
 @app.route("/editar_perfil_usuario", methods=['GET', 'POST'])
 def editar_perfil_usuario():
@@ -277,7 +273,7 @@ def editar_perfil_usuario():
     nome = request.form.get("nome")
     email = request.form.get("email")
     senha = request.form.get("senha")
-    foto = request.files.get("foto")
+    foto = request.files['foto']
     if foto:
         foto_nome = "uploads/{}".format(foto.filename)
         caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
@@ -303,7 +299,7 @@ def editar_perfil_usuario():
                     'foto': usuario[5]
                     }             
         return redirect(url_for('perfil_usuarios'))
-    return render_template('editar_perfil_usuario.html')
+    return render_template('/usuario/editar_perfil_usuario.html')
 
 
 @app.route('/reservas', methods=['GET', 'POST'])
@@ -365,8 +361,12 @@ def quartos():
 def quem_somos():
     return render_template('quem_somos.html')
 
-
-
+@app.route('/sair')
+def sair():
+    registrar()
+    session.pop('usuario', None)
+    session.pop('adm', None)
+    return redirect(url_for('index'))
 
 #@app.route('hoteis')
 #def style():

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Perfil do Usuário</title>
-  <link rel="stylesheet" href="/static/estilos/estilo_perfil_empresa.css">
+  <link rel="stylesheet" href="/static/estilos/estilo_perfil_adm.css">
 </head>
 <body>
   <header class="topo">
-    <h1>Perfil da empresa</h1>
+    <h1>Perfil da Admistrador</h1>
     <!--Início das opções do canto-->
   </header>
   <div class="opcoes" onclick="toggleSidebar()">☰</div>
@@ -44,11 +44,11 @@
   <main class="container">
     <section class="card-perfil">
       <div class="foto-perfil">
-        {% if empresa and empresa.foto %}
-    <img src="{{ url_for('static', filename=empresa.foto) }}" alt="Foto Empresa">
-  {% else %}
-    <img src="{{ url_for('static', filename='imagens/default_empresa.png') }}" alt="Foto Padrão">
-  {% endif %}
+        {% if adm and adm.imagem %}
+          <img src="{{ url_for('static', filename=adm.imagem) }}" alt="Foto Empresa">
+        {% else %}
+          <img src="{{ url_for('static', filename='imagens/default_empresa.png') }}" alt="Foto Padrão">
+        {% endif %}
       </div>
       <!--Aqui deve-se integrar com o banco de dados-->
       <h2>{{session['empresa']['nome']}}</h2>
@@ -56,7 +56,7 @@
       <p class="cpf">CPF: {{session['empresa']['cpf']}}</p>
       <!--Aqui deve-se integrar com o banco de dados-->
 
-      <a href="/editar_perfil_empresa" class="botao-editar">Editar Perfil</a>
+      <a href="/editar_perfil_adm" class="botao-editar">Editar Perfil</a>
     </section>
     <div class="popup-reserva">
   <p><strong>Deseja adicionar alguma reserva?</strong></p>

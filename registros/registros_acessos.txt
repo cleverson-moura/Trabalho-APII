@@ -1,1 +1,1 @@
-2025-06-07 20:30:40 | IP:127.0.0.1 | URL:/perfil_usuarios
+2025-06-07 23:17:09 | IP:127.0.0.1 | URL:/cadastro_usuario
