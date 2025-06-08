@@ -115,6 +115,8 @@ def cadastro_usuario():
         email_usuario = request.form.get('email')
         senha_usuario = request.form.get('senha')
         foto_usuario = request.files.get('imagem')
+        with open('Trabalho-APII/registros/users.txt', 'a', encoding='utf-8') as arquivo:
+            arquivo.write(f"{nome_usuario} | {cpf_usuario} | {email_usuario}\n")
 
         if foto_usuario:
             filename = secure_filename(foto_usuario.filename)
@@ -159,6 +161,10 @@ def cadastro_adm():
         senha_adm = request.form.get("senha")
         cpf_adm = request.form.get("cpf")
         foto_adm = request.files.get('foto-adm')
+        with open('Trabalho-APII/registros/adms.txt', 'a', encoding='utf-8') as arquivo:
+            arquivo.write(f"{nome_adm} | {email_adm} | {cpf_adm}\n")
+
+        
 
         if foto_adm:
             filename = secure_filename(foto_adm.filename)
@@ -209,6 +215,9 @@ def editar_perfil_adm():
     email = request.form.get("email")
     senha = request.form.get("senha")
     foto = request.files.get('imagem')
+    with open('Trabalho-APII/registros/adms.txt', 'a', encoding='utf-8') as arquivo:
+            arquivo.write(f"{nome} | {email}\n")
+
     if foto:
         foto_nome = "uploads/{}".format(foto.filename)
         caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
@@ -248,6 +257,9 @@ def cadastro_empresa():
         numero_empresa = request.form.get("numero")
         cnpj_empresa = request.form.get("cnpj")
         id_ponto = request.form.get("id_ponto")
+        with open('Trabalho-APII/registros/hoteis.txt', 'a', encoding='utf-8') as arquivo:
+            arquivo.write(f"{nome_empresa} | {cidade_empresa} | {bairro_empresa} | {rua_empresa} | {numero_empresa} | {cnpj_empresa} | {id_ponto}\n")
+
 
         # Verifica se o CNPJ é válido
         # if not re.match(r'^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$', cnpj_empresa):
@@ -313,6 +325,8 @@ def editar_perfil_usuario():
     email = request.form.get("email")
     senha = request.form.get("senha")
     foto = request.files.get('imagem')
+    with open('Trabalho-APII/registros/users.txt', 'a', encoding='utf-8') as arquivo:
+            arquivo.write(f"{nome} | {email}\n")
     if foto:
         foto_nome = "uploads/{}".format(foto.filename)
         caminho = os.path.join(app.config['UPLOAD_FOLDER'], foto.filename)
