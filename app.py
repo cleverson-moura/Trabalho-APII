@@ -89,6 +89,7 @@ def cadastro():
                     'imagem': usuario['imagem']
                 }
         return redirect(url_for("perfil_usuarios"))
+
     elif adm:
         session['adm'] = {
                     'id': adm['id_adm'],
