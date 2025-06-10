@@ -301,11 +301,11 @@ def perfil_usuarios():
 
         for reserva in reservas:
             # Pega o quarto
-            quarto_model = QuartoModel(reserva['id_quarto'], None, None, None, None, None, None, None)
+            quarto_model = QuartoModel(id_quarto=reserva['id_quarto'])
             quarto = quarto_model.buscar_por_quarto()
 
             # Pega o hotel do quarto
-            hotel_model = HotelModel(quarto['id_hotel'], None, None, None, None, None, None, None)
+            hotel_model = HotelModel(id_hotel=quarto['id_hotel'])
             hotel = hotel_model.buscar_por_hotel()
 
             # Junta tudo num dicionário
@@ -358,20 +358,27 @@ def editar_perfil_usuario():
     return render_template('/usuario/editar_perfil_usuario.html')
 
 
-# @app.route('/reservas', methods=['GET', 'POST'])
-# def reservas():
-#     registrar()
-#     imagem = request.form.get("foto")
-#     id = 18
-#     db = Database() 
-#     db.connect() 
-#     sql = 'UPDATE usuarios SET imagem=? WHERE id=?'
-#     db.execute(sql, (imagem, id))
-#     db.commit()
+@app.route('/reservas', methods=['GET', 'POST'])
+def reservas():
+    registrar()
+    reserva_model = ReservaModel()
+    if request.method == 'POST':
+        id_usuario = session['usuario']['id']
+        id_quarto = request.form.get('id_quarto')
+        tempo_estadia = request.form.get('tempo_estadia')
 
-#     db.close()
-    
-#     return render_template('reservas.html')
+        reserva_model = ReservaModel(
+            id_usuario=id_usuario,
+            id_quarto=id_quarto,
+            tempo_estadia=tempo_estadia
+        )
+        
+        reserva_model.fazer_reserva()
+        
+        flash('Reserva feita com sucesso!', 'success')
+        return redirect(url_for('perfil_usuarios'))
+
+    return render_template('reservas.html')
 
 @app.route('/cancelar_reserva', methods=['GET', 'POST'])
 def cancelar_reserva():
@@ -406,6 +413,19 @@ def cancelar_reserva():
 #     db.close()
     
 #     return render_template('quartos.html')
+
+@app.route('/hotel_reserva/<int:id_hotel>', methods=['GET', 'POST'])
+def hotel_reserva(id_hotel):
+    registrar()
+    
+    hotel_model = HotelModel(id_hotel=id_hotel)
+    hotel = hotel_model.buscar_por_hotel()
+
+    quarto_model = QuartoModel(id_hotel=id_hotel)
+    quartos = quarto_model.buscar_todos_quartos()
+        
+
+    return render_template('empresa/hotel_reserva.html', hotel=hotel, quartos=quartos)
 
 @app.route('/quem_somos')
 def quem_somos():
