@@ -15,7 +15,7 @@ def registrar():
     tempo_acesso = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     url_visitada = request.path
     ip_usuario = request.remote_addr
-    with open('registros/registros_acessos.txt', 'w') as f:
+    with open('registros/registros_acessos.txt', 'a') as f:
         f.write(f'{tempo_acesso} | IP:{ip_usuario} | URL:{url_visitada}\n')
         ## Parte q registra o acesso em arquivo.txt ##
 
@@ -293,7 +293,7 @@ def perfil_usuarios():
     else:
         usuario = session['usuario']
         
-        reserva_model = ReservaModel(usuario['id'], None, None, None)
+        reserva_model = ReservaModel(id_usuario=usuario['id'])
         reservas = reserva_model.buscar_por_reservas()
 
         # Lista com todas as informações combinadas
@@ -373,26 +373,20 @@ def editar_perfil_usuario():
     
 #     return render_template('reservas.html')
 
-# @app.route('/cancelar_reserva', methods=['GET', 'POST'])
-# def cancelar_reserva():
-#     registrar()
-#     if request.method == 'POST':
-#         reserva_id = request.form.get('id_reserva')
+@app.route('/cancelar_reserva', methods=['GET', 'POST'])
+def cancelar_reserva():
+    registrar()
+    if request.method == 'POST':
+        reserva_id = request.form.get('id_reserva')
         
-#         db = Database()
-#         db.connect()
+        reserva_model = ReservaModel(id_reserva=reserva_id)
+        reserva_model.cancelar_reserva()
         
-#         sql = "DELETE FROM reservas WHERE id_reserva=?"
-#         db.execute(sql, (reserva_id,))
-#         db.commit()
-        
-#         db.close()
-        
-#         flash('Reserva cancelada com sucesso!', 'success')
-#         return redirect(url_for('perfil_usuarios'))
+        flash('Reserva cancelada com sucesso!', 'success')
+        return redirect(url_for('perfil_usuarios'))
     
-#     flash('Erro ao cancelar a reserva.', 'error')
-#     return redirect(url_for('perfil_usuarios'))
+    flash('Erro ao cancelar a reserva.', 'error')
+    return redirect(url_for('perfil_usuarios'))
 
 # @app.route('/quartos', methods=['GET', 'POST'])
 # def quartos():
