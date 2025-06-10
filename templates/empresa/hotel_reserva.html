@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 50%;
+            height: auto;
+        }
+        .quarto-imagem {
+            width: 25%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="">
+    <h1>{{ hotel.nome }}</h1>
+
+    {% for quarto in quartos %}
+    <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="" class="quarto-imagem">
+    <h2>ANDAR: {{ quarto.andar }}</h2>
+    <h2>NUMERO: {{ quarto.numero_quarto }}</h2>
+    <form action="/reservas" method="post">
+        <input type="text" name="id_quarto" value="{{ quarto.id_quarto }}" hidden>
+        <input type="text" name="id_hotel" value="{{ hotel.id_hotel }}" hidden>
+        <label for="estadia">Tempo estadia</label>
+        <input type="text" name="tempo_estadia" placeholder="Digite o tempo de estadia em dias" required>
+        <button type="submit">Agendar</button>
+    </form>
+    {% endfor %}
+</body>
+</html>
