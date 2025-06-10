@@ -114,7 +114,7 @@ def cadastro_usuario():
         email_usuario = request.form.get('email')
         senha_usuario = request.form.get('senha')
         foto_usuario = request.files.get('imagem')
-        with open('Trabalho-APII/registros/users.txt', 'a', encoding='utf-8') as arquivo:
+        with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f"{nome_usuario} | {cpf_usuario} | {email_usuario}\n")
 
         if foto_usuario:
@@ -160,7 +160,7 @@ def cadastro_adm():
         senha_adm = request.form.get("senha")
         cpf_adm = request.form.get("cpf")
         foto_adm = request.files.get('foto-adm')
-        with open('Trabalho-APII/registros/adms.txt', 'a', encoding='utf-8') as arquivo:
+        with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f"{nome_adm} | {email_adm} | {cpf_adm}\n")
 
         
@@ -214,7 +214,7 @@ def editar_perfil_adm():
     email = request.form.get("email")
     senha = request.form.get("senha")
     foto = request.files.get('imagem')
-    with open('Trabalho-APII/registros/adms.txt', 'a', encoding='utf-8') as arquivo:
+    with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f"{nome} | {email}\n")
 
     if foto:
@@ -324,7 +324,7 @@ def editar_perfil_usuario():
     email = request.form.get("email")
     senha = request.form.get("senha")
     foto = request.files.get('imagem')
-    with open('Trabalho-APII/registros/users.txt', 'a', encoding='utf-8') as arquivo:
+    with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f"{nome} | {email}\n")
     if foto:
         foto_nome = "uploads/{}".format(foto.filename)
