@@ -2,12 +2,19 @@ from models.connect import Database
 
 class ReservaModel:
     #futuramente adicionar data_entrada e data_saida
-    def __init__(self, id_reserva=None, id_usuario=None, id_quarto=None, id_hotel=None, tempo_estadia=None):
+    def __init__(self, id_reserva=None, id_usuario=None, id_quarto=None, tempo_estadia=None):
         self.id_reserva = id_reserva
         self.id_usuario = id_usuario
         self.id_quarto = id_quarto
-        self.id_hotel = id_hotel
         self.tempo_estadia = tempo_estadia
+
+    def fazer_reserva(self):
+        db = Database()
+        db.connect()
+        sql = "INSERT INTO reservas (id_usuario, id_quarto, tempo_estadia) VALUES (?, ?, ?)"
+        db.execute(sql, (self.id_usuario, self.id_quarto, self.tempo_estadia))
+        db.commit()
+        db.close()
 
     def buscar_por_reservas(self):
         db = Database()
