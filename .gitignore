@@ -12,8 +12,10 @@ env/
 # Configs locais / variáveis de ambiente
 *.env
 *.env.*
+registros/*.txt
 
 # Banco de dados SQLite (opcional)
+database/banco/*.db
 *.db
 *.sqlite3
 
