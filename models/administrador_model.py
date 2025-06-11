@@ -39,7 +39,7 @@ class AdministradorModel:
     def atualizar(self):
         db = Database()
         db.connect()
-        sql = "UPDATE administradores SET nome=?, email=?, senha=?, imagem=? WHERE id_adm=?"
-        db.execute(sql, (self.nome, self.email, self.senha, self.imagem, self.id_administrador))
+        sql = "UPDATE administradores SET nome=? senha=?, imagem=? WHERE id_adm=?"
+        db.execute(sql, (self.nome, self.senha, self.imagem, self.id_administrador))
         db.commit()
         db.close()

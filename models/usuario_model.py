@@ -38,7 +38,7 @@ class UsuarioModel:
     def atualizar(self):
         db = Database()
         db.connect()
-        sql = "UPDATE usuarios SET nome=?, cpf=?, email=?, senha=?, imagem=? WHERE id_usuario=?"
-        db.execute(sql, (self.nome, self.cpf, self.email, self.senha, self.imagem, self.id_usuario))
+        sql = "UPDATE usuarios SET nome=?, senha=?, imagem=? WHERE id_usuario=?"
+        db.execute(sql, (self.nome, self.senha, self.imagem, self.id_usuario))
         db.commit()
         db.close()
