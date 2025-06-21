@@ -67,7 +67,7 @@
       {% if hoteis %}
         {% for hotel in hoteis %}
           <div class="ponto">
-            <a href="{{ url_for('hotel_reserva', id_hotel=hotel.id_hotel) }}">
+            <a href="{{ url_for('empresa.hotel_reserva', id_hotel=hotel.id_hotel) }}">
             <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
             <h2>{{ hotel.nome }}</h2>
             <p>{{texto}}</p>
