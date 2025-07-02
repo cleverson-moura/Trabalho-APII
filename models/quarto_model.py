@@ -29,3 +29,19 @@ class QuartoModel:
         quartos = db.fetchall()
         db.close()
         return quartos
+
+    def inserir(self):
+        db = Database()
+        db.connect()
+        sql = "INSERT INTO quartos (andar, numero_quarto, preco, imagem, mes_disponivel, id_hotel) VALUES (?, ?, ?, ?, ?, ?)"
+        db.execute(sql, (self.andar, self.numero, self.preco, self.imagem, self.mes_disponivel, self.id_hotel))
+        db.commit()
+        db.close()
+
+    def atualizar(self):
+        db = Database()
+        db.connect()
+        sql = "UPDATE quartos SET andar=?, numero_quarto=?, preco=?, imagem=?, mes_disponivel=?, id_hotel=? WHERE id_quarto=?"
+        db.execute(sql, (self.andar, self.numero, self.preco, self.imagem, self.mes_disponivel, self.id_hotel, self.id_quarto))
+        db.commit()
+        db.close()

@@ -75,7 +75,9 @@ def pontos():
 def quem_somos():
     return render_template('quem_somos.html')
 
-
+#@app.route('/salvar_quartos')
+#   def salvar_quartos():
+#        return render_template('salvar_quartos.html')
 
 if __name__=="__main__":
     app.run(debug=True)
