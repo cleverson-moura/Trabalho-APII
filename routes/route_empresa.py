@@ -19,9 +19,18 @@ def cadastro_empresa():
         rua_empresa = request.form.get("rua")
         numero_empresa = request.form.get("numero")
         cnpj_empresa = request.form.get("cnpj")
-        id_ponto = request.form.get("id_ponto")
+        email = request.form.get("email")
+        senha = request.form.get("senha")
+        foto = request.files.get("foto")
         with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
-            arquivo.write(f"{nome_empresa} | {cidade_empresa} | {bairro_empresa} | {rua_empresa} | {numero_empresa} | {cnpj_empresa} | {id_ponto}\n")
+            arquivo.write(f"{nome_empresa} | {cidade_empresa} | {bairro_empresa} | {rua_empresa} | {numero_empresa} | {cnpj_empresa} | {email} | {senha}\n")
+
+        if foto:
+            filename = secure_filename(foto.filename)
+            caminho_foto = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            foto.save(caminho_foto)
+            
+            caminho_relativo_foto = f'uploads/{filename}'
 
 
         # Verifica se o CNPJ é válido
@@ -37,11 +46,28 @@ def cadastro_empresa():
             rua=rua_empresa,
             numero=numero_empresa,
             cnpj=cnpj_empresa,
-            id_ponto=id_ponto
+            email=email,
+            senha=senha,
+            foto=caminho_relativo_foto
         )
-
+        
         # Insere os dados no banco de dados
         hotel_model.inserir()
+
+        resultado = hotel_model.buscar_por_email_senha()
+            
+        if resultado:
+            session['hotel'] = {
+                'id': resultado['id_hotel'],
+                'nome': resultado['nome'],
+                'cidade': resultado['cidade'],
+                'bairro': resultado['bairro'],
+                'rua': resultado['rua'],
+                'numero': resultado['numero'],
+                'cnpj': resultado['cnpj'],
+                'email': resultado['email'],
+                'foto': resultado['foto']                
+            }
 
         flash('Empresa cadastrada com sucesso!', 'success')
         return redirect(url_for('gerais.index'))
