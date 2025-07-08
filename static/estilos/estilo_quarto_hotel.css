@@ -1,0 +1,235 @@
+body{margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: linear-gradient(to right, #3F8583, #ffecb2);
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header #menu-e-logo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+header #menu-e-logo #menu {
+    margin-right: 10px;
+}
+
+.icone-usuario{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.icone-usuario img {
+    width: auto;
+    height: 100%;
+}
+
+.opcoes {
+  font-size: 28px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1003;
+  background-color: #f0e6c2;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #f0e6c2;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  z-index: 1002;
+  padding-top: 80px;
+}
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  padding: 15px 20px;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  transition: background 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #e0d5aa;
+  border-radius: 5px;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.rodape {
+    width: 100%;
+    background: #a1cfa3 ;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    background-color: #dbeafe;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #1e3a8a;
+    box-sizing: border-box;
+    margin-top: 100px;
+}
+.rodape h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.rodape p {
+    margin: 6px 0;
+    font-size: 1em;
+}
+
+section.sobre{
+    height: calc(100% - 200 px);
+    position: relative;
+}
+
+.sobre_quarto{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+.extras{
+    border-radius: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background-color: #f1d487;
+    bottom: 15px;
+    left: 12px;
+}
+
+.detalhes-quarto {
+  padding: 40px 20px;
+  background-color: #fefce8;
+  font-family: Arial, sans-serif;
+  
+}
+
+.info-quarto h2 {
+  font-size: 2em;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.valor-quarto {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #0f5132;
+  margin-bottom: 30px;
+}
+
+.galeria-quarto h3,
+.disponibilidade-quarto h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #1e3a8a;
+}
+
+.fotos-quarto {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.fotos-quarto img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.fotos-quarto img:hover {
+  transform: scale(1.05);
+}
+
+.disponibilidade-quarto label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #444;
+}
+
+.disponibilidade-quarto input[type="date"] {
+  display: block;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.btn_editar {
+    margin-top: 30px;
+    padding: 12px 25px;
+    border: none;
+    background-color: #f1d487;
+    color: rgb(0, 0, 0);
+    border-radius: 100px;
+    cursor: pointer;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
