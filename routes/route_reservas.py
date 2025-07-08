@@ -6,7 +6,6 @@ from models.usuario_model import UsuarioModel
 from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
-from models.administrador_model import AdministradorModel
 
 reservas_bp = Blueprint('reservas', __name__, template_folder='../templates')
 
