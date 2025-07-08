@@ -16,18 +16,6 @@ usuarios
 )'''
 cursor.execute(criar_tabela_usuarios)
 
-criar_tabela_administradores = '''CREATE TABLE IF NOT EXISTS
-administradores 
-(
-    id_adm INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome VARCHAR,
-    email VARCHAR,
-    senha VARCHAR,
-    cpf INTEGER,
-    imagem TEXT
-)'''
-cursor.execute(criar_tabela_administradores)
-
 criar_tabela_pontos_turisticos = '''CREATE TABLE IF NOT EXISTS 
 pontos_turisticos 
 (
@@ -51,11 +39,9 @@ hoteis
     rua TEXT,
     numero INTEGER,
     cnpj INTEGER,
-    id_adm INTEGER,
-    id_ponto_turistico INTEGER,
-    FOREIGN KEY (id_ponto_turistico) REFERENCES pontos_turisticos(id_ponto_turistico),
-    FOREIGN KEY (id_adm) REFERENCES administradores(id_adm)
-
+    email TEXT,
+    senha TEXT,
+    foto TEXT
 )'''
 cursor.execute(criar_tabela_hoteis)
 

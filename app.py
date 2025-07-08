@@ -6,7 +6,6 @@ from datetime import datetime
 from routes import register_blueprints
 
 from models.usuario_model import UsuarioModel
-from models.administrador_model import AdministradorModel
 from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
@@ -33,9 +32,9 @@ def pontos():
     if 'usuario' in session:
         icone = "/static/{}".format(session['usuario']['imagem'])
         endereco = "/perfil_usuario"
-    elif 'adm' in session:
-        icone = "/static/{}".format(session['adm']['imagem'])
-        endereco = "/perfil_adm"
+    elif 'hotel' in session:
+        icone = "/static/{}".format(session['hotel']['imagem'])
+        endereco = "/perfil_hotel"
     else:
         icone = "/static/imagens/user.png"
         endereco = "/cadastro"
@@ -79,3 +78,4 @@ def quem_somos():
 
 if __name__=="__main__":
     app.run(debug=True)
+

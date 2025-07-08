@@ -7,23 +7,23 @@ from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 
-empresa_bp = Blueprint('empresa', __name__, template_folder='../templates')
+hotel_bp = Blueprint('hotel', __name__, template_folder='../templates')
 
-@empresa_bp.route('/cadastro_empresa', methods=['GET', 'POST'])
-def cadastro_empresa():
+@hotel_bp.route('/cadastro_hotel', methods=['GET', 'POST'])
+def cadastro_hotel():
     # registrar()
     if request.method == "POST":
-        nome_empresa = request.form.get("nome")
-        cidade_empresa = request.form.get("cidade")
-        bairro_empresa = request.form.get("bairro")
-        rua_empresa = request.form.get("rua")
-        numero_empresa = request.form.get("numero")
-        cnpj_empresa = request.form.get("cnpj")
+        nome_hotel = request.form.get("nome")
+        cidade_hotel = request.form.get("cidade")
+        bairro_hotel = request.form.get("bairro")
+        rua_hotel = request.form.get("rua")
+        numero_hotel = request.form.get("numero")
+        cnpj_hotel = request.form.get("cnpj")
         email = request.form.get("email")
         senha = request.form.get("senha")
         foto = request.files.get("foto")
         with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
-            arquivo.write(f"{nome_empresa} | {cidade_empresa} | {bairro_empresa} | {rua_empresa} | {numero_empresa} | {cnpj_empresa} | {email} | {senha}\n")
+            arquivo.write(f"{nome_hotel} | {cidade_hotel} | {bairro_hotel} | {rua_hotel} | {numero_hotel} | {cnpj_hotel} | {email} | {senha}\n")
 
         if foto:
             filename = secure_filename(foto.filename)
@@ -40,17 +40,17 @@ def cadastro_empresa():
 
         # Cria o objeto HotelModel
         hotel_model = HotelModel(
-            nome=nome_empresa,
-            cidade=cidade_empresa,
-            bairro=bairro_empresa,
-            rua=rua_empresa,
-            numero=numero_empresa,
-            cnpj=cnpj_empresa,
+            nome=nome_hotel,
+            cidade=cidade_hotel,
+            bairro=bairro_hotel,
+            rua=rua_hotel,
+            numero=numero_hotel,
+            cnpj=cnpj_hotel,
             email=email,
             senha=senha,
             foto=caminho_relativo_foto
         )
-        
+
         # Insere os dados no banco de dados
         hotel_model.inserir()
 
@@ -72,9 +72,18 @@ def cadastro_empresa():
         flash('Empresa cadastrada com sucesso!', 'success')
         return redirect(url_for('gerais.index'))
 
-    return render_template('empresa/cadastro_empresa.html')
+    return render_template('hotel/cadastro_hotel.html')
 
-@empresa_bp.route('/hotel_reserva/<int:id_hotel>', methods=['GET', 'POST'])
+@hotel_bp.route('/perfil_hotel', methods=['GET', 'POST'])
+def perfil_hotel():
+    # registrar()
+    if 'hotel' not in session:
+        return redirect(url_for('hotel.cadastro_hotel'))
+    else:
+        hotel = session['hotel']    
+        return render_template('empresa/perfil_hotel.html', hotel=hotel)
+
+@hotel_bp.route('/hotel_reserva/<int:id_hotel>', methods=['GET', 'POST'])
 def hotel_reserva(id_hotel):
     # registrar()
     

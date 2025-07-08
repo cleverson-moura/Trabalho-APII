@@ -4,7 +4,6 @@ from models.usuario_model import UsuarioModel
 from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
-from models.administrador_model import AdministradorModel
 
 gerais_bp = Blueprint('gerais', __name__, template_folder='../templates')
 
@@ -14,9 +13,9 @@ def index():
     if 'usuario' in session:
         icone = "/static/{}".format(session['usuario']['imagem'])
         endereco = "/perfil_usuario"
-    elif 'adm' in session:
-        icone = "/static/{}".format(session['adm']['imagem'])
-        endereco = "/perfil_adm"
+    elif 'hotel' in session:
+        icone = "/static/{}".format(session['hotel']['imagem'])
+        endereco = "/perfil_hotel"
     else:
         icone = "/static/imagens/user.png"
         endereco = "/login"
@@ -29,14 +28,14 @@ def index():
 @gerais_bp.route('/login', methods=['GET', 'POST'])
 def login():
     # registrar()
-    email = request.form.get("nome")
+    email = request.form.get("email")
     senha = request.form.get("senha")
 
     usuario_model = UsuarioModel(email=email, senha=senha)
     usuario = usuario_model.buscar_por_email_senha()
 
-    adm_model = AdministradorModel(email=email, senha=senha)
-    adm = adm_model.buscar_por_email_senha()
+    hotel_model = HotelModel(email=email, senha=senha)
+    hotel = hotel_model.buscar_por_email_senha()
     
     if usuario:
         session['usuario'] = {
@@ -49,16 +48,20 @@ def login():
                 }
         return redirect(url_for("usuario.perfil_usuario"))
 
-    elif adm:
-        session['adm'] = {
-                    'id': adm['id_adm'],
-                    'nome': adm['nome'],
-                    'cpf': adm['cpf'],
-                    'email': adm['email'],
-                    'senha': adm['senha'],
-                    'imagem': adm['imagem']
+    elif hotel:
+        session['hotel'] = {
+                    'id': hotel['id_hotel'],
+                    'nome': hotel['nome'],
+                    'cnpj': hotel['cnpj'],
+                    'email': hotel['email'],
+                    'cidade': hotel['cidade'],
+                    'bairro': hotel['bairro'],
+                    'rua': hotel['rua'],
+                    'numero': hotel['numero'],
+                    'senha': hotel['senha'],
+                    'foto': hotel['foto']
                 }
-        return redirect(url_for("adm.perfil_adm"))
+        return redirect(url_for("hotel.perfil_hotel"))
     else:
         print("Erro")
         
@@ -68,6 +71,5 @@ def login():
 @gerais_bp.route('/sair')
 def sair():
     # registrar()
-    session.pop('usuario', None)
-    session.pop('adm', None)
+    session.clear()
     return redirect(url_for('gerais.index'))
