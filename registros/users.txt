@@ -1,4 +1,4 @@
-Usu�rios
+Usu�rios
 
 fdssf | 41421 | teste@gmail.com
  vxv | 2313 | teste@gmail.com
@@ -9,5 +9,5 @@ None | None
 qewqeqweqwe | ter@gmail.com
 fsadf | 421414 | teste@gmail.com
 fdfasf | teste@gmail.com | 23131
-Master Hotéis | Crato | Centro | Rua Principal | 12 | 12345678900 | masterh@gmail.com | 123
-Master Hotéis | Crato | Centro | Rua Principal | 12 | 12345678900 | masterh@gmail.com | 123
+ADM | adm@gmail.com | 00000000000
+ADM | adm@gmail.com | 00000000000
