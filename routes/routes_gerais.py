@@ -14,7 +14,7 @@ def index():
         icone = "/static/{}".format(session['usuario']['imagem'])
         endereco = "/perfil_usuario"
     elif 'hotel' in session:
-        icone = "/static/{}".format(session['hotel']['imagem'])
+        icone = "/static/{}".format(session['hotel']['foto'])
         endereco = "/perfil_hotel"
     else:
         icone = "/static/imagens/user.png"
