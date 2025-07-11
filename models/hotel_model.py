@@ -47,7 +47,7 @@ class HotelModel:
             return True
         else:
             sql = "INSERT INTO hoteis (nome, cidade, bairro, rua, numero, cnpj, email, senha, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-            db.execute(sql, (self.nome, self.cpf, self.email, self.senha, self.imagem))
+            db.execute(sql, (self.nome, self.cidade, self.bairro, self.rua, self.numero, self.cnpj, self.email, self.senha, self.foto))
             db.commit()
             db.close()
             return False
