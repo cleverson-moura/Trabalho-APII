@@ -35,6 +35,15 @@
                 <label> <input type="checkbox"></label>
                 <a href="#">Esqueceu senha?</a>
             </div>
+                <div style="background-color: burlywood; text-align: center; border-radius: 10px; ">
+      {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+          {% for mensagem in mensagens %}
+            <p style="color:red">{{ mensagem }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+                </div>
             <button  type="submit" class="btn_entrar">Entrar</button>  
            </form>
     </div>

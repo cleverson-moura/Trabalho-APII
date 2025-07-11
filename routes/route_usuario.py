@@ -36,22 +36,23 @@ def cadastro_usuario():
                 senha=senha_usuario,
                 imagem=caminho_relativo
             )
-            usuario.inserir()
+            if usuario.inserir() == True:
+                flash("Esse email já está em uso!")
+            else:
+                resultado = usuario.buscar_por_email_senha()
+                if resultado:
+                    # Guarda na session os dados do usuario em forma de dicionario
+                    session['usuario'] = {
+                        'id': resultado['id_usuario'],
+                        'nome': resultado['nome'],
+                        'email': resultado['email'],
+                        'senha': resultado['senha'],
+                        'cpf': resultado['cpf'],
+                        'imagem': resultado['imagem']
+                    }
+                
 
-            resultado = usuario.buscar_por_email_senha()
-            if resultado:
-                # Guarda na session os dados do usuario em forma de dicionario
-                session['usuario'] = {
-                    'id': resultado['id_usuario'],
-                    'nome': resultado['nome'],
-                    'email': resultado['email'],
-                    'senha': resultado['senha'],
-                    'cpf': resultado['cpf'],
-                    'imagem': resultado['imagem']
-                }
-            
-
-            return redirect(url_for('usuario.perfil_usuario'))
+                return redirect(url_for('usuario.perfil_usuario'))
         
     return render_template('/usuario/cadastro_usuario.html')
 
