@@ -24,6 +24,15 @@ class QuartoModel:
     def buscar_todos_quartos(self):
         db = Database()
         db.connect()
+        sql = "SELECT * FROM quartos"
+        db.execute(sql, )
+        quartos = db.fetchall()
+        db.close()
+        return quartos
+
+    def buscar_todos_quartos_do_hotel(self):
+        db = Database()
+        db.connect()
         sql = "SELECT * FROM quartos WHERE id_hotel=?"
         db.execute(sql, (self.id_hotel,))
         quartos = db.fetchall()
