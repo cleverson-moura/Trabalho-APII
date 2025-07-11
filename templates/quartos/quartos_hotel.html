@@ -28,15 +28,15 @@
 <section class="sobre_quarto">
   <img src="/" alt="Ver q imagem pode ficar aqui">
     <div class="extras"> 
-      <img src="/" alt="Imagem perfil do hotel">
-
+      <img src="{{ url_for('static', filename=hotel.foto) }}">
+      
     </div>
      <!-- ##Aqui mostrará um pouco do hotel## -->
 </section>
 <section class="detalhes-quarto">
   <div class="info-quarto">
-    <h2>{{Nome quarto}}</h2>
-    <p class="valor-quarto">Diária:{{valor da diária aq}}</p>
+    <h2>Nome quarto</h2>
+    <p class="valor-quarto">Diária: valor da diária aq</p>
     <h3>Descrição do quarto</h3>
   </div>
 

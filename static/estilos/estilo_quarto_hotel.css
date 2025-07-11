@@ -157,6 +157,13 @@ section.sobre{
     left: 12px;
 }
 
+.extras img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50px;
+}
+
 .detalhes-quarto {
   padding: 40px 20px;
   background-color: #fefce8;

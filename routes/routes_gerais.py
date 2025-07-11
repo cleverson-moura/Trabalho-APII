@@ -21,9 +21,10 @@ def index():
         endereco = "/login"
     texto = "Vamos ver"
 
-    hoteis_model = HotelModel()
-    hoteis = hoteis_model.buscar_todos_hoteis()
-    return render_template('index.html', texto=texto, icone=icone, endereco=endereco, hoteis=hoteis)
+    quarto_model = QuartoModel()
+    quartos = quarto_model.buscar_todos_quartos()
+
+    return render_template('index.html', texto=texto, icone=icone, endereco=endereco, quartos=quartos)
 
 @gerais_bp.route('/login', methods=['GET', 'POST'])
 def login():
