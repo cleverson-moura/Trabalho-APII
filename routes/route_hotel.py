@@ -52,27 +52,28 @@ def cadastro_hotel():
         )
 
         # Insere os dados no banco de dados
-        hotel_model.inserir()
+        if hotel_model.inserir() == True:
+                flash("Esse email já está em uso!")
+        else:
+            resultado = hotel_model.buscar_por_email_senha()
+                
+            if resultado:
+                session['hotel'] = {
+                    'id': resultado['id_hotel'],
+                    'nome': resultado['nome'],
+                    'cidade': resultado['cidade'],
+                    'bairro': resultado['bairro'],
+                    'rua': resultado['rua'],
+                    'numero': resultado['numero'],
+                    'cnpj': resultado['cnpj'],
+                    'email': resultado['email'],
+                    'foto': resultado['foto']                
+                }
 
-        resultado = hotel_model.buscar_por_email_senha()
-            
-        if resultado:
-            session['hotel'] = {
-                'id': resultado['id_hotel'],
-                'nome': resultado['nome'],
-                'cidade': resultado['cidade'],
-                'bairro': resultado['bairro'],
-                'rua': resultado['rua'],
-                'numero': resultado['numero'],
-                'cnpj': resultado['cnpj'],
-                'email': resultado['email'],
-                'foto': resultado['foto']                
-            }
+            flash('Empresa cadastrada com sucesso!', 'success')
+            return redirect(url_for('gerais.index'))
 
-        flash('Empresa cadastrada com sucesso!', 'success')
-        return redirect(url_for('gerais.index'))
-
-    return render_template('hotel/cadastro_hotel.html')
+    return render_template('empresa/cadastro_hotel.html')
 
 @hotel_bp.route('/perfil_hotel', methods=['GET', 'POST'])
 def perfil_hotel():

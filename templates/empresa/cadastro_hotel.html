@@ -48,6 +48,15 @@
 
       <button type="submit">Cadastrar empresa</button>
     </form>
+    <div style="background-color: burlywood; text-align: center; border-radius: 10px; ">
+      {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+          {% for mensagem in mensagens %}
+            <p style="color:red">{{ mensagem }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
     <div class="footer">
       Já tem uma conta? <a href="/login">Entrar</a>
     </div>

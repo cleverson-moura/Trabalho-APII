@@ -1,4 +1,5 @@
 from models.connect import Database
+from flask import flash
 
 class UsuarioModel:
     def __init__(self, id_usuario=None, nome=None, cpf=None, email=None, senha=None, imagem=None):
@@ -24,16 +25,30 @@ class UsuarioModel:
         sql = "SELECT * FROM usuarios WHERE email=? AND senha=?"
         db.execute(sql, (self.email, self.senha))
         usuario = db.fetchone()
-        db.close()
-        return usuario
+        if usuario:
+            db.close()
+            return usuario
+        else:
+            return None
 
     def inserir(self):
         db = Database()
         db.connect()
-        sql = "INSERT INTO usuarios (nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
-        db.execute(sql, (self.nome, self.cpf, self.email, self.senha, self.imagem))
-        db.commit()
-        db.close()
+        sql = "SELECT id_usuario FROM usuarios WHERE email=?"
+        db.execute(sql,(self.email,))
+        existe1 = db.fetchone()
+        sql = "SELECT id_hotel FROM hoteis WHERE email=?"
+        db.execute(sql,(self.email,))
+        existe2 = db.fetchone()
+        if existe1 or existe2:
+            db.close()
+            return True
+        else:
+            sql = "INSERT INTO usuarios (nome, cpf, email, senha, imagem) VALUES (?, ?, ?, ?, ?)"
+            db.execute(sql, (self.nome, self.cpf, self.email, self.senha, self.imagem))
+            db.commit()
+            db.close()
+            return False
 
     def atualizar(self):
         db = Database()

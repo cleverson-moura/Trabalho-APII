@@ -35,13 +35,22 @@
         
         <button type="submit">Criar Conta</button>
       </form>
+      <div style="background-color: burlywood; text-align: center; border-radius: 10px; ">
+      {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+          {% for mensagem in mensagens %}
+            <p style="color:red">{{ mensagem }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
     <div class="footer">
       Já tem uma conta? <a href="/login">Entrar</a>
     </div>
   </div>
   <div class="popup-empresa">
   <p>Deseja criar uma conta para empresas?</p>
-  <a href="/cadastro_adm" class="botao-empresa">Criar Conta Empresarial</a>
+  <a href="/cadastro_hotel" class="botao-empresa">Criar Conta Empresarial</a>
   <!--Início das opções do canto-->
     <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
