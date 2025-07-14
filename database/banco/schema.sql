@@ -51,12 +51,10 @@ quartos
     id_quarto INTEGER PRIMARY KEY AUTOINCREMENT,
     andar TEXT,
     numero_quarto TEXT,
-    preco TEXT,
+    preco REAL,
     imagem TEXT,
     mes_disponivel TEXT,
-    id_hotel INTEGER,   
-    id_usuario INTEGER,
-    FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario),
+    id_hotel INTEGER,
     FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel)
 )'''
 cursor.execute(criar_tabela_quartos)
@@ -67,7 +65,8 @@ reservas
     id_reserva INTEGER PRIMARY KEY AUTOINCREMENT,
     id_usuario INTEGER, 
     id_quarto INTEGER,
-    tempo_estadia INTEGER,
+    data_checkin DATE,
+    data_checkout DATE,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto)
 )'''
