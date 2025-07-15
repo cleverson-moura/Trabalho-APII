@@ -74,9 +74,39 @@ def pontos():
 def quem_somos():
     return render_template('quem_somos.html')
 
-#@app.route('/salvar_quartos')
-#   def salvar_quartos():
-#        return render_template('salvar_quartos.html')
+@app.route('/salvar_quartos', methods=['GET'])
+def exibir_formulario_quarto():
+    return render_template('quarto/salvar_quartos.html')
+
+@app.route('/salvar_quarto', methods=['POST'])
+def salvar_quarto():
+    mes_disponivel = request.form.get('mes_disponivel')
+    andar = request.form.get('andar')
+    numero = request.form.get('numero_quarto')
+    preco = request.form.get('preco')
+    imagem = request.files['imagem']
+
+    if imagem and imagem.filename != '':
+        nome_arquivo = secure_filename(imagem.filename)
+        caminho = os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo)
+        imagem.save(caminho)
+        imagem_path = f'uploads/{nome_arquivo}'
+    else:
+        imagem_path = 'imagens/default.png'
+
+    id_hotel = session['hotel']['id']
+    quarto = QuartoModel(
+        andar=andar,
+        numero=numero,
+        preco=preco,
+        imagem=imagem_path,
+        mes_disponivel=mes_disponivel,
+        id_hotel=id_hotel
+    )
+    quarto.inserir()
+
+    flash('Quarto cadastrado com sucesso!', 'success')
+    return redirect('/salvar_quartos')
 
 if __name__=="__main__":
     app.run(debug=True)
