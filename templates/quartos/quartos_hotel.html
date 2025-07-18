@@ -35,9 +35,12 @@
 </section>
 <section class="detalhes-quarto">
   <div class="info-quarto">
-    <h2>Nome quarto</h2>
-    <p class="valor-quarto">Diária: valor da diária aq</p>
-    <h3>Descrição do quarto</h3>
+    <h1>{{ hotel.nome }}</h1>
+    <h2>Quarto {{ quarto.andar }}° Andar</h2>
+    <h2>Número {{ quarto.numero_quarto }}°</h2>
+    <p class="valor-quarto">Diária: {{ quarto.preco }} R$</p>
+    <h3>Descrição do quarto:</h3>
+    <h4>{{ quarto.descricao }}</h4>
   </div>
 
   <div class="galeria-quarto">
@@ -54,6 +57,7 @@
   </div>
 
   <div class="disponibilidade-quarto">
+    <form action="{{ rota }}" method="POST">
     <h3>Escolha as datas</h3>
     <label for="checkin">Check-in:</label>
     <input type="date" id="checkin" name="checkin">
@@ -62,6 +66,9 @@
     <input type="date" id="checkout" name="checkout">
   </div>
 </section>
+     <button  type="submit" class="btn_editar">{{ botao_reserva_texto }}</button>  
+           </form>
+
 
   <!-- Menu lateral -->
   <aside id="sidebar" class="sidebar">
@@ -77,9 +84,7 @@
     </nav>
   </aside>
     </div>
-            <button  type="submit" class="btn_editar">Reservar quarto!</button>  
-           </form>
-
+           
   <!-- Fundo escurecido para o menu -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
    <footer class="rodape">
