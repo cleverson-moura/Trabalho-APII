@@ -22,6 +22,7 @@ def cadastro_hotel():
         email = request.form.get("email")
         senha = request.form.get("senha")
         foto = request.files.get("foto")
+        banner = request.files.get("banner")
         with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f"{nome_hotel} | {cidade_hotel} | {bairro_hotel} | {rua_hotel} | {numero_hotel} | {cnpj_hotel} | {email} | {senha}\n")
 

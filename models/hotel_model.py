@@ -1,5 +1,6 @@
 from models.connect import Database
 from flask import flash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class HotelModel:
     def __init__(self, id_hotel=None, nome=None, cidade=None, bairro=None,rua=None,numero=None,cnpj=None,email=None,senha=None,foto=None):
@@ -46,8 +47,9 @@ class HotelModel:
             db.close()
             return True
         else:
+            senha_hash = generate_password_hash(self.senha)
             sql = "INSERT INTO hoteis (nome, cidade, bairro, rua, numero, cnpj, email, senha, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-            db.execute(sql, (self.nome, self.cidade, self.bairro, self.rua, self.numero, self.cnpj, self.email, self.senha, self.foto))
+            db.execute(sql, (self.nome, self.cidade, self.bairro, self.rua, self.numero, self.cnpj, self.email, senha_hash, self.foto))
             db.commit()
             db.close()
             return False
@@ -55,11 +57,12 @@ class HotelModel:
     def buscar_por_email_senha(self):
         db = Database()
         db.connect()
-        sql = "SELECT * FROM hoteis WHERE email=? AND senha=?"
-        db.execute(sql, (self.email, self.senha))
+        sql = "SELECT * FROM hoteis WHERE email=?"
+        db.execute(sql, (self.email,))
         hotel = db.fetchone()
-        if hotel:
-            db.close()
+        db.close()
+
+        if hotel and check_password_hash(hotel['senha'], self.senha):
             return hotel
         else:
             return None
