@@ -3,11 +3,12 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 from models.reserva_model import ReservaModel
+from datetime import datetime, timedelta
 
 quarto_bp = Blueprint('quarto', __name__, template_folder='../templates')
 
-@quarto_bp.route('/quartos_reserva/<int:id_hotel>', methods=['GET', 'POST'])
-def quartos_reserva(id_hotel):
+@quarto_bp.route('/quartos_reserva/<int:id_hotel>/<int:id_quarto>', methods=['GET', 'POST'])
+def quartos_reserva(id_hotel, id_quarto):
     if 'usuario' in session:
         botao_reserva_texto = "Reservar quarto!"
         icone = "/static/{}".format(session['usuario']['imagem'])
@@ -24,18 +25,33 @@ def quartos_reserva(id_hotel):
     hotel_model = HotelModel(id_hotel=id_hotel)
     hotel = hotel_model.buscar_por_hotel()
 
-    quarto_model = QuartoModel(id_quarto=id_hotel)
+    quarto_model = QuartoModel(id_quarto=id_quarto)
     quarto = quarto_model.buscar_por_quarto()
 
-    rota = "/quartos_reserva/{}".format(id_hotel)
+    reserva_model = ReservaModel(id_quarto=id_quarto)
+    reservas = reserva_model.buscar_todas_reservas()
+
+    datas_ocupadas = []
+    for reserva in reservas:
+        inicio = datetime.strptime(reserva['check_in'], "%Y-%m-%d")
+        fim = datetime.strptime(reserva['check_out'], "%Y-%m-%d")
+        while inicio <= fim:
+            datas_ocupadas.append(inicio.strftime("%Y-%m-%d"))
+            inicio += timedelta(days=1)
+
+    rota = "/quartos_reserva/{}/{}".format(id_hotel, id_quarto)
 
     data_checkin = request.form.get("checkin")
     data_checkout = request.form.get("checkout")
 
-    if request.method == "POST" and "usuario" in session:
-        reserva = ReservaModel(None, session["usuario"]["id"], id_hotel, None, data_checkin, data_checkout)
-        reserva.fazer_reserva()
-    else:
-        redirect(url_for("gerais.login"))
+    if request.method == "POST":
+        if "usuario" in session:
+            reserva = ReservaModel(None, session["usuario"]["id"], id_hotel, None, data_checkin, data_checkout)
+            reserva.fazer_reserva()
+        if "hotel" in session:
+            reserva = ReservaModel(None, session["usuario"]["id"], id_hotel, None, data_checkin, data_checkout)
+            reserva.fazer_reserva()
+        else:
+            return redirect(url_for("gerais.login"))
 
     return render_template('quartos/quartos_hotel.html', icone=icone, endereco=endereco, hotel=hotel, quarto=quarto, rota=rota, botao_reserva_texto=botao_reserva_texto)
