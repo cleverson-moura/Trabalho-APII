@@ -39,7 +39,9 @@ class ReservaModel:
         db = Database()
         db.connect()
         sql = "SELECT * FROM reservas WHERE id_quarto=?"
-        db.execute(sql, (self.id_usuario,))
-        reservas = db.fetchall()
+        db.execute(sql, (self.id_quarto,))
+        rows = db.fetchall()
         db.close()
+
+        reservas = [dict(row) for row in rows]
         return reservas
