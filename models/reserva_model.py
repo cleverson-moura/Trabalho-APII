@@ -34,3 +34,14 @@ class ReservaModel:
         db.execute(sql, (self.id_usuario, self.id_quarto, self.data_checkin, self.data_checkout ))
         db.commit()
         db.close()
+
+    def buscar_todas_reservas(self):
+        db = Database()
+        db.connect()
+        sql = "SELECT * FROM reservas WHERE id_quarto=?"
+        db.execute(sql, (self.id_quarto,))
+        rows = db.fetchall()
+        db.close()
+
+        reservas = [dict(row) for row in rows]
+        return reservas

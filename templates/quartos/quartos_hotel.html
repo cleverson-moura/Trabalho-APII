@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quarto hotel</title>
-    <link rel="stylesheet" href="/static/estilos/estilo_quarto_hotel.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quarto hotel</title>
+  <link rel="stylesheet" href="/static/estilos/estilo_quarto_hotel.css">
+
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
   <!-- Cabeçalho -->
   <header>
     <div id="menu-e-logo">
-        <!-- Logo da empresa -->
-        <img src="" alt="" id="logo">
-      
-      <!-- Botão do menu lateral -->
+      <img src="" alt="" id="logo">
       <div class="opcoes" onclick="toggleSidebar()">☰</div>
-      
-      <!-- Ícone do usuário -->
       <a href="{{endereco}}">
         <div class="icone-usuario">
           <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
@@ -24,51 +22,49 @@
       </a>
     </div>
   </header>
-  <!-- ##Aqui mostrará um pouco do hotel## -->
-<section class="sobre_quarto">
-  <img src="/" alt="Ver q imagem pode ficar aqui">
+
+  <!-- Seção do hotel -->
+  <section class="sobre_quarto">
+    <img src="{{ url_for('static', filename=hotel.background) }}" alt="Ver a imagem para ficar aqui">
     <div class="extras"> 
       <img src="{{ url_for('static', filename=hotel.foto) }}">
-      
     </div>
-     <!-- ##Aqui mostrará um pouco do hotel## -->
-</section>
-<section class="detalhes-quarto">
-  <div class="info-quarto">
-    <h1>{{ hotel.nome }}</h1>
-    <h2>Quarto {{ quarto.andar }}° Andar</h2>
-    <h2>Número {{ quarto.numero_quarto }}°</h2>
-    <p class="valor-quarto">Diária: {{ quarto.preco }} R$</p>
-    <h3>Descrição do quarto:</h3>
-    <h4>{{ quarto.descricao }}</h4>
-  </div>
+  </section>
 
-  <div class="galeria-quarto">
-    <h3>Fotos do Quarto</h3>
-    <div class="fotos-quarto">
-      <!--Fotos do quarto aq-->
-      <img src="/" alt="1º foto do quarto">
-      <img src="/" alt="2º foto do quarto">
-      <img src="/" alt="3º foto do quarto">
-      <img src="/" alt="4º foto do quarto">
-      <img src="/" alt="5º foto do quarto">
-      <!--Fotos do quarto aq-->
+  <section class="detalhes-quarto">
+    <div class="info-quarto">
+      <h1>{{ hotel.nome }}</h1>
+      <h2>Quarto {{ quarto.andar }}° Andar</h2>
+      <h2>Número {{ quarto.numero_quarto }}°</h2>
+      <p class="valor-quarto">Diária: {{ quarto.preco }} R$</p>
+      <h3>Descrição do quarto:</h3>
+      <h4>{{ quarto.descricao }}</h4>
     </div>
-  </div>
 
-  <div class="disponibilidade-quarto">
-    <form action="{{ rota }}" method="POST">
-    <h3>Escolha as datas</h3>
-    <label for="checkin">Check-in:</label>
-    <input type="date" id="checkin" name="checkin">
+    <div class="galeria-quarto">
+      <h3>Fotos do Quarto</h3>
+      <div class="fotos-quarto">
+        <img src="/" alt="1º foto do quarto">
+        <img src="/" alt="2º foto do quarto">
+        <img src="/" alt="3º foto do quarto">
+        <img src="/" alt="4º foto do quarto">
+        <img src="/" alt="5º foto do quarto">
+      </div>
+    </div>
 
-    <label for="checkout">Check-out:</label>
-    <input type="date" id="checkout" name="checkout">
-  </div>
-</section>
-     <button  type="submit" class="btn_editar">{{ botao_reserva_texto }}</button>  
-           </form>
+    <div class="disponibilidade-quarto">
+      <form action="{{ rota }}" method="POST">
+        <h3>Escolha as datas</h3>
+        <label for="checkin">Check-in:</label>
+        <input type="text" id="checkin" name="checkin" required>
 
+        <label for="checkout">Check-out:</label>
+        <input type="text" id="checkout" name="checkout" required>
+
+        <button type="submit" class="btn_editar">{{ botao_reserva_texto }}</button>
+      </form>
+    </div>
+  </section>
 
   <!-- Menu lateral -->
   <aside id="sidebar" class="sidebar">
@@ -83,11 +79,10 @@
       </ul>
     </nav>
   </aside>
-    </div>
-           
-  <!-- Fundo escurecido para o menu -->
+
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-   <footer class="rodape">
+
+  <footer class="rodape">
     <h2>Contato da equipe</h2>
     <p>cleverson.moura11@aluno.ifce.edu.br</p>
     <p>oliveira.mario09@aluno.ifce.edu.br</p>
@@ -96,7 +91,7 @@
     <p>gustavo.lemos08@aluno.ifce.edu.br</p>
   </footer>
 
- <!-- Scripts -->
+  <!-- Scripts -->
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
@@ -106,5 +101,25 @@
     }
   </script>
   <script src="/static/scripts/index.js"></script>
+
+  <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+    // Pegando do Flask a lista de datas ocupadas
+    const datasOcupadas = {{ datas_ocupadas | safe }};
+
+    flatpickr("#checkin", {
+      dateFormat: "Y-m-d",
+      disable: datasOcupadas,
+      minDate: "today"
+    });
+
+    flatpickr("#checkout", {
+      dateFormat: "Y-m-d",
+      disable: datasOcupadas,
+      minDate: "today"
+    });
+  </script>
 </body>
 </html>
