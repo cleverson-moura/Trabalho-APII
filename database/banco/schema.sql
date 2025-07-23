@@ -95,5 +95,50 @@ IMG_HOTEIS
 )'''
 cursor.execute(criar_tabela_IMG_HOTEIS)
 
+criar_tabela_IMG_QUARTOS = ''' CREATE TABLE IF NOT EXISTS
+IMG_QUARTOS
+(
+    id_img_quarto INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_quarto INTEGER,
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    img_extra,
+    FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto)
+)'''
+cursor.execute(criar_tabela_IMG_QUARTOS)
+
+criar_tabela_estrelas_hoteis = ''' CREATE TABLE IF NOT EXISTS
+estrelas_hoteis
+(
+    id_estrela_hotel INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_hotel INTEGER,
+    uma_estrela,
+    duas_estrelas,
+    tres_estrelas,
+    quatro_estrelas,
+    cinco_estrelas,
+    media_p,
+    FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel)
+)'''
+cursor.execute(criar_tabela_estrelas_hoteis)
+
+criar_tabela_estrelas_quartos = ''' CREATE TABLE IF NOT EXISTS
+estrelas_quartos
+(
+    id_estrela_quarto INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_quarto INTEGER,
+    uma_estrela,
+    duas_estrelas,
+    tres_estrelas,
+    quatro_estrelas,
+    cinco_estrelas,
+    media_p,
+    FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto)
+)'''
+cursor.execute(criar_tabela_estrelas_quartos)
+
 con.commit()
 con.close()
