@@ -66,3 +66,16 @@ class HotelModel:
             return hotel
         else:
             return None
+        
+    def atualizar(self):
+        db = Database()
+        db.connect()
+        if self.senha:
+            senha_hash = generate_password_hash(self.senha)
+            sql = """UPDATE hoteis SET nome=?, senha=?, foto=? WHERE id_hotel=?"""
+            db.execute(sql, (self.nome, senha_hash, self.foto, self.id_hotel))
+        else:
+            sql = """UPDATE hoteis SET nome=?, foto=? WHERE id_hotel=?"""
+            db.execute(sql, (self.nome, self.foto, self.id_hotel))
+        db.commit()
+        db.close()
