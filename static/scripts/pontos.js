@@ -14,3 +14,17 @@
 //     btn2.classList.remove('ativo');
 //     btn2.classList.add('inativo');
 // }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const btnAbrirPopup = document.getElementById("btn-abrir-popup");
+    const popup = document.getElementById("popup");
+    const fecharPopup = document.getElementById("fechar-popup");
+
+    btnAbrirPopup.addEventListener("click", function() {
+        popup.classList.add("ativo");
+    });
+
+    fecharPopup.addEventListener("click", function() {
+        popup.classList.remove("ativo");
+    });
+});
