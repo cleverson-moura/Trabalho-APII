@@ -1,0 +1,278 @@
+/* CABEÇALHO */
+header {
+    background: linear-gradient(to right, #3F8583, #ffecb2);
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header #menu-e-logo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+header #menu-e-logo #logo{
+    display: flex;
+}
+
+header #menu-e-logo #menu {
+    margin-right: 10px;
+}
+
+.icone-usuario{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.icone-usuario img {
+    width: auto;
+    height: 100%;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+.devs_logo {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+}
+.card {
+  background-color: #fff7dc;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 400px;
+  height: 200px;
+}
+
+/* Posiciona os dois balões de baixo nas colunas corretas */
+.card-linha2:nth-of-type(4) {
+  grid-column: 1;
+}
+
+.card-linha2:nth-of-type(5) {
+  grid-column: 3;
+}
+body {
+    background-color: #3d3d3e;
+    margin: 0;
+    padding: 0;
+}
+/* BOTÕES */
+
+#btn-container {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#btn-container #btn-background{
+    background-color: #0d89a3;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#btn-container button {
+    height: 40px;
+    width: 255px;
+    border: none;
+    background: none;
+
+    font-size: large;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#btn-container .ativo{
+    background-color: orange;
+    border-radius: 20px;
+}
+
+#btn-container .ativo button{
+    color: black;
+    border-radius: 20px;
+}
+
+#btn-container .inativo{
+    background: none;
+}
+
+#btn-container .inativo button{
+    color: rgb(255, 254, 254);
+}
+
+/* CONTEUDO PRINCIPAL */
+
+main {
+    background-color: #498E8C;
+    margin-top: 80px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    align-items: baseline;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+main .ponto {
+    width: 27%;
+    padding: 3%;
+}
+
+main .ponto p, main .ponto h2{
+    color: #ffffff;
+}
+
+main .ponto img{
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+/* RESPONSIVIDADE */
+
+
+@media (max-width: 700px) {
+    header #menu-e-logo #logo{
+        width: 70%;
+    }
+
+    header #menu-e-logo #menu{
+        width: 40px;
+    }
+
+    header #usuario-icon{
+        width: 60px;
+    }
+
+    main .ponto {
+        width: 40%;
+        padding: 5%;
+    }
+}
+
+@media (max-width: 550px) {
+    #btn-container button {
+        width: 150px;
+
+        font-size: medium;
+    }
+
+    main .ponto {
+        width: 95%;
+        padding: 5%;
+        align-self: center;
+    }
+}
+
+/* ##Aqui é o rodape q fica no fundo## */
+.rodape {
+    width: 100%;
+    background: #a1cfa3 ;
+    margin-top: 100px;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+}
+
+.rodape h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.rodape p {
+    margin: 6px 0;
+    font-size: 1em;
+}
+/* ##Aqui é o rodape q fica no fundo## */
+
+ /* ####Opções#### */
+.opcoes {
+  font-size: 28px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1003;
+  background-color: #f0e6c2;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #f0e6c2;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  z-index: 1002;
+  padding-top: 80px;
+}
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  padding: 15px 20px;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  transition: background 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #e0d5aa;
+  border-radius: 5px;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.sidebar.active {
+  left: 0;
+}
+ /* ####Opções#### */
