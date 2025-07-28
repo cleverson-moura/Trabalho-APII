@@ -1,20 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hoteis</title>
+    <link rel="stylesheet" href="/static/estilos/busca.css">
+
+    <script defer>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("overlay");
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        }
+    </script>
 </head>
+
 <body>
+    <header>
+        <div id="menu-e-logo">
+            <!-- Logo (quando houver) -->
+            <img src="static/uploads/CÁriri-removebg-preview.png" alt="" id="logo" class="logo" />
+            <div class="opcoes" onclick="toggleSidebar()">☰</div>
+
+            <!-- Ícone do usuário -->
+            <a href={{endereco}}>
+                <div class="icone-usuario">
+                    <img src={{icone}} alt="Usuário" id="usuario-icon" />
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <!-- Menu lateral -->
+    <aside id="sidebar" class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/quem_somos">Quem Somos</a></li>
+                <li><a href="/">Quartos</a></li>
+                <li><a href="/pontos">Pontos turísticos</a></li>
+                <li><a href="/contato">Contato</a></li>
+                <li><a href="/templates/projeto.html">Projeto</a></li>
+            </ul>
+        </nav>
+    </aside>
+
     {% if hoteis %}
-        <h1>Resultados da busca por "{{ termo }}"</h1>
-        <ul>
-            {% for hotel in hoteis %}
-                <li>{{ hotel.nome }}</li>
-            {% endfor %}
-        </ul>
+    <h1>Resultados da busca por "{{ termo }}"</h1>
+    <!-- Barra de pesquisa -->
+    <form method="get" action="/buscar">
+        <input type="text" name="q" placeholder="Digite o nome do hotel" value="{{ termo }}">
+        <button type="submit">Buscar</button>
+    </form>
+    <div class="hotel-list">
+        {% for hotel in hoteis %}
+        <div class="hotel-item">
+            <img src="{{ url_for('static', filename=hotel.foto) }}" alt="{{ hotel.nome }}" class="hotel-imagem">
+            <h2>{{ hotel.nome }}</h2>
+        </div>
+        {% endfor %}
+    </div>
     {% else %}
-        <h1>Nenhum hotel encontrado para "{{ termo }}"</h1>
+    <h1>Nenhum hotel encontrado para "{{ termo }}"</h1>
+    <!-- Barra de pesquisa -->
+    <form method="get" action="/buscar">
+        <input type="text" name="q" placeholder="Digite o nome do hotel" value="{{ termo }}">
+        <button type="submit">Buscar</button>
+    </form>
     {% endif %}
 </body>
+<script src="/static/scripts/index.js"></script>
+
 </html>
