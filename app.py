@@ -76,7 +76,7 @@ def quem_somos():
 
 @app.route('/salvar_quartos', methods=['GET'])
 def exibir_formulario_quarto():
-    return render_template('quarto/salvar_quartos.html')
+    return render_template('quartos/salvar_quartos.html')
 
 @app.route('/salvar_quarto', methods=['POST'])
 def salvar_quarto():
