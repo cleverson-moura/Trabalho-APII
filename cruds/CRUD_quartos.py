@@ -12,13 +12,13 @@ def cadastrar_quarto():
     numero = input('Número do quarto a cadastrar: ')
     preco = input('Número da reserva do quarto a cadastrar: ')
     id_hotel = input('Chave do quarto a cadastrar: ')
-    id_usuario = int(input('ID do hotel que o quarto pertence: '))
+    descricao = input('ID do hotel que o quarto pertence: ')
 
     sql = '''
-        INSERT INTO quartos (andar, numero_quarto, preco, id_hotel)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO quartos (andar, numero_quarto, preco, id_hotel, descricao)
+        VALUES (?, ?, ?, ?, ?)
     '''
-    db.execute(sql, (andar, numero, preco, id_hotel))
+    db.execute(sql, (andar, numero, preco, id_hotel, descricao))
     db.commit()
     db.close()
 

@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home dos Hotéis</title>
   <link rel="stylesheet" href="/static/estilos/style.css" />
+  <style>
+    body a{text-decoration: none;}
+  </style>
   <script defer>
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
@@ -18,7 +21,7 @@
   <header>
     <div id="menu-e-logo">
       <!-- Logo (quando houver) -->
-      <img src="" alt="" id="logo" />
+      <img src="static/uploads/CÁriri-removebg-preview.png" alt="" id="logo" class="logo"/>
       <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
       <!-- Ícone do usuário -->
@@ -67,9 +70,12 @@
       {% if quartos %}
         {% for quarto in quartos %}
           <div class="ponto">
-            <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel) }}">
-            <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
-            <p>{{texto}}</p>
+            <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel) }}" text-decoration="none">
+              <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Hotel" />
+              <div class="ponto-info">
+                <h2>{{ quarto.andar }}° andar, Número {{ quarto.numero_quarto }}</h2>
+                <p>{{ quarto.descricao }}</p>
+              </div>
             </a>
           </div>
         {% endfor %}
