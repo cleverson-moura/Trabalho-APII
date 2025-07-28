@@ -71,6 +71,19 @@ def login():
     
     return render_template('login.html')
 
+@gerais_bp.route("/contato")
+def contato():
+    if 'usuario' in session:
+        icone = "/static/{}".format(session['usuario']['imagem'])
+        endereco = "/perfil_usuario"
+    elif 'hotel' in session:
+        icone = "/static/{}".format(session['hotel']['foto'])
+        endereco = "/perfil_hotel"
+    else:
+        icone = "/static/imagens/user.png"
+        endereco = "/login"
+    return render_template("contato.html", endereco=endereco, icone=icone)
+
 @gerais_bp.route('/sair')
 def sair():
     # registrar()

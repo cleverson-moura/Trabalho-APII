@@ -37,7 +37,7 @@ def pontos():
         endereco = "/perfil_hotel"
     else:
         icone = "/static/imagens/user.png"
-        endereco = "/cadastro"
+        endereco = "/login"
     texto = "Vamos ver"
     registrar()
     # usando o osjeto de conexão com banco de dados

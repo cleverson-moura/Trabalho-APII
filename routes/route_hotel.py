@@ -22,6 +22,7 @@ def cadastro_hotel():
         email = request.form.get("email")
         senha = request.form.get("senha")
         foto = request.files.get("foto")
+        banner = request.files.get("banner")
         with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f"{nome_hotel} | {cidade_hotel} | {bairro_hotel} | {rua_hotel} | {numero_hotel} | {cnpj_hotel} | {email} | {senha}\n")
 
@@ -96,3 +97,45 @@ def hotel_reserva(id_hotel):
         
 
     return render_template('empresa/hotel_reserva.html', hotel=hotel, quartos=quartos)
+
+@hotel_bp.route('/editar_perfil_hotel', methods=['GET', 'POST'])
+def editar_perfil_hotel():
+    if 'hotel' not in session:
+        return redirect(url_for('hotel.cadastro_hotel'))
+
+    if request.method == 'POST':
+        id_hotel = session['hotel']['id']
+        nome = request.form.get('nome')
+        senha = request.form.get('senha')
+        imagem = request.files.get('imagem')
+
+        # Usa a foto antiga como padrão
+        foto_path = session['hotel']['foto']
+        if imagem and imagem.filename != '':
+            filename = secure_filename(imagem.filename)
+            caminho_foto = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            imagem.save(caminho_foto)
+            foto_path = f'uploads/{filename}'
+
+        # Atualiza no banco
+        hotel_model = HotelModel(id_hotel=id_hotel, nome=nome, senha=senha, foto=foto_path)
+        hotel_model.atualizar()
+
+        # Atualiza todos os dados da sessão com os valores mais recentes do banco
+        hotel_atualizado = HotelModel(id_hotel=id_hotel).buscar_por_hotel()
+        session['hotel'] = {
+            'id': hotel_atualizado['id_hotel'],
+            'nome': hotel_atualizado['nome'],
+            'cidade': hotel_atualizado['cidade'],
+            'bairro': hotel_atualizado['bairro'],
+            'rua': hotel_atualizado['rua'],
+            'numero': hotel_atualizado['numero'],
+            'cnpj': hotel_atualizado['cnpj'],
+            'email': hotel_atualizado['email'],
+            'foto': hotel_atualizado['foto']
+        }
+
+        flash("Perfil atualizado com sucesso!", "success")
+        return redirect(url_for('hotel.perfil_hotel'))
+
+    return render_template('empresa/editar_hotel.html', hotel=session['hotel'])
