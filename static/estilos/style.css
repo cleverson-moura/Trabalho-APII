@@ -136,7 +136,8 @@ main .ponto p, main .ponto h2{
 main .ponto img{
     border-radius: 10px;
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: cover;
 }
 
 .ponto img:hover {
