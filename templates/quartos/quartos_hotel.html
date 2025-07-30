@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <!-- Flatpickr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
+
 <body>
   <!-- Cabeçalho -->
   <header>
@@ -25,8 +27,13 @@
 
   <!-- Seção do hotel -->
   <section class="sobre_quarto">
-    <img src="{{ url_for('static', filename=hotel.background) }}" alt="Ver a imagem para ficar aqui">
-    <div class="extras"> 
+    {% if hotel.background %}
+    <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel">
+    {% else %}
+    <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Imagem padrão do hotel">
+    {% endif %}
+
+    <div class="extras">
       <img src="{{ url_for('static', filename=hotel.foto) }}">
     </div>
   </section>
@@ -122,4 +129,5 @@
     });
   </script>
 </body>
+
 </html>
