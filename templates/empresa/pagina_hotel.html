@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ hotel.nome }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos/pagina_hotel.css') }}">
+</head>
+<body>
+    <header class="header-imagem">
+        {% if hotel.background %}
+            <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem de fundo do hotel">
+        {% else %}
+            <img src="{{ url_for('static', filename='imagens/hotel_padrao.jpg') }}" alt="Imagem padrão do hotel">
+        {% endif %}
+    </header>
+
+    <main class="conteudo">
+        <div class="hotel-info">
+            <img src="{{ url_for('static', filename=hotel.foto) }}" alt="Foto do hotel">
+            <h1>{{ hotel.nome }}</h1>
+            <p>{{ hotel.cidade }} - {{ hotel.bairro }}</p>
+            <p>{{ hotel.rua }}, {{ hotel.numero }}</p>
+        </div>
+
+        <section class="quartos">
+            <h2>Quartos disponíveis</h2>
+            {% if quartos %}
+                {% for quarto in quartos %}
+                    <div class="quarto-item">
+                        {% if quarto.imagem %}
+                            <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="Imagem do quarto" class="quarto-imagem">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='imagens/quarto_padrao.jpg') }}" alt="Imagem padrão do quarto" class="quarto-imagem">
+                        {% endif %}
+                        <div class="quarto-info">
+                            <h3>{{ quarto.nome }}</h3>
+                            <p>{{ quarto.descricao }}</p>
+                            <p><strong>Preço:</strong> R$ {{ quarto.preco }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Não há quartos disponíveis neste hotel.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

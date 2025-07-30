@@ -57,8 +57,10 @@
     <div class="hotel-list">
         {% for hotel in hoteis %}
         <div class="hotel-item">
-            <img src="{{ url_for('static', filename=hotel.foto) }}" alt="{{ hotel.nome }}" class="hotel-imagem">
-            <h2>{{ hotel.nome }}</h2>
+        <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}">
+                <img src="{{ url_for('static', filename=hotel.foto) }}" alt="{{ hotel.nome }}" class="hotel-imagem">
+                <h2>{{ hotel.nome }}</h2>
+            </a>
         </div>
         {% endfor %}
     </div>

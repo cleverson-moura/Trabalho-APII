@@ -80,7 +80,7 @@ def exibir_formulario_quarto():
 
 @app.route('/salvar_quarto', methods=['POST'])
 def salvar_quarto():
-    # mes_disponivel = request.form.get('mes_disponivel')
+    
     andar = request.form.get('andar')
     numero = request.form.get('numero_quarto')
     preco = request.form.get('preco')
