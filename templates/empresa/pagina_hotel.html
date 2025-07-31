@@ -27,6 +27,7 @@
             <h2>Quartos disponíveis</h2>
             {% if quartos %}
                 {% for quarto in quartos %}
+                <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel, id_quarto=quarto.id_quarto) }}">
                     <div class="quarto-item">
                         {% if quarto.imagem %}
                             <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="Imagem do quarto" class="quarto-imagem">
@@ -39,6 +40,7 @@
                             <p><strong>Preço:</strong> R$ {{ quarto.preco }}</p>
                         </div>
                     </div>
+                    </a>
                 {% endfor %}
             {% else %}
                 <p>Não há quartos disponíveis neste hotel.</p>

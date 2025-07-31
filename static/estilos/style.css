@@ -129,6 +129,32 @@ main .ponto {
     display: none;
 }
 
+.search-form {
+    width: 90%;
+    display: flex;
+    align-items: baseline;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 5.5%;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0d89a3;
+    color: white;
+    cursor: pointer;
+}
+
 main .ponto p, main .ponto h2{
     color: #ffffff;
 }
