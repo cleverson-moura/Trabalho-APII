@@ -6,6 +6,7 @@
   <title>Pontos Turísticos</title>
   <link rel="stylesheet" href="/static/estilos/pontos.css" />
 </head>
+<script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
 <body>
   <!-- Cabeçalho -->
   <header>
@@ -35,6 +36,10 @@
         <li><a href="/pontos">Pontos turísticos</a></li>
         <li><a href="/contato">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
+        <a href="{{endereco}}">
+        <div class="icone-usuario">
+          <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
+        </div>
       </ul>
     </nav>
   </aside>
@@ -49,21 +54,54 @@
         <button>Pontos Turísticos</button>
       </div>
       <div id="btn-hoteis" class="inativo">
-        <a href="/"><button>Quartos</button></a>
+        <a href="/"><button>Hotéis</button></a>
       </div>
     </div>
   </div>
+  <form id="form-ponto" method="POST" action="/adicionar_ponto" enctype="multipart/form-data">
+
+<div id="popup" class="popup">
+    <div class="popup-conteudo">
+        <span class="fechar" id="fechar-popup">&times;</span>
+        <h2>Adicionar ponto turístico</h2>
+        <form id="form-ponto" enctype="multipart/form-data">
+            <label for="nome">Nome do local:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label>Endereço:</label>
+            <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+            <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+            <input type="text" id="rua" name="rua" placeholder="Rua" required>
+
+            <label for="descricao">Descrição do local:</label>
+            <textarea id="descricao" name="descricao" rows="4" required></textarea>
+
+            <label for="imagem">Imagem do local:</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*">
+
+            <button type="submit" class="btn-popup">Salvar</button>
+        </form>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
+
 
   <!-- Conteúdo Principal -->
-  <main id="pontos-container">
-    {% for i in range(5) %}
+   <div style="text-align: center; margin-top: 30px;">
+  <button id="btn-abrir-popup" class="btn-adicionar">+ Adicionar ponto turístico</button>
+</div>
+ <main id="pontos-container">
+  {% for ponto in pontos %}
     <div class="ponto">
-      <img src="/static/imagens/diocese.jpg" alt="Imagem do ponto turístico" />
-      <h2>{{ Teste }}</h2>
-      <p>{{ Teste2 }}</p>
+      <img src="{{ url_for('static', filename=ponto['imagem']) }}" alt="Imagem do ponto turístico" />
+      <h2>{{ ponto['nome'] }}</h2>
+      <p>{{ ponto['descricao'] }}</p>
     </div>
-    {% endfor %}
-  </main>
+  {% else %}
+    <p>Nenhum ponto turístico cadastrado ainda.</p>
+  {% endfor %}
+</main>
 
   <!-- Rodapé -->
   <footer class="rodape">
@@ -84,6 +122,6 @@
       overlay.classList.toggle("active");
     }
   </script>
-  <script src="/static/scripts/index.js"></script>
+  <script src="/static/scripts/pontos.js"></script>
 </body>
 </html>

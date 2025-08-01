@@ -9,6 +9,7 @@ from models.usuario_model import UsuarioModel
 from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
+from models.pontos_turisticos_model import PontoTuristicoModel
 
 def registrar():
     ip_usuario = request.remote_addr
@@ -38,8 +39,18 @@ def pontos():
     else:
         icone = "/static/imagens/user.png"
         endereco = "/login"
-    texto = "Vamos ver"
+
     registrar()
+    model = PontoTuristicoModel()
+    pontos = model.buscar_todos()
+
+    return render_template(
+        '/pontos',
+        pontos=pontos,
+        icone=icone,
+        endereco=endereco
+    )
+    
     # usando o osjeto de conexão com banco de dados
     #connect = sqlite3.connect("database/banco/banco_de_dados.db") # cria o objeto
     #cursor = connect.cursor() # conecta ao banco
@@ -111,4 +122,4 @@ def salvar_quarto():
 
 if __name__=="__main__":
     app.run(debug=True)
-
+    

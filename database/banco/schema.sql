@@ -41,7 +41,8 @@ hoteis
     cnpj INTEGER,
     email TEXT,
     senha TEXT,
-    foto TEXT
+    foto TEXT,
+    chave_pix TEXT,
 )'''
 cursor.execute(criar_tabela_hoteis)
 

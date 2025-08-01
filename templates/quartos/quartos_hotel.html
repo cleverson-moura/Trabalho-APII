@@ -87,6 +87,34 @@
     </nav>
   </aside>
 
+  <!-- ## Popup da parte de pagamento ## -->
+<div id="popup-pagamento" class="popup-pagamento">
+  <div class="popup-conteudo">
+    <span id="fechar-popup" class="fechar">&times;</span>
+    <h2>Escolha a forma de pagamento</h2>
+
+    <div class="opcao-pagamento">
+      <h3>Cartão de Crédito</h3>
+      <input type="text" placeholder="Número do Cartão">
+      <input type="text" placeholder="Nome no Cartão">
+      <input type="text" placeholder="Validade (MM/AA)">
+      <input type="text" placeholder="CVV">
+    </div>
+
+    <div class="opcao-pagamento">
+      <h3>PIX</h3>
+      <p>Chave PIX: <strong>{{hotel.chave_pix}}</strong></p>
+    </div>
+
+    <div class="opcao-pagamento">
+      <h3>Pagamento no Check-in</h3>
+      <p>Você poderá pagar presencialmente no momento do check-in.</p>
+    </div>
+
+    <button id="confirmar-pagamento">Confirmar</button>
+  </div>
+</div>
+
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
   <footer class="rodape">
@@ -128,6 +156,29 @@
       minDate: "today"
     });
   </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const btnReserva = document.querySelector(".btn_editar");
+    const popup = document.getElementById("popup-pagamento");
+    const fechar = document.getElementById("fechar-popup");
+
+    btnReserva.addEventListener("click", function (e) {
+      e.preventDefault(); 
+      popup.classList.add("ativo");
+    });
+
+    fechar.addEventListener("click", function () {
+      popup.classList.remove("ativo");
+    });
+
+    document.getElementById("confirmar-pagamento").addEventListener("click", function () {
+      popup.classList.remove("ativo");
+      alert("Forma de pagamento selecionada!");
+
+    });
+  });
+</script>
+
 </body>
 
 </html>

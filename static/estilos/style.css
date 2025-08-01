@@ -231,13 +231,14 @@ main .ponto img{
 
  /* ####Opções#### */
 .opcoes {
+  color: #ffffff;
   font-size: 28px;
   cursor: pointer;
   position: fixed;
   top: 20px;
   left: 20px;
   z-index: 1003;
-  background-color: #f0e6c2;
+  background-color: #498E8C;
   padding: 8px 12px;
   border-radius: 6px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
@@ -249,7 +250,7 @@ main .ponto img{
   left: -260px;
   width: 250px;
   height: 100%;
-  background-color: #f0e6c2;
+  background-color: #498E8C;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease;
   z-index: 1002;
@@ -267,7 +268,7 @@ main .ponto img{
 
 .sidebar nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: #141414;
   font-weight: bold;
   display: block;
   transition: background 0.3s;
@@ -276,6 +277,17 @@ main .ponto img{
 .sidebar nav ul li a:hover {
   background-color: #e0d5aa;
   border-radius: 5px;
+}
+.sidebar .icone-usuario {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.sidebar .icone-usuario img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
 }
 
 /* OVERLAY */
