@@ -27,6 +27,9 @@
         <!--Aqui o input da imagem-->
         <label for="imagem">Foto</label>
         <input type="file" name="imagem" id="imagem">
+        <!--Aqui o input da chave pix-->
+        <label for="chave_pix">Chave Pix para pagamentos</label>
+        <input type="text" id="chave_pix" name="chave_pix" required value="{{ hotel['chave_pix'] }}">
         
         <button type="submit">Salvar mudanças</button>
       </form>

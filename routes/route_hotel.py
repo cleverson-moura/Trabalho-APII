@@ -22,6 +22,7 @@ def cadastro_hotel():
         email = request.form.get("email")
         senha = request.form.get("senha")
         foto = request.files.get("foto")
+        chave_pix = request.form.get("chave_pix")
         banner = request.files.get("banner")
         with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
             arquivo.write(f"{nome_hotel} | {cidade_hotel} | {bairro_hotel} | {rua_hotel} | {numero_hotel} | {cnpj_hotel} | {email} | {senha}\n")
@@ -36,7 +37,7 @@ def cadastro_hotel():
 
         # Verifica se o CNPJ é válido
         # if not re.match(r'^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$', cnpj_empresa):
-        #     flash('CNPJ inválido. Formato esperado: XX.XXX.XXX/XXXX-XX', 'error')
+        #     flash('CNPJ inválido. Formato esperado: XX.XXx.XXx/XXXX-XX', 'error')
         #     return redirect(url_for('cadastro_empresa'))
 
         # Cria o objeto HotelModel
@@ -49,7 +50,8 @@ def cadastro_hotel():
             cnpj=cnpj_hotel,
             email=email,
             senha=senha,
-            foto=caminho_relativo_foto
+            foto=caminho_relativo_foto,
+            chave_pix=chave_pix
         )
 
         # Insere os dados no banco de dados
@@ -68,7 +70,8 @@ def cadastro_hotel():
                     'numero': resultado['numero'],
                     'cnpj': resultado['cnpj'],
                     'email': resultado['email'],
-                    'foto': resultado['foto']                
+                    'foto': resultado['foto'],
+                    'chave_pix': resultado['chave_pix']               
                 }
 
             flash('Empresa cadastrada com sucesso!', 'success')
@@ -108,6 +111,7 @@ def editar_perfil_hotel():
         nome = request.form.get('nome')
         senha = request.form.get('senha')
         imagem = request.files.get('imagem')
+        chave_pix = request.form.get('chave_pix')
 
         # Usa a foto antiga como padrão
         foto_path = session['hotel']['foto']
@@ -118,7 +122,7 @@ def editar_perfil_hotel():
             foto_path = f'uploads/{filename}'
 
         # Atualiza no banco
-        hotel_model = HotelModel(id_hotel=id_hotel, nome=nome, senha=senha, foto=foto_path)
+        hotel_model = HotelModel(id_hotel=id_hotel, nome=nome, senha=senha, foto=foto_path, chave_pix=chave_pix)
         hotel_model.atualizar()
 
         # Atualiza todos os dados da sessão com os valores mais recentes do banco
@@ -132,7 +136,8 @@ def editar_perfil_hotel():
             'numero': hotel_atualizado['numero'],
             'cnpj': hotel_atualizado['cnpj'],
             'email': hotel_atualizado['email'],
-            'foto': hotel_atualizado['foto']
+            'foto': hotel_atualizado['foto'],
+            'chave_pix' : hotel_atualizado['chave_pix']
         }
 
         flash("Perfil atualizado com sucesso!", "success")
