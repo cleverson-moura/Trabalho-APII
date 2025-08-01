@@ -144,3 +144,14 @@ def editar_perfil_hotel():
         return redirect(url_for('hotel.perfil_hotel'))
 
     return render_template('empresa/editar_hotel.html', hotel=session['hotel'])
+
+@hotel_bp.route('/pagina_hotel/<int:id_hotel>', methods=['GET'])
+def pagina_hotel(id_hotel):
+
+    hotel_model = HotelModel(id_hotel=id_hotel)
+    hotel = hotel_model.buscar_por_hotel()
+
+    quarto_model = QuartoModel(id_hotel=id_hotel)
+    quartos = quarto_model.buscar_todos_quartos_do_hotel()
+
+    return render_template('empresa/pagina_hotel.html', hotel=hotel, quartos=quartos)

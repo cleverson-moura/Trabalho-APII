@@ -89,6 +89,13 @@ header #menu-e-logo #menu {
     color: rgb(255, 254, 254);
 }
 
+.logo {
+    margin-left: 100px;
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+}
+
 /* CONTEUDO PRINCIPAL */
 
 main {
@@ -109,6 +116,45 @@ main .ponto {
     padding: 3%;
 }
 
+.ponto-info {
+    background-color: #3d3d3e;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    height: 150px;
+    overflow: scroll;
+}
+
+.ponto-info::-webkit-scrollbar {
+    display: none;
+}
+
+.search-form {
+    width: 90%;
+    display: flex;
+    align-items: baseline;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 5.5%;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0d89a3;
+    color: white;
+    cursor: pointer;
+}
+
 main .ponto p, main .ponto h2{
     color: #ffffff;
 }
@@ -116,8 +162,15 @@ main .ponto p, main .ponto h2{
 main .ponto img{
     border-radius: 10px;
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: cover;
 }
+
+.ponto img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
 
 /* RESPONSIVIDADE */
 
@@ -129,10 +182,6 @@ main .ponto img{
 
     header #menu-e-logo #menu{
         width: 40px;
-    }
-
-    header #usuario-icon{
-        width: 60px;
     }
 
     main .ponto {
@@ -159,11 +208,14 @@ main .ponto img{
 .rodape {
     width: 100%;
     background: #a1cfa3 ;
-    margin-top: 100px;
-    padding: 30px 20px;
     text-align: center;
     font-family: Arial, sans-serif;
     color: #ffffff;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    margin-top: 100px;
 }
 
 .rodape h2 {

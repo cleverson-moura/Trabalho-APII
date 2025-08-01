@@ -87,15 +87,16 @@ def quem_somos():
 
 @app.route('/salvar_quartos', methods=['GET'])
 def exibir_formulario_quarto():
-    return render_template('quarto/salvar_quartos.html')
+    return render_template('quartos/salvar_quartos.html')
 
 @app.route('/salvar_quarto', methods=['POST'])
 def salvar_quarto():
-    mes_disponivel = request.form.get('mes_disponivel')
+    
     andar = request.form.get('andar')
     numero = request.form.get('numero_quarto')
     preco = request.form.get('preco')
     imagem = request.files['imagem']
+    descricao = request.form.get('descricao')
 
     if imagem and imagem.filename != '':
         nome_arquivo = secure_filename(imagem.filename)
@@ -111,7 +112,7 @@ def salvar_quarto():
         numero=numero,
         preco=preco,
         imagem=imagem_path,
-        mes_disponivel=mes_disponivel,
+        descricao=descricao,
         id_hotel=id_hotel
     )
     quarto.inserir()

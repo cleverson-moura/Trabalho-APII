@@ -111,35 +111,38 @@ IMG_QUARTOS
 )'''
 cursor.execute(criar_tabela_IMG_QUARTOS)
 
-criar_tabela_estrelas_hoteis = ''' CREATE TABLE IF NOT EXISTS
-estrelas_hoteis
-(
-    id_estrela_hotel INTEGER PRIMARY KEY AUTOINCREMENT,
+criar_tabela_avaliacoes_hoteis = '''CREATE TABLE IF NOT EXISTS avaliacoes_hoteis (
+    id_avaliacao INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER,
     id_hotel INTEGER,
-    uma_estrela,
-    duas_estrelas,
-    tres_estrelas,
-    quatro_estrelas,
-    cinco_estrelas,
-    media_p,
-    FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel)
-)'''
-cursor.execute(criar_tabela_estrelas_hoteis)
+    estrelas INTEGER CHECK(estrelas BETWEEN 1 AND 5),
+    comentario TEXT,
+    data_avaliacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel),
+    CONSTRAINT unica_avaliacao_hotel UNIQUE(id_usuario, id_hotel)
 
-criar_tabela_estrelas_quartos = ''' CREATE TABLE IF NOT EXISTS
-estrelas_quartos
-(
-    id_estrela_quarto INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_quarto INTEGER,
-    uma_estrela,
-    duas_estrelas,
-    tres_estrelas,
-    quatro_estrelas,
-    cinco_estrelas,
-    media_p,
-    FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto)
 )'''
-cursor.execute(criar_tabela_estrelas_quartos)
+
+cursor.execute(criar_tabela_avaliacoes_hoteis)
+
+criar_tabela_avaliacoes_quartos = ''' CREATE TABLE IF NOT EXISTS
+avaliacoes_quartos
+(
+    id_avaliacao INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER,
+    id_hotel INTEGER,
+    id_quarto INTEGER,
+    estrelas INTEGER CHECK(estrelas BETWEEN 1 AND 5),
+    comentario TEXT,
+    data_avaliacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_hotel) REFERENCES hoteis(id_hotel),
+    FOREIGN KEY (id_quarto) REFERENCES quartos(id_quarto),
+    CONSTRAINT unica_avaliacao_quarto UNIQUE(id_usuario, id_quarto)
+
+)'''
+cursor.execute(criar_tabela_avaliacoes_quartos)
 
 con.commit()
 con.close()
