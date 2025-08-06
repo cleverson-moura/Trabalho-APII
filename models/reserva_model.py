@@ -19,6 +19,24 @@ class ReservaModel:
         db.close()
         return reservas
     
+    def buscar_por_reservas_do_quarto(self):
+        db = Database()
+        db.connect()
+        sql = "SELECT * FROM reservas WHERE id_quarto=?"
+        db.execute(sql, (self.id_quarto,))
+        reservas = db.fetchall()
+        db.close()
+        return reservas
+    
+    def buscar_por_usuario_da_reserva(self):
+        db = Database()
+        db.connect()
+        sql = "SELECT * FROM usuarios WHERE id_usuario=?"
+        db.execute(sql, (self.id_usuario,))
+        reservas = db.fetchone()
+        db.close()
+        return reservas
+    
     def cancelar_reserva(self):
         db = Database()
         db.connect()

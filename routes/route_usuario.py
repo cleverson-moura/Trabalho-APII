@@ -6,6 +6,7 @@ from models.usuario_model import UsuarioModel
 from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
+from datetime import datetime
 
 usuario_bp = Blueprint('usuario', __name__, template_folder='../templates')
 
@@ -71,7 +72,7 @@ def perfil_usuario():
         # Lista com todas as informações combinadas
         reservas_detalhadas = []
 
-        for reserva in reservas:
+        for i, reserva in enumerate(reservas):
             # Pega o quarto
             quarto_model = QuartoModel(id_quarto=reserva['id_quarto'])
             quarto = quarto_model.buscar_por_quarto()
@@ -80,11 +81,29 @@ def perfil_usuario():
             hotel_model = HotelModel(id_hotel=quarto['id_hotel'])
             hotel = hotel_model.buscar_por_hotel()
 
+            listacheckin = reservas[i]["data_checkin"].split("-") 
+            listacheckout = reservas[i]["data_checkout"].split("-")
+
+            strcheckin = listacheckin[2] + "/" + listacheckin[1] + "/" + listacheckin[0]
+            strcheckout = listacheckout[2] + "/" + listacheckout[1] + "/" + listacheckout[0]
+
+            conversao1 = datetime.strptime(strcheckin, "%d/%m/%Y")
+            conversao2 = datetime.strptime(strcheckout, "%d/%m/%Y")
+
+            diferenca = conversao2 - conversao1
+
+            tempo_estadia = diferenca.days
+            
+            del listacheckin
+            del listacheckout
+
             # Junta tudo num dicionário
             reservas_detalhadas.append({
                 'reserva': reserva,
                 'quarto': quarto,
-                'hotel': hotel
+                'hotel': hotel,
+                'checkin' : strcheckin,
+                'checkout' : strcheckout
             })
 
         return render_template('/usuario/perfil_usuario.html', usuario=usuario, reservas=reservas_detalhadas)
