@@ -31,3 +31,8 @@ testetee | vsbb | bsdfbsb | rua lla | 324524 | 5325325 | yeye@gmail.com | senha1
 teste3515 | 31512553 | 531253125 | 53125215 | 325125 | 3551531 | testeteete@gmail.com | 123123
 123123123 | 1231321313 | 2132141@gmail.com
 hotel teste pix | hotel teste pix | hotel teste pix | hotel teste pix | hotel teste pix | 32231412424 | hotelix@gmail.com | hotel teste pix
+parateste | 123 | testeusuario@gmai.com
+testehotel | 123 | testehotel@gmail.com
+testehotel | asdadsa | adada | adada | 123 | 123 | testehotel@gmail.com | 123
+testehotel | asdadsa | adada | adada | 123 | 123 | testehotel@gmail.com | 123
+Iruan12 | 6471 | iruan12@gmail.com

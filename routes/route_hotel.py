@@ -6,6 +6,7 @@ from models.usuario_model import UsuarioModel
 from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
+from datetime import datetime
 
 hotel_bp = Blueprint('hotel', __name__, template_folder='../templates')
 
@@ -85,8 +86,56 @@ def perfil_hotel():
     if 'hotel' not in session:
         return redirect(url_for('hotel.cadastro_hotel'))
     else:
-        hotel = session['hotel']    
-        return render_template('empresa/perfil_hotel.html', hotel=hotel)
+        hotel = session['hotel'] 
+
+        quarto_model = QuartoModel(id_hotel=hotel['id'])
+        quartos = quarto_model.buscar_todos_quartos_do_hotel()
+
+        
+
+         # Lista com todas as informações combinadas
+        reservas_detalhadas = []
+
+        for i, quarto in enumerate(quartos):
+            # Pega a reserva
+
+            reserva_model = ReservaModel(id_quarto=quarto["id_quarto"])
+            reservas = reserva_model.buscar_por_reservas_do_quarto()
+
+            for reserva in reservas:
+
+                usuario_da_reserva_model = ReservaModel(id_usuario=reserva["id_usuario"])
+                usuario_da_reserva = usuario_da_reserva_model.buscar_por_usuario_da_reserva()
+                
+
+                listacheckin = reserva["data_checkin"].split("-") 
+                listacheckout = reserva["data_checkout"].split("-")
+
+                strcheckin = listacheckin[2] + "/" + listacheckin[1] + "/" + listacheckin[0]
+                strcheckout = listacheckout[2] + "/" + listacheckout[1] + "/" + listacheckout[0]
+
+                conversao1 = datetime.strptime(strcheckin, "%d/%m/%Y")
+                conversao2 = datetime.strptime(strcheckout, "%d/%m/%Y")
+
+                diferenca = conversao2 - conversao1
+
+                tempo_estadia = diferenca.days
+                
+                del listacheckin
+                del listacheckout
+
+                # Junta tudo num dicionário
+                reservas_detalhadas.append({
+                    'reserva': reserva,
+                    'usuario_da_reserva' : usuario_da_reserva,
+                    'quarto': quarto,
+                    'hotel': hotel,
+                    'checkin' : strcheckin,
+                    'checkout' : strcheckout
+                })
+
+
+        return render_template('empresa/perfil_hotel.html', hotel=hotel, reservas=reservas_detalhadas)
 
 @hotel_bp.route('/hotel_reserva/<int:id_hotel>', methods=['GET', 'POST'])
 def hotel_reserva(id_hotel):

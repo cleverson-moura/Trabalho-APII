@@ -187,3 +187,7 @@ body {
   font-weight: bold;
   text-align: center;
 }
+table {
+  margin: 0 auto;
+  margin-bottom: 200px;
+}
