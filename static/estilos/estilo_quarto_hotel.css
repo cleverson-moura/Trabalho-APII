@@ -145,6 +145,13 @@ section.sobre{
     background-color: #f0f0f0;
     overflow: hidden;
 }
+
+.sobre_quarto img{
+  height: auto;
+  align-self: center;
+  width: 100%;
+  object-fit: cover;
+}
 .extras{
     border-radius: 50px;
     position: absolute;
