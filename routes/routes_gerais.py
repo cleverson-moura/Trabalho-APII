@@ -104,12 +104,21 @@ def buscar():
         icone = "/static/imagens/user.png"
         endereco = "/login"
     termo = request.args.get('q', '')
+    tipo = request.args.get('tipo', '')
 
     bd = Database()
     bd.connect()
-    sql = "SELECT * FROM hoteis WHERE nome LIKE ?"
+
+    if tipo == 'hotel':
+        sql = "SELECT * FROM hoteis WHERE nome LIKE ?"
+    elif tipo == 'ponto':
+        sql = "SELECT * FROM pontos_turisticos WHERE nome LIKE ?"
+    else:
+        flash("Tipo de busca inválido!")
+        return redirect(url_for('gerais.index'))
+
     bd.execute(sql, ('%' + termo + '%',))
-    hoteis = bd.fetchall()
+    resultado = bd.fetchall()
     bd.close()
 
-    return render_template('busca.html', termo=termo, hoteis=hoteis, icone=icone, endereco=endereco)
+    return render_template('busca.html', termo=termo, tipo=tipo, resultado=resultado, icone=icone, endereco=endereco)

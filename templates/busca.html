@@ -47,21 +47,28 @@
         </nav>
     </aside>
 
-    {% if hoteis %}
+    {% if resultado %}
     <h1>Resultados da busca por "{{ termo }}"</h1>
     <!-- Barra de pesquisa -->
     <form method="get" action="/buscar" class="search-form">
         <input type="text" name="q" placeholder="Digite o nome do hotel" value="{{ termo }}">
+        <input type="hidden" name="tipo" value="{{ tipo }}">
         <button type="submit">Buscar</button>
     </form>
     <div class="hotel-list">
-        {% for hotel in hoteis %}
+        {% for res in resultado %}
         <div class="hotel-item">
-        <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}">
-                <img src="{{ url_for('static', filename=hotel.foto) }}" alt="{{ hotel.nome }}" class="hotel-imagem">
-                <h2>{{ hotel.nome }}</h2>
+            {% if tipo == 'hotel' %}
+        <a href="{{url_for('hotel.pagina_hotel', id_hotel=res.id_hotel)}}">
+                <img src="{{ url_for('static', filename=res.foto) }}" alt="{{ res.nome }}" class="hotel-imagem">
+                <h2>{{ res.nome }}</h2>
             </a>
         </div>
+        {% else %}
+        <div class="hotel-item">
+            <!-- <img src="{{ res.foto }}" alt="{{ res.nome }}" class="ponto-imagem"> -->
+            <h2>{{ res.nome }}</h2>
+        {% endif %}
         {% endfor %}
     </div>
     {% else %}

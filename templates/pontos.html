@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,16 +8,17 @@
   <link rel="stylesheet" href="/static/estilos/pontos.css" />
 </head>
 <script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
+
 <body>
   <!-- Cabeçalho -->
   <header>
     <div id="menu-e-logo">
-        <!-- Logo da empresa -->
-        <img src="" alt="" id="logo">
-      
+      <!-- Logo da empresa -->
+      <img src="" alt="" id="logo">
+
       <!-- Botão do menu lateral -->
       <div class="opcoes" onclick="toggleSidebar()">☰</div>
-      
+
       <!-- Ícone do usuário -->
       <a href="{{endereco}}">
         <div class="icone-usuario">
@@ -37,9 +39,9 @@
         <li><a href="/contato">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
         <a href="{{endereco}}">
-        <div class="icone-usuario">
-          <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
-        </div>
+          <div class="icone-usuario">
+            <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
+          </div>
       </ul>
     </nav>
   </aside>
@@ -58,70 +60,79 @@
       </div>
     </div>
   </div>
+
+  <!-- Barra de pesquisa -->
+  <form method="get" action="/buscar" class="search-form">
+    <input type="text" name="q" placeholder="Digite o nome do ponto" value="{{ termo }}">
+    <input type="hidden" name="tipo" value="ponto">
+    <button type="submit">Buscar</button>
+  </form>
+
   <form id="form-ponto" method="POST" action="/adicionar_ponto" enctype="multipart/form-data">
 
-<div id="popup" class="popup">
-    <div class="popup-conteudo">
+    <div id="popup" class="popup">
+      <div class="popup-conteudo">
         <span class="fechar" id="fechar-popup">&times;</span>
         <h2>Adicionar ponto turístico</h2>
         <form id="form-ponto" enctype="multipart/form-data">
-            <label for="nome">Nome do local:</label>
-            <input type="text" id="nome" name="nome" required>
+          <label for="nome">Nome do local:</label>
+          <input type="text" id="nome" name="nome" required>
 
-            <label>Endereço:</label>
-            <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
-            <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
-            <input type="text" id="rua" name="rua" placeholder="Rua" required>
+          <label>Endereço:</label>
+          <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+          <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+          <input type="text" id="rua" name="rua" placeholder="Rua" required>
 
-            <label for="descricao">Descrição do local:</label>
-            <textarea id="descricao" name="descricao" rows="4" required></textarea>
+          <label for="descricao">Descrição do local:</label>
+          <textarea id="descricao" name="descricao" rows="4" required></textarea>
 
-            <label for="imagem">Imagem do local:</label>
-            <input type="file" id="imagem" name="imagem" accept="image/*">
+          <label for="imagem">Imagem do local:</label>
+          <input type="file" id="imagem" name="imagem" accept="image/*">
 
-            <button type="submit" class="btn-popup">Salvar</button>
+          <button type="submit" class="btn-popup">Salvar</button>
         </form>
+      </div>
     </div>
-</div>
 
-<script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
 
 
-  <!-- Conteúdo Principal -->
-   <div style="text-align: center; margin-top: 30px;">
-  <button id="btn-abrir-popup" class="btn-adicionar">+ Adicionar ponto turístico</button>
-</div>
- <main id="pontos-container">
-  {% for ponto in pontos %}
-    <div class="ponto">
-      <img src="{{ url_for('static', filename=ponto['imagem']) }}" alt="Imagem do ponto turístico" />
-      <h2>{{ ponto['nome'] }}</h2>
-      <p>{{ ponto['descricao'] }}</p>
+    <!-- Conteúdo Principal -->
+    <div style="text-align: center; margin-top: 30px;">
+      <button id="btn-abrir-popup" class="btn-adicionar">+ Adicionar ponto turístico</button>
     </div>
-  {% else %}
-    <p>Nenhum ponto turístico cadastrado ainda.</p>
-  {% endfor %}
-</main>
+    <main id="pontos-container">
+      {% for ponto in pontos %}
+      <div class="ponto">
+        <img src="{{ url_for('static', filename=ponto['imagem']) }}" alt="Imagem do ponto turístico" />
+        <h2>{{ ponto['nome'] }}</h2>
+        <p>{{ ponto['descricao'] }}</p>
+      </div>
+      {% else %}
+      <p>Nenhum ponto turístico cadastrado ainda.</p>
+      {% endfor %}
+    </main>
 
-  <!-- Rodapé -->
-  <footer class="rodape">
-    <h2>Contato da equipe</h2>
-    <p>cleverson.moura11@aluno.ifce.edu.br</p>
-    <p>oliveira.mario09@aluno.ifce.edu.br</p>
-    <p>iruan.moura63@aluno.ifce.edu.br</p>
-    <p>carla.mariana08@aluno.ifce.edu.br</p>
-    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-  </footer>
+    <!-- Rodapé -->
+    <footer class="rodape">
+      <h2>Contato da equipe</h2>
+      <p>cleverson.moura11@aluno.ifce.edu.br</p>
+      <p>oliveira.mario09@aluno.ifce.edu.br</p>
+      <p>iruan.moura63@aluno.ifce.edu.br</p>
+      <p>carla.mariana08@aluno.ifce.edu.br</p>
+      <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+    </footer>
 
-  <!-- Scripts -->
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-  </script>
-  <script src="/static/scripts/pontos.js"></script>
+    <!-- Scripts -->
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+    </script>
+    <script src="/static/scripts/pontos.js"></script>
 </body>
+
 </html>
