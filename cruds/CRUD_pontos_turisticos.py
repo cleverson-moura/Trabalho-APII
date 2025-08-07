@@ -1,112 +1,88 @@
-from flask import Flask
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import sqlite3
+from models.connect import Database  # ajusta o caminho conforme sua estrutura
 
-con = sqlite3.connect("SITE.db")
-                               
-cursor = con.cursor()
-
-
-
-'''
-Sistema
-
-'''
-
-
-    
 def cadastrar_ponto_turistico():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
+
+    nome = input('Nome do ponto turístico a cadastrar: ')
+    cidade = input('Cidade do ponto turístico a cadastrar: ')
+    bairro = input('Bairro do ponto turístico a cadastrar: ')
+    rua = input('Rua do ponto turístico a cadastrar: ')
+    numero = input('Número do ponto turístico a cadastrar: ')
+    info = input('Informações extras: ')
+
+    sql = '''
+        INSERT INTO pontos_turisticos (nome, cidade, bairro, rua, numero, info_ponto_turistico)
+        VALUES (?, ?, ?, ?, ?, ?)
+    '''
+    db.execute(sql, (nome, cidade, bairro, rua, numero, info))
+    db.commit()
+    db.close()
+
+    with open('registros/pontos_turisticos.txt', 'a') as arquivo:
+        arquivo.write(f'{nome}, {cidade}, {bairro}, {rua}, {numero}, {info}\n')
 
 
-    nome = str(input('Nome do ponto turístico a cadastrar: '))
-    cidade = str(input('Cidade do ponto turístico a cadastrar: '))
-    bairro = str(input('Bairro do ponto turístico a cadastrar: '))
-    rua = str(input('Rua do ponto turístico a cadastrar: '))
-    numero = str(input('Número do ponto turístico a cadastrar: '))
-    info = int(input('Informações extras: '))
-
-    cursor.execute('''INSERT INTO pontos_turisticos(nome, cidade, bairro, rua, numero, info)
-                   VALUES(?, ?, ?, ?, ?, ?)''',
-                   (nome, cidade, bairro, rua, numero, info))
-    con.commit()
-    con.close()
-
-    arquivo_pontos_turisticos = open('registros/pontos_turisticos.txt', 'a')
-    arquivo_pontos_turisticos.write(f'{nome}, {cidade}, {bairro}, {rua}, {numero}, {info}\n')
-    arquivo_pontos_turisticos.close()
-    
 def ver_ponto_turistico():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
-
-    acao = int(input('Ver todos os pontos turísticos(1), ver um ponto turístico(2): '))
+    acao = int(input('Ver todos os pontos turísticos (1), ver um ponto turístico (2): '))
     
     if acao == 1:
-        cursor.execute('SELECT * FROM pontos_turisticos')
-        
-        todos_os_pontos_turisticos = cursor.fetchall()
-        
-        for ponto_turistico in todos_os_pontos_turisticos:
-            print(ponto_turistico)
-        
+        resultado = db.execute('SELECT * FROM pontos_turisticos').fetchall()
+        for ponto in resultado:
+            print(dict(ponto))
     elif acao == 2:
-        nome_ponto_turistico = str(input('Nome do ponto turístico cadastrado: '))
-        
-        cursor.execute('SELECT * FROM pontos_turisticos WHERE nome = ?', (nome_ponto_turistico,))
-        
-        dados_ponto_turistico = cursor.fetchone()
-        
-        print(dados_ponto_turistico)
-
-    con.commit()
-    con.close()
+        nome = input('Nome do ponto turístico: ')
+        resultado = db.execute('SELECT * FROM pontos_turisticos WHERE nome = ?', (nome,)).fetchone()
+        print(dict(resultado) if resultado else "Ponto turístico não encontrado.")
+    
+    db.close()
 
 
-        
 def atualizar_ponto_turistico():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    id_ponto = int(input('ID do ponto turístico para atualização: '))
+    nome = input('Novo nome: ')
+    cidade = input('Nova cidade: ')
+    bairro = input('Novo bairro: ')
+    rua = input('Nova rua: ')
+    numero = input('Novo número: ')
+    info = input('Novas informações extras: ')
 
-    id_ponto_turistico = int(input('Id do ponto turístico para atualização: '))
-    nome = str(input('Nome do pontoturístico a cadastrar: '))
-    cidade = str(input('Cidade do ponto turístico a cadastrar: '))
-    bairro = str(input('Bairro do ponto turístico a cadastrar: '))
-    rua = str(input('Rua do ponto turístico a cadastrar: '))
-    numero = str(input('Número do ponto turístico a cadastrar: '))
-    info = int(input('Informações extras: '))
-
-    cursor.execute('''UPDATE pontos_turisticos 
-                   SET nome = ?,cidade = ?,bairro = ?,rua = ?, numero = ?, info = ?
-                   WHERE id = ?''', (nome, cidade, bairro, rua, numero, info, id_ponto_turistico))
-    con.commit()
-    con.close()
+    sql = '''
+        UPDATE pontos_turisticos
+        SET nome = ?, cidade = ?, bairro = ?, rua = ?, numero = ?, info_ponto_turistico = ?
+        WHERE id = ?
+    '''
+    db.execute(sql, (nome, cidade, bairro, rua, numero, info, id_ponto))
+    db.commit()
+    db.close()
 
 
 def deletar_ponto_turistico():
-    con = sqlite3.connect("SITE.db")                          
-    cursor = con.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
+    db = Database()
+    db.connect()
 
+    id_ponto = int(input('ID do ponto turístico a deletar: '))
+    confirm = input(f'Deseja realmente deletar o ponto turístico ID={id_ponto}? (s/n): ').lower()
 
-    id_ponto_turistico = int(input('Id do ponto turístico que deseja deletar: '))
-    acao = str(input(f'Tem certeza que deseja deletar o cadastro do ponto turístico de id = {id_ponto_turistico}?')).lower()
-    if acao == 'sim' or acao == 's':
-        cursor.execute('DELETE FROM pontos_turisticos WHERE id = ?',(id_ponto_turistico,))
+    if confirm in ['s', 'sim']:
+        db.execute('DELETE FROM pontos_turisticos WHERE id = ?', (id_ponto,))
+        db.commit()
 
-    con.commit()
-    con.close()
+    db.close()
 
 
 def main():
-
-    acao = int(input('Cadastrar(1), ver pontos turísticos(2), atualizar cadastro(3), deletar ponto turístico(4): '))
+    acao = int(input('Cadastrar (1), Ver (2), Atualizar (3), Deletar (4): '))
     if acao == 1:
         cadastrar_ponto_turistico()
     elif acao == 2:
@@ -116,8 +92,7 @@ def main():
     elif acao == 4:
         deletar_ponto_turistico()
     else:
-        print('Erro')
-        return
-    
-main()
-con.close()
+        print('Opção inválida.')
+
+if __name__ == "__main__":
+    main()
