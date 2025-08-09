@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pontos Turísticos</title>
+  <!-- O link do CSS foi mantido como no seu arquivo original -->
   <link rel="stylesheet" href="/static/estilos/pontos.css" />
 </head>
 <script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
@@ -48,6 +49,51 @@
 
   <!-- Fundo escurecido para o menu -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- CARROSSEL -->
+  <div class="carrossel">
+    <!-- SLIDE 1 -->
+    <div class="slide ativo" style="background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=1932&auto=format&fit=crop');">
+        <div class="banner-content">
+            <div class="banner-text">
+                <h2>Hotel Mirante do Vale</h2>
+                <p>Onde o luxo encontra a natureza. Uma estadia inesquecível espera por você.</p>
+            </div>
+            <div class="banner-cta">
+                <a href="#">Faça sua Reserva</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1748&auto=format&fit=crop');">
+        <div class="banner-content center">
+            <div class="banner-text">
+                <h2>Relaxe e Renove-se</h2>
+                <p>Nossas piscinas são o oásis perfeito para seu descanso.</p>
+            </div>
+            <div class="banner-cta">
+                <a href="#" class="btn-outline">Conheça o Hotel</a>
+            </div>
+        </div>
+    </div>
+ <!-- SLIDE 3 -->
+    <div class="slide" style="background-image: linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1740&auto=format&fit=crop');">
+        <div class="banner-content right">
+            <div class="banner-text">
+                <h2>Sua Estadia dos Sonhos</h2>
+                <p>Reserve 3 noites e pague apenas 2. Oferta por tempo limitado!</p>
+            </div>
+            <div class="banner-cta">
+                <a href="#">Aproveite a Oferta</a>
+            </div>
+        </div>
+    </div>
+
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
+
 
   <!-- Botões de navegação -->
   <div id="btn-container">
@@ -132,7 +178,35 @@
         overlay.classList.toggle("active");
       }
     </script>
-    <script src="/static/scripts/pontos.js"></script>
-</body>
+  <script src="/static/scripts/pontos.js"></script>
+<script>
+// SCRIPT DO CARROSSEL JÁ EXISTENTE NO SEU CÓDIGO
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll('.carrossel .slide');
+  const prevBtn = document.querySelector('.carrossel .prev');
+  const nextBtn = document.querySelector('.carrossel .next');
 
+  let index = 0;
+
+  function showSlide(i) {
+    index = (i + slides.length) % slides.length;
+    slides.forEach((s, idx) => s.classList.toggle('ativo', idx === index));
+  }
+
+  function nextSlide() { showSlide(index + 1); }
+  function prevSlide() { showSlide(index - 1); }
+
+  nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+  prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+
+  let timer = setInterval(nextSlide, 5000);
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(nextSlide, 5000);
+  }
+
+  showSlide(index);
+});
+</script>
+</body>
 </html>
