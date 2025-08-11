@@ -34,7 +34,9 @@
     {% endif %}
 
     <div class="extras">
-      <img src="{{ url_for('static', filename=hotel.foto) }}">
+      <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}">
+        <img src="{{ url_for('static', filename=hotel.foto) }}">
+      </a>
     </div>
   </section>
 

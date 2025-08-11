@@ -1,30 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ hotel.nome }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilos/pagina_hotel.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Hotel</title>
+  <link rel="stylesheet" href="/static/estilos/pagina_hotel.css">
+
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
+
 <body>
-    <header class="header-imagem">
-        {% if hotel.background %}
-            <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem de fundo do hotel">
-        {% else %}
-            <img src="{{ url_for('static', filename='imagens/hotel_padrao.jpg') }}" alt="Imagem padrão do hotel">
-        {% endif %}
-    </header>
-
-    <main class="conteudo">
-        <div class="hotel-info">
-            <img src="{{ url_for('static', filename=hotel.foto) }}" alt="Foto do hotel">
-            <h1>{{ hotel.nome }}</h1>
-            <p>{{ hotel.cidade }} - {{ hotel.bairro }}</p>
-            <p>{{ hotel.rua }}, {{ hotel.numero }}</p>
+  <!-- Cabeçalho -->
+  <header>
+    <div id="menu-e-logo">
+      <img src="" alt="" id="logo">
+      <div class="opcoes" onclick="toggleSidebar()">☰</div>
+      <a href="{{endereco}}">
+        <div class="icone-usuario">
+          <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
         </div>
+      </a>
+    </div>
+  </header>
 
-        <section class="quartos">
-            <h2>Quartos disponíveis</h2>
+  <!-- Seção do hotel -->
+  <section class="sobre_quarto">
+    {% if hotel.background %}
+    <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel">
+    {% else %}
+    <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Imagem padrão do hotel">
+    {% endif %}
+
+    <div class="extras">
+        <img src="{{ url_for('static', filename=hotel.foto) }}">
+    </div>
+  </section>
+
+  <section class="detalhes-quarto">
+    <div class="info-quarto">
+      <h1>{{ hotel.nome }}</h1>
+    </div>
+
+  <section class="quartos">
+            <h2>Quartos disponíveis: </h2>
             {% if quartos %}
                 {% for quarto in quartos %}
                 <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel, id_quarto=quarto.id_quarto) }}">
@@ -46,6 +66,43 @@
                 <p>Não há quartos disponíveis neste hotel.</p>
             {% endif %}
         </section>
-    </main>
+
+  <!-- Menu lateral -->
+  <aside id="sidebar" class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/quem_somos">Quem Somos</a></li>
+        <li><a href="/">Quartos</a></li>
+        <li><a href="/pontos">Pontos turísticos</a></li>
+        <li><a href="/contato">Contato</a></li>
+        <li><a href="/templates/projeto.html">Projeto</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+  <footer class="rodape">
+    <h2>Contato da equipe</h2>
+    <p>cleverson.moura11@aluno.ifce.edu.br</p>
+    <p>oliveira.mario09@aluno.ifce.edu.br</p>
+    <p>iruan.moura63@aluno.ifce.edu.br</p>
+    <p>carla.mariana08@aluno.ifce.edu.br</p>
+    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
+  <script src="/static/scripts/index.js"></script>
+
 </body>
+
 </html>
