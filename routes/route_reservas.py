@@ -7,6 +7,7 @@ from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 
+
 reservas_bp = Blueprint('reservas', __name__, template_folder='../templates')
 
 @reservas_bp.route('/reservas', methods=['GET', 'POST'])

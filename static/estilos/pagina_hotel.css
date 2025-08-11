@@ -1,17 +1,341 @@
-body {
+body{
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.header-imagem img {
+header {
+    background: linear-gradient(to right, #3F8583, #ffecb2);
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header #menu-e-logo {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    height: 300px;
-    object-fit: cover;
-    display: block;
 }
 
+header #menu-e-logo #menu {
+    margin-right: 10px;
+}
+
+.icone-usuario{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.icone-usuario img {
+    width: auto;
+    height: 100%;
+}
+
+.opcoes {
+  font-size: 28px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1003;
+  background-color: #f0e6c2;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #f0e6c2;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  z-index: 1002;
+  padding-top: 80px;
+}
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  padding: 15px 20px;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  transition: background 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #e0d5aa;
+  border-radius: 5px;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.rodape {
+    width: 100%;
+    background: #a1cfa3 ;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    background-color: #dbeafe;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #1e3a8a;
+    box-sizing: border-box;
+    margin-top: 100px;
+}
+
+.rodape h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.rodape p {
+    margin: 6px 0;
+    font-size: 1em;
+}
+
+section.sobre{
+    height: calc(100% - 200 px);
+    position: relative;
+}
+
+.sobre_quarto{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.sobre_quarto img{
+  height: auto;
+  align-self: center;
+  width: 100%;
+  object-fit: cover;
+}
+.extras{
+    border-radius: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background-color: #f1d487;
+    bottom: 15px;
+    left: 12px;
+}
+
+.extras img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50px;
+}
+
+.detalhes-quarto {
+  padding: 40px 20px;
+  background-color: #fefce8;
+  font-family: Arial, sans-serif;
+  
+}
+
+.info-quarto h2 {
+  font-size: 2em;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.valor-quarto {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #0f5132;
+  margin-bottom: 30px;
+}
+
+.galeria-quarto h3,
+.disponibilidade-quarto h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #1e3a8a;
+}
+
+.fotos-quarto {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.fotos-quarto img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.fotos-quarto img:hover {
+  transform: scale(1.05);
+}
+
+.disponibilidade-quarto label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #444;
+}
+
+.disponibilidade-quarto input[type="date"] {
+  display: block;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.btn_editar {
+    margin-top: 30px;
+    padding: 12px 25px;
+    border: none;
+    background-color: #f1d487;
+    color: rgb(0, 0, 0);
+    border-radius: 100px;
+    cursor: pointer;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.popup-pagamento {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-pagamento.ativo {
+  display: flex;
+}
+
+.popup-conteudo {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.popup-conteudo h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.popup-conteudo h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
+}
+
+.popup-conteudo p {
+  font-size: 15px;
+  color: #444;
+  margin: 8px 0;
+}
+
+.opcao-pagamento {
+  margin-top: 15px;
+}
+
+.opcao-pagamento input {
+  padding: 10px;
+  margin: 6px 5px 0 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: calc(50% - 8px);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#confirmar-pagamento {
+  margin-top: 25px;
+  background-color: #2e86de;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+#confirmar-pagamento:hover {
+  background-color: #1c5fbf;
+}
+
+.fechar {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #888;
+}
+
+.fechar:hover {
+  color: #000;
+}
 .conteudo {
     padding: 20px;
     max-width: 1000px;

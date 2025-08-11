@@ -7,6 +7,7 @@ from models.hotel_model import HotelModel
 
 from models.connect import Database
 
+
 gerais_bp = Blueprint('gerais', __name__, template_folder='../templates')
 
 @gerais_bp.route('/')

@@ -8,6 +8,7 @@ from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 from datetime import datetime
 
+
 usuario_bp = Blueprint('usuario', __name__, template_folder='../templates')
 
 @usuario_bp.route('/cadastro_usuario', methods=['GET', 'POST'])

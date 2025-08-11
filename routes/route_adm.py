@@ -8,6 +8,7 @@ from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 from models.administrador_model import AdministradorModel
 
+
 adm_bp = Blueprint('adm', __name__, template_folder='../templates')
 
 @adm_bp.route('/cadastro_adm', methods=['GET', 'POST'])

@@ -6,6 +6,7 @@ from models.reserva_model import ReservaModel
 from datetime import datetime, timedelta
 import json
 
+
 quarto_bp = Blueprint('quarto', __name__, template_folder='../templates')
 
 @quarto_bp.route('/quartos_reserva/<int:id_hotel>/<int:id_quarto>', methods=['GET', 'POST'])

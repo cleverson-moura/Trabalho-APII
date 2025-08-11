@@ -4,6 +4,7 @@ import os
 
 from models.pontos_turisticos_model import PontoTuristicoModel
 
+
 ponto_bp = Blueprint('ponto', __name__, template_folder='../templates')
 
 @ponto_bp.route('/pontos')

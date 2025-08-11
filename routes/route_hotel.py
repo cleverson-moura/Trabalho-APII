@@ -8,6 +8,7 @@ from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 from datetime import datetime
 
+
 hotel_bp = Blueprint('hotel', __name__, template_folder='../templates')
 
 @hotel_bp.route('/cadastro_hotel', methods=['GET', 'POST'])
@@ -196,6 +197,15 @@ def editar_perfil_hotel():
 
 @hotel_bp.route('/pagina_hotel/<int:id_hotel>', methods=['GET'])
 def pagina_hotel(id_hotel):
+    if 'usuario' in session:
+        icone = "/static/{}".format(session['usuario']['imagem'])
+        endereco = "/perfil_usuario"
+    elif 'hotel' in session:
+        icone = "/static/{}".format(session['hotel']['foto'])
+        endereco = "/perfil_hotel"
+    else:
+        icone = "/static/imagens/user.png"
+        endereco = "/login"
 
     hotel_model = HotelModel(id_hotel=id_hotel)
     hotel = hotel_model.buscar_por_hotel()
@@ -203,4 +213,4 @@ def pagina_hotel(id_hotel):
     quarto_model = QuartoModel(id_hotel=id_hotel)
     quartos = quarto_model.buscar_todos_quartos_do_hotel()
 
-    return render_template('empresa/pagina_hotel.html', hotel=hotel, quartos=quartos)
+    return render_template('empresa/pagina_hotel.html', hotel=hotel, quartos=quartos, icone=icone, endereco=endereco)
