@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quarto hotel</title>
   <link rel="stylesheet" href="/static/estilos/estilo_quarto_hotel.css">
-
-  <!-- Flatpickr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
@@ -90,32 +88,32 @@
   </aside>
 
   <!-- ## Popup da parte de pagamento ## -->
-<div id="popup-pagamento" class="popup-pagamento">
-  <div class="popup-conteudo">
-    <span id="fechar-popup" class="fechar">&times;</span>
-    <h2>Escolha a forma de pagamento</h2>
+  <div id="popup-pagamento" class="popup-pagamento">
+    <div class="popup-conteudo">
+      <span id="fechar-popup" class="fechar">&times;</span>
+      <h2>Escolha a forma de pagamento</h2>
 
-    <div class="opcao-pagamento">
-      <h3>Cartão de Crédito</h3>
-      <input type="text" placeholder="Número do Cartão">
-      <input type="text" placeholder="Nome no Cartão">
-      <input type="text" placeholder="Validade (MM/AA)">
-      <input type="text" placeholder="CVV">
+      <div class="opcao-pagamento">
+        <h3>Cartão de Crédito</h3>
+        <input type="text" placeholder="Número do Cartão">
+        <input type="text" placeholder="Nome no Cartão">
+        <input type="text" placeholder="Validade (MM/AA)">
+        <input type="text" placeholder="CVV">
+      </div>
+
+      <div class="opcao-pagamento">
+        <h3>PIX</h3>
+        <p>Chave PIX: <strong>{{hotel.chave_pix}}</strong></p>
+      </div>
+
+      <div class="opcao-pagamento">
+        <h3>Pagamento no Check-in</h3>
+        <p>Você poderá pagar presencialmente no momento do check-in.</p>
+      </div>
+
+      <button id="confirmar-pagamento">Confirmar</button>
     </div>
-
-    <div class="opcao-pagamento">
-      <h3>PIX</h3>
-      <p>Chave PIX: <strong>{{hotel.chave_pix}}</strong></p>
-    </div>
-
-    <div class="opcao-pagamento">
-      <h3>Pagamento no Check-in</h3>
-      <p>Você poderá pagar presencialmente no momento do check-in.</p>
-    </div>
-
-    <button id="confirmar-pagamento">Confirmar</button>
   </div>
-</div>
 
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
@@ -138,12 +136,9 @@
     }
   </script>
   <script src="/static/scripts/index.js"></script>
-
-  <!-- Flatpickr JS -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
   <script>
-    // Pegando do Flask a lista de datas ocupadas
     const datasOcupadas = {{ datas_ocupadas | safe }};
 
     flatpickr("#checkin", {
@@ -158,29 +153,30 @@
       minDate: "today"
     });
   </script>
+
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const btnReserva = document.querySelector(".btn_editar");
-    const popup = document.getElementById("popup-pagamento");
-    const fechar = document.getElementById("fechar-popup");
+    document.addEventListener("DOMContentLoaded", function () {
+      const btnReserva = document.querySelector(".btn_editar");
+      const popup = document.getElementById("popup-pagamento");
+      const fechar = document.getElementById("fechar-popup");
+      const confirmar = document.getElementById("confirmar-pagamento");
+      const formReserva = btnReserva.closest("form");
 
-    btnReserva.addEventListener("click", function (e) {
-      e.preventDefault(); 
-      popup.classList.add("ativo");
+      btnReserva.addEventListener("click", function (e) {
+        e.preventDefault();
+        popup.classList.add("ativo");
+      });
+
+      fechar.addEventListener("click", function () {
+        popup.classList.remove("ativo");
+      });
+
+      confirmar.addEventListener("click", function () {
+        popup.classList.remove("ativo");
+        formReserva.submit();
+      });
     });
-
-    fechar.addEventListener("click", function () {
-      popup.classList.remove("ativo");
-    });
-
-    document.getElementById("confirmar-pagamento").addEventListener("click", function () {
-      popup.classList.remove("ativo");
-      alert("Forma de pagamento selecionada!");
-
-    });
-  });
-</script>
+  </script>
 
 </body>
-
 </html>
