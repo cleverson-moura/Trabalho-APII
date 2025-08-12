@@ -1,10 +1,13 @@
-from flask import Blueprint, render_template, session, redirect, url_for, request
+from flask import Blueprint, render_template, session, redirect, url_for, request, flash
 
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 from models.reserva_model import ReservaModel
 from datetime import datetime, timedelta
 import json
+import os
+from flask import current_app as app
+from werkzeug.utils import secure_filename
 
 
 quarto_bp = Blueprint('quarto', __name__, template_folder='../templates')
@@ -58,3 +61,41 @@ def quartos_reserva(id_hotel, id_quarto):
             return redirect(url_for("gerais.login"))
 
     return render_template('quartos/quartos_hotel.html', icone=icone, endereco=endereco, hotel=hotel, quarto=quarto, rota=rota, botao_reserva_texto=botao_reserva_texto, datas_ocupadas=json.dumps(datas_ocupadas))
+@quarto_bp.route('/salvar_quarto', methods=['GET', 'POST'])
+def salvar_quarto():
+    # Permitir apenas hotel logado
+    if 'hotel' not in session:
+        flash("Você precisa estar logado como hotel para adicionar um quarto.")
+        return redirect(url_for('hotel.cadastro_hotel'))
+
+    if request.method == 'POST':
+        descricao = request.form.get('descricao')
+        andar = request.form.get('andar')
+        numero_quarto = request.form.get('numero_quarto')
+        preco = request.form.get('preco')
+        imagem_file = request.files.get('imagem')
+
+        caminho_relativo = None
+        if imagem_file and imagem_file.filename != '':
+            filename = secure_filename(imagem_file.filename)
+            caminho_completo = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            imagem_file.save(caminho_completo)
+            caminho_relativo = f'uploads/{filename}'
+
+        # Pega o id do hotel logado
+        id_hotel = session['hotel']['id']
+
+        quarto = QuartoModel(
+            andar=andar,
+            numero=numero_quarto,
+            preco=preco,
+            imagem=caminho_relativo,
+            id_hotel=id_hotel,
+            descricao=descricao
+        )
+        quarto.inserir()
+
+        flash("Quarto adicionado com sucesso!")
+        return redirect(url_for('hotel.perfil_hotel'))
+
+    return render_template('quartos/salvar_quartos.html')

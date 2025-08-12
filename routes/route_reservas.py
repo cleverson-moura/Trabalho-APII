@@ -30,9 +30,9 @@ def reservas():
             
             flash('Reserva feita com sucesso!', 'success')
             return redirect(url_for('usuario.perfil_usuario'))
-    else:
-        flash('Você precisa estar logado para fazer uma reserva.', 'error')
-        return redirect(url_for('gerais.login'))
+    #else:
+        #flash('Você precisa estar logado para fazer uma reserva.', 'error')
+        #return redirect(url_for('gerais.login'))
 
 @reservas_bp.route('/cancelar_reserva', methods=['GET', 'POST'])
 def cancelar_reserva():
