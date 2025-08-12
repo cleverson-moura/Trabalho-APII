@@ -48,14 +48,15 @@
       <h4>{{ quarto.descricao }}</h4>
     </div>
 
+    <!-- Galeria de Fotos Melhorada -->
     <div class="galeria-quarto">
       <h3>Fotos do Quarto</h3>
       <div class="fotos-quarto">
-        <img src="/" alt="1º foto do quarto">
-        <img src="/" alt="2º foto do quarto">
-        <img src="/" alt="3º foto do quarto">
-        <img src="/" alt="4º foto do quarto">
-        <img src="/" alt="5º foto do quarto">
+        <!-- Imagens de exemplo. Substitua pelos caminhos das suas imagens. -->
+        <img src="/imagens/ChatGPT Image 9 de ago. de 2025, 16_52_00.png" alt="1º foto do quarto" class="foto-principal">
+        <img src="https://placehold.co/600x400/f1d487/000000?text=Banheiro+Moderno" alt="2º foto do quarto">
+        <img src="https://placehold.co/600x400/fefce8/000000?text=Sacada" alt="3º foto do quarto">
+        <img src="https://placehold.co/600x400/1e3a8a/FFFFFF?text=Detalhe+Decora%C3%A7%C3%A3o" alt="4º foto do quarto">
       </div>
     </div>
 
@@ -87,7 +88,7 @@
     </nav>
   </aside>
 
-  <!-- ## Popup da parte de pagamento ## -->
+  <!-- Popup da parte de pagamento -->
   <div id="popup-pagamento" class="popup-pagamento">
     <div class="popup-conteudo">
       <span id="fechar-popup" class="fechar">&times;</span>
@@ -117,6 +118,13 @@
 
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
+  <!-- Lightbox para Imagem em Tela Cheia -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-fechar" onclick="fecharLightbox()">&times;</span>
+    <img class="lightbox-conteudo" id="lightbox-img" alt="Imagem em tela cheia">
+  </div>
+
+
   <footer class="rodape">
     <h2>Contato da equipe</h2>
     <p>cleverson.moura11@aluno.ifce.edu.br</p>
@@ -127,34 +135,30 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
+    // Script do Menu Lateral
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       const overlay = document.getElementById("overlay");
       sidebar.classList.toggle("active");
       overlay.classList.toggle("active");
     }
-  </script>
-  <script src="/static/scripts/index.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-  <script>
+    // Script do Calendário (Flatpickr)
     const datasOcupadas = {{ datas_ocupadas | safe }};
-
     flatpickr("#checkin", {
       dateFormat: "Y-m-d",
       disable: datasOcupadas,
       minDate: "today"
     });
-
     flatpickr("#checkout", {
       dateFormat: "Y-m-d",
       disable: datasOcupadas,
       minDate: "today"
     });
-  </script>
 
-  <script>
+    // Script do Popup de Pagamento
     document.addEventListener("DOMContentLoaded", function () {
       const btnReserva = document.querySelector(".btn_editar");
       const popup = document.getElementById("popup-pagamento");
@@ -175,6 +179,40 @@
         popup.classList.remove("ativo");
         formReserva.submit();
       });
+    });
+
+    // --- NOVO SCRIPT PARA LIGHTBOX DA GALERIA ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const galeriaImagens = document.querySelectorAll('.fotos-quarto img');
+
+    galeriaImagens.forEach(img => {
+        img.addEventListener('click', () => {
+            abrirLightbox(img.src);
+        });
+    });
+
+    function abrirLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.classList.add('ativo');
+    }
+
+    function fecharLightbox() {
+        lightbox.classList.remove('ativo');
+    }
+
+    // Fecha o lightbox ao clicar na área escura (fora da imagem)
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            fecharLightbox();
+        }
+    });
+
+    // Fecha o lightbox ao pressionar a tecla 'Esc'
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            fecharLightbox();
+        }
     });
   </script>
 

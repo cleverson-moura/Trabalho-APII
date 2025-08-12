@@ -37,3 +37,6 @@ testehotel | asdadsa | adada | adada | 123 | 123 | testehotel@gmail.com | 123
 testehotel | asdadsa | adada | adada | 123 | 123 | testehotel@gmail.com | 123
 Iruan12 | 6471 | iruan12@gmail.com
 teste214 | efdaf | tal bairro | afgag | agagag | 42124142 | tete@gmail.com | 123123123
+asdaffdaf | dafafafda | yuyt@gmail.com
+bbvb | vbvcvv | bvbvbv | bvvbvbvb | bbbbv | vcvvv | testetee@gmail.com | senha123
+fwdd | dddccd | cdcdc | cdsdccd | 8787 | csdcdcd | teee@gmail.com | senha123
