@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pontos Turísticos</title>
-  <!-- O link do CSS foi mantido como no seu arquivo original -->
   <link rel="stylesheet" href="/static/estilos/pontos.css" />
 </head>
 <script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
-
 <body>
   <!-- Cabeçalho -->
   <header>
     <div id="menu-e-logo">
-      <!-- Logo da empresa -->
-      <img src="" alt="" id="logo">
-
+        <!-- Logo da empresa -->
+        <img src="" alt="" id="logo">
+      
       <!-- Botão do menu lateral -->
       <div class="opcoes" onclick="toggleSidebar()">☰</div>
-
+      
       <!-- Ícone do usuário -->
       <a href="{{endereco}}">
         <div class="icone-usuario">
@@ -40,9 +37,9 @@
         <li><a href="/contato">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
         <a href="{{endereco}}">
-          <div class="icone-usuario">
-            <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
-          </div>
+        <div class="icone-usuario">
+          <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
+        </div>
       </ul>
     </nav>
   </aside>
@@ -50,50 +47,49 @@
   <!-- Fundo escurecido para o menu -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-  <!-- CARROSSEL -->
-  <div class="carrossel">
-    <!-- SLIDE 1 -->
-    <div class="slide ativo" style="background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=1932&auto=format&fit=crop');">
-        <div class="banner-content">
-            <div class="banner-text">
-                <h2>Hotel Mirante do Vale</h2>
-                <p>Onde o luxo encontra a natureza. Uma estadia inesquecível espera por você.</p>
-            </div>
-            <div class="banner-cta">
-                <a href="#">Faça sua Reserva</a>
-            </div>
-        </div>
+    <!-- CARROSSEL -->
+    <div class="carrossel">
+      <!-- SLIDE 1 -->
+      <div class="slide ativo" style="background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=1932&auto=format&fit=crop');">
+          <div class="banner-content">
+              <div class="banner-text">
+                  <h2>Hotel Mirante do Vale</h2>
+                  <p>Onde o luxo encontra a natureza. Uma estadia inesquecível espera por você.</p>
+              </div>
+              <div class="banner-cta">
+                  <a href="#">Faça sua Reserva</a>
+              </div>
+          </div>
+      </div>
+  
+      <!-- SLIDE 2 -->
+      <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1748&auto=format&fit=crop');">
+          <div class="banner-content center">
+              <div class="banner-text">
+                  <h2>Relaxe e Renove-se</h2>
+                  <p>Nossas piscinas são o oásis perfeito para seu descanso.</p>
+              </div>
+              <div class="banner-cta">
+                  <a href="#" class="btn-outline">Conheça o Hotel</a>
+              </div>
+          </div>
+      </div>
+   <!-- SLIDE 3 -->
+      <div class="slide" style="background-image: linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1740&auto=format&fit=crop');">
+          <div class="banner-content right">
+              <div class="banner-text">
+                  <h2>Sua Estadia dos Sonhos</h2>
+                  <p>Reserve 3 noites e pague apenas 2. Oferta por tempo limitado!</p>
+              </div>
+              <div class="banner-cta">
+                  <a href="#">Aproveite a Oferta</a>
+              </div>
+          </div>
+      </div>
+  
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
     </div>
-
-    <!-- SLIDE 2 -->
-    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1748&auto=format&fit=crop');">
-        <div class="banner-content center">
-            <div class="banner-text">
-                <h2>Relaxe e Renove-se</h2>
-                <p>Nossas piscinas são o oásis perfeito para seu descanso.</p>
-            </div>
-            <div class="banner-cta">
-                <a href="#" class="btn-outline">Conheça o Hotel</a>
-            </div>
-        </div>
-    </div>
- <!-- SLIDE 3 -->
-    <div class="slide" style="background-image: linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1740&auto=format&fit=crop');">
-        <div class="banner-content right">
-            <div class="banner-text">
-                <h2>Sua Estadia dos Sonhos</h2>
-                <p>Reserve 3 noites e pague apenas 2. Oferta por tempo limitado!</p>
-            </div>
-            <div class="banner-cta">
-                <a href="#">Aproveite a Oferta</a>
-            </div>
-        </div>
-    </div>
-
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-  </div>
-
 
   <!-- Botões de navegação -->
   <div id="btn-container">
@@ -116,97 +112,116 @@
 
   <form id="form-ponto" method="POST" action="/adicionar_ponto" enctype="multipart/form-data">
 
-    <div id="popup" class="popup">
-      <div class="popup-conteudo">
+
+<div id="popup" class="popup">
+    <div class="popup-conteudo">
         <span class="fechar" id="fechar-popup">&times;</span>
         <h2>Adicionar ponto turístico</h2>
         <form id="form-ponto" enctype="multipart/form-data">
-          <label for="nome">Nome do local:</label>
-          <input type="text" id="nome" name="nome" required>
+            <form action="/salvar_ponto" method="POST" enctype="multipart/form-data" id="form-ponto">
+      <div class="form-group">
+        <label for="nome">Nome do local:</label>
+        <input type="text" id="nome" name="nome" required>
+      </div>
 
-          <label>Endereço:</label>
-          <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
-          <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
-          <input type="text" id="rua" name="rua" placeholder="Rua" required>
+      <div class="form-group">
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" name="cidade" required>
+      </div>
 
-          <label for="descricao">Descrição do local:</label>
-          <textarea id="descricao" name="descricao" rows="4" required></textarea>
+      <div class="form-group">
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" name="bairro" required>
+      </div>
 
-          <label for="imagem">Imagem do local:</label>
-          <input type="file" id="imagem" name="imagem" accept="image/*">
+      <div class="form-group">
+        <label for="rua">Rua:</label>
+        <input type="text" id="rua" name="rua" required>
+      </div>
 
-          <button type="submit" class="btn-popup">Salvar</button>
+      <div class="form-group">
+        <label for="descricao">Descrição do local:</label>
+        <textarea id="descricao" name="descricao" rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="imagem" class="file-label">Escolher imagem</label>
+        <input type="file" id="imagem" name="imagem" accept="image/*" class="file-input">
+      </div>
+
+      <button type="submit" class="popup-botao">Salvar</button>
+
         </form>
-      </div>
     </div>
+</div>
 
-    <script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/pontos.js') }}"></script>
 
 
-    <!-- Conteúdo Principal -->
-    <div style="text-align: center; margin-top: 30px;">
-      <button id="btn-abrir-popup" class="btn-adicionar">+ Adicionar ponto turístico</button>
+  <!-- Conteúdo Principal -->
+   <div style="text-align: center; margin-top: 30px;">
+  <button id="btn-abrir-popup" class="btn-adicionar">+ Adicionar ponto turístico</button>
+</div>
+ <main id="pontos-container">
+  {% for ponto in pontos %}
+    <div class="ponto">
+      <img src="{{ url_for('static', filename=ponto['imagem']) }}" alt="Imagem do ponto turístico" />
+      <h2>{{ ponto['nome'] }}</h2>
+      <p>{{ ponto['descricao'] }}</p>
     </div>
-    <main id="pontos-container">
-      {% for ponto in pontos %}
-      <div class="ponto">
-        <img src="{{ url_for('static', filename=ponto['imagem']) }}" alt="Imagem do ponto turístico" />
-        <h2>{{ ponto['nome'] }}</h2>
-        <p>{{ ponto['descricao'] }}</p>
-      </div>
-      {% else %}
-      <p>Nenhum ponto turístico cadastrado ainda.</p>
-      {% endfor %}
-    </main>
+  {% else %}
+    <p>Nenhum ponto turístico cadastrado ainda.</p>
+  {% endfor %}
+</main>
 
-    <!-- Rodapé -->
-    <footer class="rodape">
-      <h2>Contato da equipe</h2>
-      <p>cleverson.moura11@aluno.ifce.edu.br</p>
-      <p>oliveira.mario09@aluno.ifce.edu.br</p>
-      <p>iruan.moura63@aluno.ifce.edu.br</p>
-      <p>carla.mariana08@aluno.ifce.edu.br</p>
-      <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-    </footer>
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <h2>Contato da equipe</h2>
+    <p>cleverson.moura11@aluno.ifce.edu.br</p>
+    <p>oliveira.mario09@aluno.ifce.edu.br</p>
+    <p>iruan.moura63@aluno.ifce.edu.br</p>
+    <p>carla.mariana08@aluno.ifce.edu.br</p>
+    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+  </footer>
 
-    <!-- Scripts -->
-    <script>
-      function toggleSidebar() {
-        const sidebar = document.getElementById("sidebar");
-        const overlay = document.getElementById("overlay");
-        sidebar.classList.toggle("active");
-        overlay.classList.toggle("active");
-      }
-    </script>
+  <!-- Scripts -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+  </script>
   <script src="/static/scripts/pontos.js"></script>
-<script>
-// SCRIPT DO CARROSSEL JÁ EXISTENTE NO SEU CÓDIGO
-document.addEventListener("DOMContentLoaded", () => {
-  const slides = document.querySelectorAll('.carrossel .slide');
-  const prevBtn = document.querySelector('.carrossel .prev');
-  const nextBtn = document.querySelector('.carrossel .next');
-
-  let index = 0;
-
-  function showSlide(i) {
-    index = (i + slides.length) % slides.length;
-    slides.forEach((s, idx) => s.classList.toggle('ativo', idx === index));
-  }
-
-  function nextSlide() { showSlide(index + 1); }
-  function prevSlide() { showSlide(index - 1); }
-
-  nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
-  prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
-
-  let timer = setInterval(nextSlide, 5000);
-  function resetTimer() {
-    clearInterval(timer);
-    timer = setInterval(nextSlide, 5000);
-  }
-
-  showSlide(index);
-});
-</script>
+  <script>
+    // SCRIPT DO CARROSSEL JÁ EXISTENTE NO SEU CÓDIGO
+    document.addEventListener("DOMContentLoaded", () => {
+      const slides = document.querySelectorAll('.carrossel .slide');
+      const prevBtn = document.querySelector('.carrossel .prev');
+      const nextBtn = document.querySelector('.carrossel .next');
+    
+      let index = 0;
+    
+      function showSlide(i) {
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s, idx) => s.classList.toggle('ativo', idx === index));
+      }
+    
+      function nextSlide() { showSlide(index + 1); }
+      function prevSlide() { showSlide(index - 1); }
+    
+      nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+      prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+    
+      let timer = setInterval(nextSlide, 5000);
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(nextSlide, 5000);
+      }
+    
+      showSlide(index);
+    });
+    </script>
 </body>
 </html>

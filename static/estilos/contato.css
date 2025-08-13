@@ -1,6 +1,6 @@
 /* CABEÇALHO */
 header {
-    background: linear-gradient(to right, #3F8583, #ffecb2);
+    background: linear-gradient(to right, #3F8583, #3F8583);
     max-width: 100%;
     display: flex;
     justify-content: space-between;
@@ -51,7 +51,8 @@ header #menu-e-logo #menu {
     border: 3px solid #ffffff;
 }
 .card {
-  background-color: #fff7dc;
+  background-color: #616877;
+  color:#e2e2e2;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -215,7 +216,8 @@ main .ponto img{
   top: 20px;
   left: 20px;
   z-index: 1003;
-  background-color: #f0e6c2;
+  background-color: #3F8583;
+  color:#ffffff;
   padding: 8px 12px;
   border-radius: 6px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
@@ -227,7 +229,7 @@ main .ponto img{
   left: -260px;
   width: 250px;
   height: 100%;
-  background-color: #f0e6c2;
+  background-color: #3F8583;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease;
   z-index: 1002;

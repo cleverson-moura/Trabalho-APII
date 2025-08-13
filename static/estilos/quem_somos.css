@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #fff8dc;
+  background-color: #EDEBE7;
 }
  /* ####Opções#### */
 .opcoes {
@@ -11,7 +11,7 @@ body {
   top: 20px;
   left: 20px;
   z-index: 1003;
-  background-color: #f0e6c2;
+  background-color: #E4BA73;
   padding: 8px 12px;
   border-radius: 6px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
@@ -23,7 +23,7 @@ body {
   left: -260px;
   width: 250px;
   height: 100%;
-  background-color: #f0e6c2;
+  background-color: #E4BA73;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease;
   z-index: 1002;
@@ -49,7 +49,7 @@ body {
 }
 
 .sidebar nav ul li a:hover {
-  background-color: #e0d5aa;
+  background-color: #A1DED9;
   border-radius: 5px;
 }
 
@@ -129,7 +129,7 @@ body {
  /* ###Cabeçalho### */
  
  header {
-    background: linear-gradient(to right, #3F8583, #ffecb2);
+    background: linear-gradient(to right, #E4BA73, #E4BA73);
     max-width: 100%;
     display: flex;
     justify-content: space-between;
