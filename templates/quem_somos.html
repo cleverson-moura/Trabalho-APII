@@ -4,73 +4,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quem Somos</title>
+  
+  <!-- Link para o novo CSS -->
   <link rel="stylesheet" href="/static/estilos/quem_somos.css" />
-  <!--Início das opções do canto-->
-  <script defer>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-  </script>
-
+  
+  <!-- Fontes e Ícones do design unificado -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-  </head>
-<body>
+  <!-- Overlay para o menu lateral -->
+  <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-  <header>
-    <div id="menu-e-logo"> <!-- ##Quando tiver a logo colocar aqui## -->
-      <img src="" alt="" id="logo"> <!-- ##Quando tiver a logo colocar aqui## -->
-      <div class="opcoes" onclick="toggleSidebar()">☰</div>
-    </div>
-  </header>
-
-  <!--## Menu lateral com as opções ##-->
-
+  <!-- Menu Lateral (Sidebar) -->
   <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-        <li><a href="/contato">Contato</a></li>
-        <li><a href="/templates/projeto.html">Projeto</a></li>
-      </ul>
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/"><i class="fa-solid fa-house"></i> Início</a>
+      <a href="/quem_somos"><i class="fa-solid fa-users"></i> Quem Somos</a>
+      <a href="/"><i class="fa-solid fa-bed"></i> Quartos</a>
+      <a href="/pontos"><i class="fa-solid fa-map-location-dot"></i> Pontos Turísticos</a>
+      <a href="/contato"><i class="fa-solid fa-envelope"></i> Contato</a>
+      <a href="/templates/projeto.html"><i class="fa-solid fa-diagram-project"></i> Projeto</a>
     </nav>
   </aside>
 
-  <!-- Fundo escurecido -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-<!--Fim das opções do canto-->
-  <!-- Conteúdo principal -->
-
-  <main class="content">
-    <section class="about-section">
-      <div class="container">
-        <h2>Quem somos</h2>
-        <p>
-          Somos uma equipe formada por cinco integrantes, todos movidos pelo entusiasmo de aprender e pela vontade de colocar em prática os conhecimentos adquiridos ao longo do curso. Acreditamos que o aprendizado se torna mais significativo quando aplicado de forma colaborativa, enfrentando desafios reais e desenvolvendo soluções criativas.
-        </p>
-        <p>
-          Nosso compromisso com este projeto reflete não apenas a nossa dedicação à disciplina de AP2, mas também o nosso desejo de evoluir enquanto estudantes e profissionais. Trabalhamos em conjunto, unindo esforços, ideias e habilidades, com o objetivo de entregar um resultado funcional, coerente e relevante.
-        </p>
-        <p>
-          Este site foi desenvolvido como parte de um projeto acadêmico para a disciplina de AP2. Seu principal propósito é demonstrar, de maneira prática e aplicada, os conhecimentos assimilados durante o semestre, por meio da criação de uma aplicação web que alie usabilidade, conteúdo informativo e propósito educacional.
-        </p>
+  <div class="page-wrapper">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>Sobre Nós</h1>
+        </div>
+         <div class="header-right">
+           <a href="{{endereco}}" class="user-profile-link">
+              <img src="{{icone}}" alt="Usuário" class="user-profile-icon" />
+              <span>Meu Perfil</span>
+            </a>
+        </div>
       </div>
-    </section>
-  </main>
-  <footer class="rodape">
-    <h2>Contato da equipe</h2>
-    <p>cleverson.moura11@aluno.ifce.edu.br</p>
-    <a href="/templates/editar_perfil_usuário.html"><p>oliveira.mario09@aluno.ifce.edu.br</p></a>
-    <p>iruan.moura63@aluno.ifce.edu.br</p>
-    <p>carla.mariana08@aluno.ifce.edu.br</p>
-    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-  </footer>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+      <div class="card">
+        <h2 class="section-title">Nossa Equipe e Projeto</h2>
+        <div class="about-content">
+          <p>
+            Somos uma equipe formada por cinco integrantes, todos movidos pelo entusiasmo de aprender e pela vontade de colocar em prática os conhecimentos adquiridos ao longo do curso. Acreditamos que o aprendizado se torna mais significativo quando aplicado de forma colaborativa, enfrentando desafios reais e desenvolvendo soluções criativas.
+          </p>
+          <p>
+            Nosso compromisso com este projeto reflete não apenas a nossa dedicação à disciplina de AP2, mas também o nosso desejo de evoluir enquanto estudantes e profissionais. Trabalhamos em conjunto, unindo esforços, ideias e habilidades, com o objetivo de entregar um resultado funcional, coerente e relevante.
+          </p>
+          <p>
+            Este site foi desenvolvido como parte de um projeto acadêmico para a disciplina de AP2. Seu principal propósito é demonstrar, de maneira prática e aplicada, os conhecimentos assimilados durante o semestre, por meio da criação de uma aplicação web que alie usabilidade, conteúdo informativo e propósito educacional.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Contato da Equipe</h3>
+            <div class="footer-contacts">
+                <p>cleverson.moura11@aluno.ifce.edu.br</p>
+                <p>oliveira.mario09@aluno.ifce.edu.br</p>
+                <p>iruan.moura63@aluno.ifce.edu.br</p>
+                <p>carla.mariana08@aluno.ifce.edu.br</p>
+                <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+            </div>
+        </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+  </script>
+
 </body>
 </html>

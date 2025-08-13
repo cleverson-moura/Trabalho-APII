@@ -3,97 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contatos</title>
+  <title>Contato</title>
+  
+  <!-- Link para o novo CSS -->
   <link rel="stylesheet" href="/static/estilos/contato.css"/>
-  <script defer>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-  </script>
+  
+  <!-- Fontes e Ícones do design unificado -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <header>
-    <div id="menu-e-logo">
-      <!-- Logo (quando houver) -->
-      <img src="" alt="" id="logo" />
-      <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
-      <!-- Ícone do usuário -->
-      <a href={{endereco}}>
-        <div class="icone-usuario">
-          <img src={{icone}} alt="Usuário" id="usuario-icon" />
-        </div>
-      </a>
-    </div>
-  </header>
+  <!-- Overlay para o menu lateral -->
+  <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-  <!-- Menu lateral -->
+  <!-- Menu Lateral (Sidebar) -->
   <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-        <li><a href="/contato">Contato</a></li>
-        <li><a href="/templates/projeto.html">Projeto</a></li>
-      </ul>
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/"><i class="fa-solid fa-house"></i> Início</a>
+      <a href="/quem_somos"><i class="fa-solid fa-users"></i> Quem Somos</a>
+      <a href="/"><i class="fa-solid fa-bed"></i> Quartos</a>
+      <a href="/pontos"><i class="fa-solid fa-map-location-dot"></i> Pontos Turísticos</a>
+      <a href="/contato"><i class="fa-solid fa-envelope"></i> Contato</a>
+      <a href="/templates/projeto.html"><i class="fa-solid fa-diagram-project"></i> Projeto</a>
     </nav>
   </aside>
 
-  <!-- Fundo escurecido para o menu -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div><br>
+  <div class="page-wrapper">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>Nossa Equipe</h1>
+        </div>
+        <div class="header-right">
+           <a href="{{endereco}}" class="user-profile-link">
+              <img src="{{icone}}" alt="Usuário" class="user-profile-icon" />
+              <span>Meu Perfil</span>
+            </a>
+        </div>
+      </div>
+    </header>
 
-  <!-- Conteúdo principal -->
-  <div id="main-ad">
-    <div class="container contato-container">
-        <div class="card">
-            <img src="/static/imagens/102702637.jpeg" class="devs_logo"><br>
-            <h2>Cleverson Moura</h2>
-            Email Institucional: <a href="mailto: cleverson.moura11@aluno.ifce.edu.br ">cleverson.moura11@aluno.ifce.edu.br</a><br>
-            GitHub: <a href="https://github.com/cleverson-moura">https://github.com/cleverson-moura</a><br>
-            Telefone: <a href="tel: +55 88 99300-3307 ">(88) 99300-3307</a><br>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="section-header">
+            <h2 class="section-title">Conheça os Desenvolvedores</h2>
+            <p class="section-subtitle">Entre em contato conosco através dos links abaixo.</p>
         </div>
-        <div class="card">
-            <img src="/static/imagens/212978323.png" class="devs_logo"><br>
-            <h2>Mario Oliveira</h2>
-            Email Institucional: <a href="mailto: oliveira.mario09@aluno.ifce.edu.br">oliveira.mario09@aluno.ifce.edu.br</a><br>
-            GitHub: <a href="https://github.com/mario-html">https://github.com/mario-html</a><br>
-            Telefone: <a href="tel: +55 88 99250-8498">(88) 99250-8498</a><br>
 
+        <div class="contact-grid">
+            <!-- Cleverson Moura -->
+            <div class="contact-card card">
+                <img src="/static/imagens/102702637.jpeg" alt="Foto de Cleverson Moura" class="dev-photo">
+                <h3 class="dev-name">Cleverson Moura</h3>
+                <div class="dev-links">
+                    <a href="mailto:cleverson.moura11@aluno.ifce.edu.br"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/cleverson-moura" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="tel:+5588993003307"><i class="fas fa-phone"></i> Telefone</a>
+                </div>
+            </div>
+
+            <!-- Mario Oliveira -->
+            <div class="contact-card card">
+                <img src="/static/imagens/212978323.png" alt="Foto de Mario Oliveira" class="dev-photo">
+                <h3 class="dev-name">Mario Oliveira</h3>
+                <div class="dev-links">
+                    <a href="mailto:oliveira.mario09@aluno.ifce.edu.br"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/mario-html" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="tel:+5588992508498"><i class="fas fa-phone"></i> Telefone</a>
+                </div>
+            </div>
+
+            <!-- Iruan Gonçalves -->
+            <div class="contact-card card">
+                <img src="/static/imagens/192136860 (1).png" alt="Foto de Iruan Gonçalves" class="dev-photo">
+                <h3 class="dev-name">Iruan Gonçalves</h3>
+                <div class="dev-links">
+                    <a href="mailto:iruan.moura63@aluno.ifce.edu.br"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/Iruan12" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="tel:+5588992325652"><i class="fas fa-phone"></i> Telefone</a>
+                </div>
+            </div>
+
+            <!-- Carla Mariana -->
+            <div class="contact-card card">
+                <img src="/static/imagens/188361301.jpeg" alt="Foto de Carla Mariana" class="dev-photo">
+                <h3 class="dev-name">Carla Mariana</h3>
+                <div class="dev-links">
+                    <a href="mailto:carla.mariana08@aluno.ifce.edu.br"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/Carla-newDEV" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="tel:+5588988953074"><i class="fas fa-phone"></i> Telefone</a>
+                </div>
+            </div>
+
+            <!-- Gustavo Lemos -->
+            <div class="contact-card card">
+                <img src="/static/imagens/213225308.png" alt="Foto de Gustavo Lemos" class="dev-photo">
+                <h3 class="dev-name">Gustavo Lemos</h3>
+                <div class="dev-links">
+                    <a href="mailto:gustavo.lemos08@aluno.ifce.edu.br"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/Gustavo-Lemos-2004" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="tel:+5588992786561"><i class="fas fa-phone"></i> Telefone</a>
+                </div>
+            </div>
         </div>
-        <div class="card">
-            <img src="/static/imagens/192136860 (1).png " class="devs_logo"><br>
-            <h2>Iruan Gonçalves</h2>
-            Email Institucional: <a href="mailto: iruan.moura63@aluno.ifce.edu.br ">iruan.moura63@aluno.ifce.edu.br</a><br>
-            GitHub: <a href="https://github.com/Iruan12">https://github.com/Iruan12</a><br>
-            Telefone: <a href="tel: +55 88 99232-5652">(88) 99232-5652</a><br>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="/static/imagens/IFCE_Logo.png" alt="Logo IFCE" class="footer-logo">
         </div>
-        <div class="card card-linha2">
-            <img src="/static/imagens/188361301.jpeg" class="devs_logo"><br>
-            <h2>Carla Mariana</h2>
-            Email Institucional: <a href="mailto: carla.mariana08@aluno.ifce.edu.br">carla.mariana08@aluno.ifce.edu.br</a><br>
-            GitHub: <a href="https://github.com/Carla-newDEV">https://github.com/Carla-newDEV</a><br>
-            Telefone: <a href="tel: +55 88 98895-3074">(88) 98895-3074</a><br>
-        </div>
-        <div class="card card-linha2">
-            <img src="/static/imagens/213225308.png" class="devs_logo"><br>
-            <h2>Gustavo Lemos</h2>
-            Email Institucional: <a href="mailto: gustavo.lemos08@aluno.ifce.edu.br">gustavo.lemos08@aluno.ifce.edu.br</a><br>
-            GitHub: <a href="https://github.com/Gustavo-Lemos-2004">https://github.com/Gustavo-Lemos-2004</a><br>
-            Telefone: <a href="tel: +55 88 99278-6561">(88) 99278-6561</a><br>
-        </div>
-    </div>
+    </footer>
   </div>
 
-<!-- Rodapé -->
-  <footer class="rodape">
-    <img src="/static/imagens/IFCE_Logo.png">
-  </footer>
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+  </script>
 
-  <script src="/static/scripts/index.js"></script>
 </body>
 </html>

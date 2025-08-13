@@ -2,32 +2,62 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Quarto</title>
+  
+  <!-- Link para o novo CSS -->
   <link rel="stylesheet" href="/static/estilos/reservas.css"> 
+  
+  <!-- Fontes e Ícones do design unificado -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-  <div class="tela-reserva">
-    <form class="form-reserva" action="/salvar_quarto" method="post" enctype="multipart/form-data">
-      <h2>Adicionar Quarto</h2>
+  <div class="edit-container">
+    <div class="edit-card">
+      <div class="edit-header">
+        <h2>Adicionar Novo Quarto</h2>
+        <p>Preencha os detalhes do quarto abaixo.</p>
+      </div>
 
-      <label for="descricoa">Descrição do quarto</label>
-      <input type="text" id="descricao" name="descricao" required>
+      <form class="edit-form" action="/salvar_quarto" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <i class="fas fa-align-left"></i>
+          <input type="text" id="descricao" name="descricao" required placeholder="Descrição do quarto">
+        </div>
+        
+        <div class="form-group">
+          <i class="fas fa-building"></i>
+          <input type="number" id="andar" name="andar" required placeholder="Número do Andar">
+        </div>
+        
+        <div class="form-group">
+          <i class="fas fa-door-closed"></i>
+          <input type="number" id="numero_quarto" name="numero_quarto" required placeholder="Número do Quarto">
+        </div>
 
-      <label for="imagem">Imagem do Quarto:</label>
-      <input type="file" id="imagem" name="imagem" accept="image/*" required>
+        <div class="form-group">
+          <i class="fas fa-dollar-sign"></i>
+          <input type="number" step="0.01" id="preco" name="preco" required placeholder="Preço da diária (R$)">
+        </div>
 
-      <label for="andar">Número do Andar:</label>
-      <input type="number" id="andar" name="andar" required>
-
-      <label for="numero_quarto">Número do Quarto:</label>
-      <input type="number" id="numero_quarto" name="numero_quarto" required>
-
-      <label for="preco">Preço (R$):</label>
-      <input type="number" step="0.01" id="preco" name="preco" required>
-
-      <button type="submit">Salvar Quarto</button>
-    </form>
+        <div class="form-group file-group">
+          <label for="imagem" class="file-label">
+              <i class="fa-solid fa-camera"></i>
+              <span>Imagem do Quarto</span>
+          </label>
+          <input type="file" id="imagem" name="imagem" accept="image/*" required>
+        </div>
+        
+        <div class="form-actions">
+          <a href="{{ url_for('hotel.perfil_hotel') }}" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-primary">Salvar Quarto</button>
+        </div>
+      </form>
+    </div>
   </div>
 
 </body>

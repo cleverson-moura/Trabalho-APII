@@ -1,202 +1,199 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home dos Hotéis</title>
+  <title>Home - Seu Guia de Hotéis</title>
+  
+  <!-- Link para o novo CSS -->
   <link rel="stylesheet" href="/static/estilos/style.css" />
-  <style>
-    body a {
-      text-decoration: none;
-    }
-  </style>
-  <script defer>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-  </script>
+  
+  <!-- Fontes e Ícones do novo design -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
-
 <body>
-  <header>
-    
-    <div id="menu-e-logo">
-      <!-- Logo (quando houver) -->
-      <img src="static/uploads/CÁriri-removebg-preview.png" alt="" id="logo" class="logo" />
-      <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
-      <!-- Ícone do usuário -->
-      <a href={{endereco}}>
-        <div class="icone-usuario">
-          <img src={{icone}} alt="Usuário" id="usuario-icon" />
-        </div>
-      </a>
-    </div>
-  </header>
+  <!-- Overlay para o menu lateral -->
+  <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-  <!-- Menu lateral -->
+  <!-- Menu Lateral (Sidebar) -->
   <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-        <li><a href="/contato">Contato</a></li>
-        <li><a href="/templates/projeto.html">Projeto</a></li>
-        <a href={{endereco}}>
-        <div class="icone-usuario">
-          <img src={{icone}} alt="Usuário" id="usuario-icon" />
-        </div>
-      </a>
-      </ul>
+    <div class="sidebar-header">
+      <img src="/static/uploads/CÁriri-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+      <h2>Menu</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/"><i class="fa-solid fa-house"></i> Início</a>
+      <a href="/quem_somos"><i class="fa-solid fa-users"></i> Quem Somos</a>
+      <a href="/pontos"><i class="fa-solid fa-map-location-dot"></i> Pontos Turísticos</a>
+      <a href="/contato"><i class="fa-solid fa-envelope"></i> Contato</a>
+      <a href="/templates/projeto.html"><i class="fa-solid fa-diagram-project"></i> Projeto</a>
     </nav>
   </aside>
-    
-  <!-- CARROSSEL -->
-  <div class="carrossel">
-    <!-- SLIDE 1 -->
-    <div class="slide ativo" style="background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=1932&auto=format&fit=crop');">
-        <div class="banner-content">
-            <div class="banner-text">
-                <h2>Hotel Mirante do Vale</h2>
-                <p>Onde o luxo encontra a natureza. Uma estadia inesquecível espera por você.</p>
-            </div>
-            <div class="banner-cta">
-                <a href="#">Faça sua Reserva</a>
-            </div>
+
+  <div class="page-wrapper">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>Hotéis e Quartos</h1>
         </div>
-    </div>
-
-    <!-- SLIDE 2 -->
-    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1748&auto=format&fit=crop');">
-        <div class="banner-content center">
-            <div class="banner-text">
-                <h2>Relaxe e Renove-se</h2>
-                <p>Nossas piscinas são o oásis perfeito para seu descanso.</p>
-            </div>
-            <div class="banner-cta">
-                <a href="#" class="btn-outline">Conheça o Hotel</a>
-            </div>
+        <div class="header-right">
+           <a href="{{endereco}}" class="user-profile-link">
+              <img src="{{icone}}" alt="Usuário" class="user-profile-icon" />
+              <span>Meu Perfil</span>
+            </a>
         </div>
-    </div>
- <!-- SLIDE 3 -->
-    <div class="slide" style="background-image: linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1740&auto=format&fit=crop');">
-        <div class="banner-content right">
-            <div class="banner-text">
-                <h2>Sua Estadia dos Sonhos</h2>
-                <p>Reserve 3 noites e pague apenas 2. Oferta por tempo limitado!</p>
-            </div>
-            <div class="banner-cta">
-                <a href="#">Aproveite a Oferta</a>
-            </div>
-        </div>
-    </div>
-
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-  </div>
-
-  <!-- Fundo escurecido para o menu -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-
-  <!-- Botões principais -->
-  <div id="btn-container">
-    <div id="btn-background">
-      <div id="btn-ponto" class="inativo">
-        <a href="/pontos">
-          <button>Pontos Turísticos</button>
-        </a>
       </div>
-      <div id="btn-hoteis" class="ativo">
-        <button onclick="next_page('/pontos')">Quartos</button>
-      </div>
-    </div>
-  </div>
+    </header>
 
-  <!-- Barra de pesquisa -->
-  <form method="get" action="/buscar" class="search-form">
-    <input type="text" name="q" placeholder="Digite o nome do hotel" value="{{ termo }}">
-    <input type="hidden" name="tipo" value="hotel">
-    <button type="submit">Buscar</button>
-  </form>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
 
-  <!-- Conteúdo principal -->
-  <div id="main-ad">
-    <main id="pontos-container">
-      {% if quartos %}
-      {% for quarto in quartos %}
-      <div class="ponto">
-        <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel, id_quarto=quarto.id_quarto) }}"
-          text-decoration="none">
-          {% if quarto.imagem %}
-          <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="Hotel" />
-          {% else %}
-          <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Sem imagem" />
-          {% endif %}
-
-          <div class="ponto-info">
-            <h2>{{ quarto.andar }}° andar, Número {{ quarto.numero_quarto }}</h2>
-            <p>{{ quarto.descricao }}</p>
+      <!-- Carrossel -->
+      <section class="carrossel-container">
+        <div class="carrossel">
+          <div class="slide ativo" style="background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=1932&auto=format&fit=crop');">
+              <div class="banner-content">
+                  <div class="banner-text">
+                      <h2>Hotel Mirante do Vale</h2>
+                      <p>Onde o luxo encontra a natureza. Uma estadia inesquecível espera por você.</p>
+                  </div>
+                  <div class="banner-cta">
+                      <a href="#">Faça sua Reserva</a>
+                  </div>
+              </div>
           </div>
-        </a>
-      </div>
-      {% endfor %}
-      {% else %}
-      <div class="ponto">
-        <img
-          src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg"
-          alt="Hotel" />
-        <h2>Quarto não encontrado</h2>
-        <p>Desculpe, não conseguimos encontrar o quarto solicitado.</p>
-      </div>
-      {% endif %}
+          <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1748&auto=format&fit=crop');">
+              <div class="banner-content center">
+                  <div class="banner-text">
+                      <h2>Relaxe e Renove-se</h2>
+                      <p>Nossas piscinas são o oásis perfeito para seu descanso.</p>
+                  </div>
+                  <div class="banner-cta">
+                      <a href="#" class="btn-outline">Conheça o Hotel</a>
+                  </div>
+              </div>
+          </div>
+          <div class="slide" style="background-image: linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1740&auto=format&fit=crop');">
+              <div class="banner-content right">
+                  <div class="banner-text">
+                      <h2>Sua Estadia dos Sonhos</h2>
+                      <p>Reserve 3 noites e pague apenas 2. Oferta por tempo limitado!</p>
+                  </div>
+                  <div class="banner-cta">
+                      <a href="#">Aproveite a Oferta</a>
+                  </div>
+              </div>
+          </div>
+          <button class="prev">&#10094;</button>
+          <button class="next">&#10095;</button>
+        </div>
+      </section>
+
+      <!-- Navegação e Busca -->
+      <section class="navigation-bar">
+        <div class="toggle-buttons">
+          <a href="/" class="btn btn-toggle active">Quartos</a>
+          <a href="/pontos" class="btn btn-toggle">Pontos Turísticos</a>
+        </div>
+        <form method="get" action="/buscar" class="search-form">
+          <i class="fas fa-search"></i>
+          <input type="text" name="q" placeholder="Buscar por hotel..." value="{{ termo }}">
+          <input type="hidden" name="tipo" value="hotel">
+          <button type="submit" class="btn btn-search">Buscar</button>
+        </form>
+      </section>
+
+      <!-- Listagem de Quartos -->
+      <section class="card">
+        <div class="quartos-grid">
+          {% if quartos %}
+            {% for quarto in quartos %}
+              <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel, id_quarto=quarto.id_quarto) }}" class="quarto-card-link">
+                <div class="quarto-card">
+                  <div class="quarto-card-imagem-wrapper">
+                    {% if quarto.imagem %}
+                        <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="Imagem do quarto" class="quarto-card-imagem">
+                    {% else %}
+                        <img src="https://placehold.co/600x400/d3a625/FFFFFF?text=Quarto" alt="Imagem padrão do quarto" class="quarto-card-imagem">
+                    {% endif %}
+                  </div>
+                  <div class="quarto-card-info">
+                    <h3 class="quarto-card-nome">{{ quarto.andar }}° andar, Nº {{ quarto.numero_quarto }}</h3>
+                    <p class="quarto-card-descricao">{{ quarto.descricao }}</p>
+                    <div class="quarto-card-preco">
+                      <span>R$</span> {{ quarto.preco }} <span>/ noite</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          {% else %}
+            <div class="no-content-found">
+              <i class="fas fa-bed"></i>
+              <p class="text-bold">Nenhum quarto encontrado.</p>
+              <p class="text-small">Tente uma busca diferente ou verifique novamente mais tarde.</p>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+
     </main>
+    
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Contato da Equipe</h3>
+            <div class="footer-contacts">
+                <p>cleverson.moura11@aluno.ifce.edu.br</p>
+                <p>oliveira.mario09@aluno.ifce.edu.br</p>
+                <p>iruan.moura63@aluno.ifce.edu.br</p>
+                <p>carla.mariana08@aluno.ifce.edu.br</p>
+                <p>gustavo.lemos08@aluno.ifce.edu.br</p>
+            </div>
+        </div>
+    </footer>
   </div>
 
-  <!-- Rodapé -->
-  <footer class="rodape">
-    <h2>Contato da equipe</h2>
-    <p>cleverson.moura11@aluno.ifce.edu.br</p>
-    <p>oliveira.mario09@aluno.ifce.edu.br</p>
-    <p>iruan.moura63@aluno.ifce.edu.br</p>
-    <p>carla.mariana08@aluno.ifce.edu.br</p>
-    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-  </footer>
-
-  <script src="/static/scripts/pontos.js"></script>
   <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const slides = document.querySelectorAll('.carrossel .slide');
       const prevBtn = document.querySelector('.carrossel .prev');
       const nextBtn = document.querySelector('.carrossel .next');
-    
+      if (!slides.length) return;
+
       let index = 0;
-    
       function showSlide(i) {
         index = (i + slides.length) % slides.length;
         slides.forEach((s, idx) => s.classList.toggle('ativo', idx === index));
       }
-    
+
       function nextSlide() { showSlide(index + 1); }
-      function prevSlide() { showSlide(index - 1); }
-    
-      nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
-      prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
-    
+      
       let timer = setInterval(nextSlide, 5000);
       function resetTimer() {
         clearInterval(timer);
         timer = setInterval(nextSlide, 5000);
       }
-    
+
+      nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+      prevBtn.addEventListener('click', () => { showSlide(index - 1); resetTimer(); });
+
       showSlide(index);
     });
-    </script>
+  </script>
+
 </body>
 </html>

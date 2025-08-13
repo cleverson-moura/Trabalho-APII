@@ -1,52 +1,64 @@
-<p></p>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Site</title>
+    <title>Login - Seu Hotel</title>
+    
+    <!-- Link para o novo CSS -->
     <link rel="stylesheet" href="/static/estilos/styles_login.css">
+    
+    <!-- Fontes e Ícones do design de perfil -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class= "Popup_Criar_conta">
-        <div class= "form-Popup Criar_conta">
-            <!--Logo ifce1 pq é a logo no Popup de "novo login", o Logo ifce2 é para o "Faça o login"-->
-            <i class="Logo-ifce1">
-            <img src="/static/imagens/Logo ifce.png" alt="Logo ifce1" class="Logo-ifce1">
-        </i>
-            <h2>Bem Vindo</h2>
-            <h3>Novo Login</h3>
-            <a href="/cadastro_usuario">
-                <button class="btn_criar_conta">Criar conta</button>
-            </a>
-        </div>
-        <div class="form-Popup Faça_login">
-            <!--###Logo-ifce2###-->
-            <i class="Logo-ifce2">
-                <img src="/static/imagens/Logo ifce.png" alt="Logo-ifce2" class="Logo-ifce2">
-            </i>
-            <h2>Faça Login</h2>
-           <form action="/login" method="post">
-            <!--Aqui o input para o email-->
-            <input type="email" name="email" placeholder="Email" required>
-            <!--Aqui o input para a senha-->
-            <input type="password" name="senha" placeholder="Senha" required>
-            <div class="opcões">
-                <label> <input type="checkbox"></label>
-                <a href="#">Esqueceu senha?</a>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="/static/imagens/Logo ifce.png" alt="Logo" class="logo-img">
+                <h2>Bem-vindo!</h2>
+                <p>Faça login para continuar</p>
             </div>
-                <div style="background-color: burlywood; text-align: center; border-radius: 10px; ">
-      {% with mensagens = get_flashed_messages() %}
-        {% if mensagens %}
-          {% for mensagem in mensagens %}
-            <p style="color:red">{{ mensagem }}</p>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
+
+            <!-- Exibição de mensagens flash -->
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div class="flash-messages">
+                        {% for mensagem in mensagens %}
+                            <p>{{ mensagem }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="/login" method="post" class="login-form">
+                <div class="form-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Email" required>
                 </div>
-            <button  type="submit" class="btn_entrar">Entrar</button>  
-           </form>
+                <div class="form-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="senha" placeholder="Senha" required>
+                </div>
+                
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember">
+                        Lembrar-me
+                    </label>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-login">Entrar</button>
+            </form>
+
+            <div class="login-footer">
+                <p>Não tem uma conta? <a href="/cadastro_usuario">Crie uma agora</a></p>
+            </div>
+        </div>
     </div>
-</div>
 </body>
 </html>

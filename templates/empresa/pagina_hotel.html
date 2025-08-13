@@ -1,108 +1,126 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página Hotel</title>
+  <title>Bem-vindo ao {{ hotel.nome }}</title>
+  
+  <!-- Link para o NOVO CSS -->
   <link rel="stylesheet" href="/static/estilos/pagina_hotel.css">
-
-  <!-- Flatpickr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
+  <!-- Fontes e Ícones do design de perfil -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body>
-  <!-- Cabeçalho -->
-  <header>
-    <div id="menu-e-logo">
-      <img src="" alt="" id="logo">
-      <div class="opcoes" onclick="toggleSidebar()">☰</div>
-      <a href="{{endereco}}">
-        <div class="icone-usuario">
-          <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
-        </div>
-      </a>
-    </div>
-  </header>
 
-  <!-- Seção do hotel -->
-  <section class="sobre_quarto">
-    {% if hotel.background %}
-    <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel">
-    {% else %}
-    <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Imagem padrão do hotel">
-    {% endif %}
+  <!-- Overlay para o menu lateral -->
+  <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-    <div class="extras">
-        <img src="{{ url_for('static', filename=hotel.foto) }}">
-    </div>
-  </section>
-
-  <section class="detalhes-quarto">
-    <div class="info-quarto">
-      <h1>{{ hotel.nome }}</h1>
-    </div>
-
-  <section class="quartos">
-            <h2>Quartos disponíveis: </h2>
-            {% if quartos %}
-                {% for quarto in quartos %}
-                <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel, id_quarto=quarto.id_quarto) }}">
-                    <div class="quarto-item">
-                        {% if quarto.imagem %}
-                            <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="Imagem do quarto" class="quarto-imagem">
-                        {% else %}
-                            <img src="{{ url_for('static', filename='imagens/quarto_padrao.jpg') }}" alt="Imagem padrão do quarto" class="quarto-imagem">
-                        {% endif %}
-                        <div class="quarto-info">
-                            <h3>{{ quarto.nome }}</h3>
-                            <p>{{ quarto.descricao }}</p>
-                            <p><strong>Preço:</strong> R$ {{ quarto.preco }}</p>
-                        </div>
-                    </div>
-                    </a>
-                {% endfor %}
-            {% else %}
-                <p>Não há quartos disponíveis neste hotel.</p>
-            {% endif %}
-        </section>
-
-  <!-- Menu lateral -->
+  <!-- Menu Lateral (Sidebar) -->
   <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-        <li><a href="/contato">Contato</a></li>
-        <li><a href="/templates/projeto.html">Projeto</a></li>
-      </ul>
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/"><i class="fa-solid fa-house"></i> Início</a>
+      <a href="/quem_somos"><i class="fa-solid fa-users"></i> Quem Somos</a>
+      <a href="/"><i class="fa-solid fa-bed"></i> Quartos</a>
+      <a href="/pontos"><i class="fa-solid fa-map-location-dot"></i> Pontos Turísticos</a>
+      <a href="/contato"><i class="fa-solid fa-envelope"></i> Contato</a>
+      <a href="/templates/projeto.html"><i class="fa-solid fa-diagram-project"></i> Projeto</a>
+      <!-- Link para o perfil do usuário/hotel -->
+      <a href="{{endereco}}"><i class="fa-solid fa-user"></i> Meu Perfil</a>
     </nav>
   </aside>
 
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <div class="page-wrapper">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>{{ hotel.nome }}</h1>
+        </div>
+        <div class="header-right">
+           <a href="{{endereco}}" class="btn btn-edit">
+              <i class="fas fa-user"></i>
+              <span>Ver Perfil</span>
+            </a>
+            <a href="/sair" class="btn btn-logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Sair</span>
+            </a>
+        </div>
+      </div>
+    </header>
 
-  <footer class="rodape">
-    <h2>Contato da equipe</h2>
-    <p>cleverson.moura11@aluno.ifce.edu.br</p>
-    <p>oliveira.mario09@aluno.ifce.edu.br</p>
-    <p>iruan.moura63@aluno.ifce.edu.br</p>
-    <p>carla.mariana08@aluno.ifce.edu.br</p>
-    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-  </footer>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+      
+      <!-- Banner do Hotel -->
+      <section class="hotel-banner">
+        {% if hotel.background %}
+            <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel" class="banner-img">
+        {% else %}
+            <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Imagem padrão do hotel" class="banner-img">
+        {% endif %}
+        <div class="banner-overlay">
+            <div class="hotel-avatar-wrapper">
+                <img src="{{ url_for('static', filename=hotel.foto) }}" class="hotel-avatar-img" alt="Foto do Hotel">
+            </div>
+            <h2 class="hotel-name-banner">{{ hotel.nome }}</h2>
+        </div>
+      </section>
 
-  <!-- Scripts -->
+      <!-- Seção de Quartos Disponíveis -->
+      <section class="card">
+        <h2 class="section-title">Quartos Disponíveis</h2>
+        <div class="quartos-grid">
+          {% if quartos %}
+            {% for quarto in quartos %}
+              <a href="{{ url_for('quarto.quartos_reserva', id_hotel=quarto.id_hotel, id_quarto=quarto.id_quarto) }}" class="quarto-card-link">
+                <div class="quarto-card">
+                  <div class="quarto-card-imagem-wrapper">
+                    {% if quarto.imagem %}
+                        <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="Imagem do quarto" class="quarto-card-imagem">
+                    {% else %}
+                        <img src="https://placehold.co/600x400/d3a625/FFFFFF?text=Quarto" alt="Imagem padrão do quarto" class="quarto-card-imagem">
+                    {% endif %}
+                  </div>
+                  <div class="quarto-card-info">
+                    <h3 class="quarto-card-nome">{{ quarto.nome if quarto.nome else 'Quarto Padrão' }}</h3>
+                    <p class="quarto-card-descricao">{{ quarto.descricao }}</p>
+                    <div class="quarto-card-preco">
+                      <span>R$</span> {{ quarto.preco }} <span>/ noite</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          {% else %}
+            <div class="no-content-found">
+              <i class="fas fa-bed"></i>
+              <p class="text-bold">Nenhum quarto disponível no momento.</p>
+              <p class="text-small">Por favor, verifique novamente mais tarde.</p>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+
+    </main>
+  </div>
+
   <script>
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
     }
   </script>
-  <script src="/static/scripts/index.js"></script>
 
 </body>
-
 </html>
