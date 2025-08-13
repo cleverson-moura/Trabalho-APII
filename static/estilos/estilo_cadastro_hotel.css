@@ -1,5 +1,5 @@
 /* ===================================================================
-   ESTILOS DE CADASTRO (Baseado no design da página de login)
+   ESTILOS DE CADASTRO DE HOTEL (Baseado no design da página de login)
    =================================================================== */
 
 :root {
@@ -33,7 +33,7 @@ body {
 
 .cadastro-container {
     width: 100%;
-    max-width: 480px;
+    max-width: 520px; /* Um pouco mais largo para acomodar mais campos */
 }
 
 .cadastro-card {
@@ -82,6 +82,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     color: var(--cor-texto-secundario);
+    z-index: 1;
 }
 
 .form-group input {

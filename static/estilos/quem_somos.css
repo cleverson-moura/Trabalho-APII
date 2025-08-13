@@ -1,152 +1,223 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #fff8dc;
-}
- /* ####Opções#### */
-.opcoes {
-  font-size: 28px;
-  cursor: pointer;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1003;
-  background-color: #f0e6c2;
-  padding: 8px 12px;
-  border-radius: 6px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+/* ===================================================================
+   ESTILOS GLOBAIS E BASE (Design Unificado)
+   =================================================================== */
+:root {
+  --cor-fundo: #FDFBF5;
+  --cor-fundo-card: #FFFFFF;
+  --cor-primaria: #d3a625;
+  --cor-primaria-hover: #b68b1c;
+  --cor-texto-principal: #4d3a14;
+  --cor-texto-secundario: #7a6846;
+  --cor-borda: #E5E7EB;
+  --sombra-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-principal);
+  line-height: 1.6;
+}
+
+/* ===================================================================
+   Sidebar e Overlay
+   =================================================================== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 .sidebar {
   position: fixed;
   top: 0;
-  left: -260px;
-  width: 250px;
-  height: 100%;
-  background-color: #f0e6c2;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
-  transition: left 0.3s ease;
-  z-index: 1002;
-  padding-top: 80px;
-}
-
-.sidebar nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar nav ul li {
-  padding: 15px 20px;
-}
-
-.sidebar nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  display: block;
-  transition: background 0.3s;
-}
-
-.sidebar nav ul li a:hover {
-  background-color: #e0d5aa;
-  border-radius: 5px;
-}
-
-/* OVERLAY */
-.overlay {
-  position: fixed;
-  top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-  display: none;
+  width: 260px;
+  background-color: var(--cor-fundo-card);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
 }
-
-.overlay.active {
-  display: block;
-}
-
 .sidebar.active {
-  left: 0;
+  transform: translateX(0);
 }
-
-/* CONTEÚDO PRINCIPAL */
-.content {
-  padding: 40px 20px;
-  max-width: 900px;
-  margin: 100px auto 60px auto;
+.sidebar-header {
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--cor-borda);
 }
-
-.container {
-  background-color: #f5ebc9;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.sidebar-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
-
-.container h2 {
+.sidebar-nav {
+  padding: 0.5rem;
+  flex-grow: 1;
+}
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--cor-texto-secundario);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: color 0.2s, background-color 0.2s;
+}
+.sidebar-nav a:hover {
+  background-color: #f3f4f6;
+  color: var(--cor-texto-principal);
+}
+.sidebar-nav a i {
+  width: 20px;
   text-align: center;
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #333;
 }
 
-.container p {
-  font-size: 17px;
-  line-height: 1.7;
-  color: #333;
-  margin-bottom: 15px;
+/* ===================================================================
+   Layout Principal e Cabeçalho
+   =================================================================== */
+.page-wrapper {
+  transition: margin-left 0.3s ease-in-out;
 }
-
-.rodape {
-    width: 100%;
-    background: #a1cfa3 ;
-    padding: 30px 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    color: #ffffff;
-    background-color: #dbeafe;
-    padding: 30px 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    color: #1e3a8a;
-    box-sizing: border-box;
-    margin-top: 100px;
+.header {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 990;
 }
-.rodape h2 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-    font-weight: bold;
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  padding: 0 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
 }
-.rodape p {
-    margin: 6px 0;
-    font-size: 1em;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
- /* ####Opções#### */
- /* ###Cabeçalho### */
- 
- header {
-    background: linear-gradient(to right, #3F8583, #ffecb2);
-    max-width: 100%;
+.header-left h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--cor-texto-principal);
+}
+.header-right {
+  display: flex;
+  gap: 1rem;
+}
+.user-profile-link {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    gap: 0.75rem;
+    font-weight: 500;
+}
+.user-profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--cor-primaria);
 }
 
-header #menu-e-logo {
+/* ===================================================================
+   Conteúdo Principal (Quem Somos)
+   =================================================================== */
+.main-content {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.card {
+  background-color: var(--cor-fundo-card);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--sombra-card);
+}
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--cor-borda);
+  text-align: center;
+}
+.about-content p {
+    font-size: 1.1rem;
+    color: var(--cor-texto-secundario);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ===================================================================
+   Rodapé
+   =================================================================== */
+.footer {
+    padding: 2rem;
+    background-color: #f3f4f6;
+    margin-top: 3rem;
+    border-top: 1px solid var(--cor-borda);
+}
+.footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+}
+.footer-content h3 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.footer-contacts {
     display: flex;
-    
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    color: var(--cor-texto-secundario);
 }
 
-header #menu-e-logo #menu {
-    margin-right: 10px;
+/* ===================================================================
+   Responsividade
+   =================================================================== */
+@media (max-width: 1024px) {
+  .header-right span {
+    display: none;
+  }
 }
-
-/* ###Cabeçalho### */
-
- /* ####Opções#### */
-
+@media (max-width: 768px) {
+  .main-content, .header-content {
+    padding: 1rem;
+  }
+  .card {
+    padding: 1.5rem;
+  }
+}

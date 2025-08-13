@@ -1,65 +1,163 @@
-  body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff8dc;
-    }
+/* ===================================================================
+   ESTILOS DA PÁGINA DE ADICIONAR QUARTO (Baseado no design unificado)
+   =================================================================== */
 
-    .tela-reserva {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      height: 100vh;
-      padding: 40px 20px;
-    }
+:root {
+  --cor-fundo: #FDFBF5;
+  --cor-fundo-card: #FFFFFF;
+  --cor-primaria: #d3a625;
+  --cor-primaria-hover: #b68b1c;
+  --cor-texto-principal: #4d3a14;
+  --cor-texto-secundario: #7a6846;
+  --cor-borda: #E5E7EB;
+  --sombra-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
 
-    .form-reserva {
-      background-color: #fdf6e3;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 100%;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    .form-reserva h2 {
-      text-align: center;
-      color: #5c4500;
-      margin-bottom: 20px;
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-principal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
 
-    .form-reserva label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      color: #5c4500;
-    }
+.edit-container {
+    width: 100%;
+    max-width: 500px;
+}
 
-    .form-reserva input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
+.edit-card {
+  background-color: var(--cor-fundo-card);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--sombra-card);
+  width: 100%;
+}
 
-    .form-reserva input[type="file"] {
-      padding: 5px;
-    }
+.edit-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
 
-    .form-reserva button {
-      margin-top: 25px;
-      width: 100%;
-      padding: 12px;
-      background-color: #d4af37;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.edit-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
 
-    .form-reserva button:hover {
-      background-color: #b8931c;
-    }
+.edit-header p {
+    color: var(--cor-texto-secundario);
+}
+
+/* Formulário */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--cor-texto-secundario);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.5rem; /* Espaço para o ícone */
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    background-color: var(--cor-fundo);
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+/* Estilo customizado para input de arquivo */
+.file-group input[type="file"] {
+    display: none;
+}
+.file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px dashed var(--cor-borda);
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--cor-texto-secundario);
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.file-label:hover {
+    background-color: #f9fafb;
+    border-color: var(--cor-primaria);
+}
+.file-label i {
+    position: static;
+    transform: none;
+}
+
+/* Botões de Ação */
+.form-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--cor-primaria);
+  color: white;
+  flex-grow: 1; /* Faz o botão principal ocupar mais espaço */
+}
+.btn-primary:hover {
+  background-color: var(--cor-primaria-hover);
+  box-shadow: 0 4px 10px rgba(211, 166, 37, 0.3);
+}
+
+.btn-secondary {
+    background-color: var(--cor-fundo-card);
+    color: var(--cor-texto-secundario);
+    border: 1px solid var(--cor-borda);
+}
+.btn-secondary:hover {
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+}

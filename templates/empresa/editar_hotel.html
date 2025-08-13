@@ -3,74 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criar Conta</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/estilos/estilo_editar_perfil.css">
+  <title>Editar Perfil do Hotel</title>
+  
+  <!-- Link para o novo CSS -->
+  <link rel="stylesheet" href="/static/estilos/estilo_editar_perfil.css">
+  
+  <!-- Fontes e Ícones do design unificado -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-  <header>
-    <div class="logo"></div>
-    <h1>Editar perfil</h1>
-  </header>
+  <div class="edit-container">
+    <div class="edit-card">
+      <div class="edit-header">
+        <h2>Editar Perfil do Hotel</h2>
+        <p>Atualize as informações do seu estabelecimento.</p>
+      </div>
 
-  <div class="container">
-    <h2>Editar Perfil</h2>
-      <!--##Aqui o placeholdes com o nome antigo##-->
-      <!--##Lembrar de colocar a action##-->
-      <form action="/editar_perfil_hotel" method="post" enctype="multipart/form-data">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" required value="{{ hotel['nome'] }}">
-        <!--Aqui o input para a senha-->
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" required>
-        <!--Aqui o input da imagem-->
-        <label for="imagem">Foto</label>
-        <input type="file" name="imagem" id="imagem">
-        <!--Aqui o input da chave pix-->
-        <label for="chave_pix">Chave Pix para pagamentos</label>
-        <input type="text" id="chave_pix" name="chave_pix" required value="{{ hotel['chave_pix'] }}">
+      <form action="/editar_perfil_hotel" method="post" enctype="multipart/form-data" class="edit-form">
+        <div class="form-group">
+          <i class="fas fa-building"></i>
+          <input type="text" id="nome" name="nome" required value="{{ hotel['nome'] }}">
+        </div>
         
-        <button type="submit">Salvar mudanças</button>
+        <div class="form-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="senha" name="senha" required placeholder="Nova Senha">
+        </div>
+
+        <div class="form-group">
+            <i class="fa-brands fa-pix"></i>
+            <input type="text" id="chave_pix" name="chave_pix" required value="{{ hotel['chave_pix'] }}">
+        </div>
+        
+        <div class="form-group file-group">
+          <label for="imagem" class="file-label">
+              <i class="fa-solid fa-camera"></i>
+              <span>Alterar foto do hotel</span>
+          </label>
+          <input type="file" name="imagem" id="imagem">
+        </div>
+        
+        <div class="form-actions">
+          <a href="{{ url_for('hotel.perfil_hotel') }}" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-primary">Salvar Mudanças</button>
+        </div>
       </form>
+    </div>
   </div>
- <script defer>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-  </script>
-</head>
-<body>
-
-  <div class="opcoes" onclick="toggleSidebar()">☰</div>
-
-
-  <!-- ##Menu lateral com as opções## -->
-
-  <!-- Menu lateral com as opções -->
-
-  <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-      </ul>
-    </nav>
-  </aside>
- <!-- ##Fundo escurecido## -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-  <!--##Fim das opções do canto##-->
-      </ul>
-    </nav>
-  </aside>
- <!-- Fundo escurecido -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-  <!--Fim das opções do canto-->
 
 </body>
 </html>

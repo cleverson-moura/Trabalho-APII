@@ -1,101 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criar Conta</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/estilos/estilo_cadastrousuário.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Hotel - Seu Hotel</title>
+    
+    <!-- Link para o novo CSS de cadastro de hotel -->
+    <link rel="stylesheet" href="/static/estilos/estilo_cadastro_hotel.css">
+    
+    <!-- Fontes e Ícones do design de login/cadastro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+    <div class="cadastro-container">
+        <div class="cadastro-card">
+            <div class="cadastro-header">
+                <img src="/static/imagens/Logo ifce.png" alt="Logo" class="logo-img">
+                <h2>Crie sua Conta Empresarial</h2>
+                <p>Cadastre seu hotel em nossa plataforma.</p>
+            </div>
 
-  <header>
-    <div class="logo"></div>
-    <h1>Cadastro Empresa</h1>
-  </header>
+            <!-- Exibição de mensagens flash -->
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div class="flash-messages">
+                        {% for mensagem in mensagens %}
+                            <p>{{ mensagem }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
 
-  <div class="container">
-    <h2>Crie sua conta empresarial</h2>
-    <form action="/cadastro_hotel" method="post" enctype="multipart/form-data">
-      
-      <label for="nome">Razão social da empresa</label>
-      <input type="text" id="nome" name="nome" required placeholder="DJ hotelaria">
+            <form action="/cadastro_hotel" method="post" enctype="multipart/form-data" class="cadastro-form">
+                <div class="form-group">
+                    <i class="fa-solid fa-building"></i>
+                    <input type="text" id="nome" name="nome" required placeholder="Razão Social da Empresa">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-id-card"></i>
+                    <input type="text" id="cnpj" name="cnpj" required placeholder="CNPJ (00.000.000/0001-00)">
+                </div>
+                 <div class="form-group">
+                    <i class="fa-solid fa-map-marker-alt"></i>
+                    <input type="text" id="cidade" name="cidade" required placeholder="Cidade">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-map-marked-alt"></i>
+                    <input type="text" id="bairro" name="bairro" required placeholder="Bairro">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-road"></i>
+                    <input type="text" id="rua" name="rua" required placeholder="Rua">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-hashtag"></i>
+                    <input type="text" id="numero" name="numero" required placeholder="Número">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" name="email" required placeholder="E-mail comercial">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="senha" name="senha" required placeholder="Senha">
+                </div>
+                <div class="form-group">
+                    <i class="fa-brands fa-pix"></i>
+                    <input type="text" id="chave_pix" name="chave_pix" required placeholder="Chave Pix para pagamentos">
+                </div>
+                <div class="form-group file-group">
+                     <label for="foto" class="file-label">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Logo da empresa</span>
+                    </label>
+                    <input type="file" id="foto" name="foto" accept="image/*" required>
+                </div>
+                
+                <button type="submit" class="btn btn-cadastro">Cadastrar Empresa</button>
+            </form>
 
-      <label for="CNPJ">CNPJ</label>
-      <input type="text" id="cnpj" name="cnpj" required placeholder="000.000.000/0001-XX">
-      
-      <label for="cidade">Cidade</label>
-      <input type="text" id="cidade" name="cidade" required placeholder="São Paulo">
-
-      <label for="bairro">Bairro</label>
-      <input type="text" id="bairro" name="bairro" required placeholder="Centro">
-
-      <label for="rua">Rua</label>
-      <input type="text" id="rua" name="rua" required placeholder="Rua das Flores">
-
-      <label for="numero">Número</label>
-      <input type="text" id="numero" name="numero" required placeholder="123">
-
-      <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" required placeholder="empresa@gmail.com">
-
-      <label for="senha">Senha</label>
-      <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
-
-      <label for="foto">Foto da empresa</label>
-      <input type="file" id="foto" name="foto" accept="image/*" required>
-
-      <label for="chave_pix"> Chave Pix</label>
-      <input type="text" id ="chave_pix" name= "chave_pix" required placeholder="Chave Pix para pagamentos">
-      
-
-      <button type="submit">Cadastrar empresa</button>
-    </form>
-    <div style="background-color: burlywood; text-align: center; border-radius: 10px; ">
-      {% with mensagens = get_flashed_messages() %}
-        {% if mensagens %}
-          {% for mensagem in mensagens %}
-            <p style="color:red">{{ mensagem }}</p>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
+            <div class="cadastro-footer">
+                <p>Já tem uma conta? <a href="/login">Entrar</a></p>
+                <p>É um cliente? <a href="/cadastro_usuario">Crie uma conta pessoal</a></p>
+            </div>
+        </div>
     </div>
-    <div class="footer">
-      Já tem uma conta? <a href="/login">Entrar</a>
-    </div>
-  </div>
-  <!--Início das opções do canto-->
-   <div class="opcoes" onclick="toggleSidebar()">☰</div>
-
- <script defer>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-  </script>
-</head>
-<body>
-
-  <div class="opcoes" onclick="toggleSidebar()">☰</div>
-
-  <!-- Menu lateral com as opções -->
-  <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-        <li><a href="/contato">Contato</a></li>
-        <li><a href="/templates/projeto.html">Projeto</a></li>
-      </ul>
-    </nav>
-  </aside>
- <!-- Fundo escurecido -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-  <!--Fim das opções do canto-->
-
 </body>
 </html>

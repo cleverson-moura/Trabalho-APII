@@ -1,148 +1,165 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quarto hotel</title>
+  <title>Detalhes do Quarto - {{ hotel.nome }}</title>
+
+  <!-- Link para o NOVO CSS -->
   <link rel="stylesheet" href="/static/estilos/estilo_quarto_hotel.css">
+
+  <!-- Fontes e Ícones do design de perfil -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
-
 <body>
-  <!-- Cabeçalho -->
-  <header>
-    <div id="menu-e-logo">
-      <img src="" alt="" id="logo">
-      <div class="opcoes" onclick="toggleSidebar()">☰</div>
-      <a href="{{endereco}}">
-        <div class="icone-usuario">
-          <img src="{{icone}}" id="usuario-icon" alt="Usuário" />
-        </div>
-      </a>
-    </div>
-  </header>
 
-  <!-- Seção do hotel -->
-  <section class="sobre_quarto">
-    {% if hotel.background %}
-    <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel">
-    {% else %}
-    <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Imagem padrão do hotel">
-    {% endif %}
+  <!-- Estrutura de Sidebar e Overlay, consistente com a página de perfil -->
+  <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-    <div class="extras">
-      <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}">
-        <img src="{{ url_for('static', filename=hotel.foto) }}">
-      </a>
-    </div>
-  </section>
-
-  <section class="detalhes-quarto">
-    <div class="info-quarto">
-      <h1>{{ hotel.nome }}</h1>
-      <h2>Quarto {{ quarto.andar }}° Andar</h2>
-      <h2>Número {{ quarto.numero_quarto }}°</h2>
-      <p class="valor-quarto">Diária: {{ quarto.preco }} R$</p>
-      <h3>Descrição do quarto:</h3>
-      <h4>{{ quarto.descricao }}</h4>
-    </div>
-
-    <!-- Galeria de Fotos Melhorada -->
-    <div class="galeria-quarto">
-      <h3>Fotos do Quarto</h3>
-      <div class="fotos-quarto">
-        <!-- Imagens de exemplo. Substitua pelos caminhos das suas imagens. -->
-        <img src="/imagens/ChatGPT Image 9 de ago. de 2025, 16_52_00.png" alt="1º foto do quarto" class="foto-principal">
-        <img src="https://placehold.co/600x400/f1d487/000000?text=Banheiro+Moderno" alt="2º foto do quarto">
-        <img src="https://placehold.co/600x400/fefce8/000000?text=Sacada" alt="3º foto do quarto">
-        <img src="https://placehold.co/600x400/1e3a8a/FFFFFF?text=Detalhe+Decora%C3%A7%C3%A3o" alt="4º foto do quarto">
-      </div>
-    </div>
-
-    <div class="disponibilidade-quarto">
-      <form action="{{ rota }}" method="POST">
-        <h3>Escolha as datas</h3>
-        <label for="checkin">Check-in:</label>
-        <input type="text" id="checkin" name="checkin" required>
-
-        <label for="checkout">Check-out:</label>
-        <input type="text" id="checkout" name="checkout" required>
-
-        <button type="submit" class="btn_editar">{{ botao_reserva_texto }}</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Menu lateral -->
   <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-        <li><a href="/contato">Contato</a></li>
-        <li><a href="/templates/projeto.html">Projeto</a></li>
-      </ul>
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/"><i class="fa-solid fa-house"></i> Início</a>
+      <a href="/quem_somos"><i class="fa-solid fa-users"></i> Quem Somos</a>
+      <a href="/"><i class="fa-solid fa-bed"></i> Quartos</a>
+      <a href="/pontos"><i class="fa-solid fa-map-location-dot"></i> Pontos Turísticos</a>
+      <a href="/contato"><i class="fa-solid fa-envelope"></i> Contato</a>
+      <a href="/templates/projeto.html"><i class="fa-solid fa-diagram-project"></i> Projeto</a>
+      <!-- Link de volta para o perfil do hotel -->
+      <a href="{{ url_for('hotel.perfil_hotel') }}"><i class="fa-solid fa-user-shield"></i> Perfil do Hotel</a>
     </nav>
   </aside>
 
-  <!-- Popup da parte de pagamento -->
+  <div class="page-wrapper">
+    <!-- Cabeçalho consistente com a página de perfil -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>Detalhes do Quarto</h1>
+        </div>
+        <div class="header-right">
+           <a href="{{endereco}}" class="btn btn-edit">
+              <i class="fas fa-user"></i>
+              <span>Ver Perfil</span>
+            </a>
+            <a href="/sair" class="btn btn-logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Sair</span>
+            </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Conteúdo Principal Adaptado para a página de quartos -->
+    <main class="main-content">
+        <!-- Banner do Hotel -->
+        <section class="hotel-banner">
+            {% if hotel.background %}
+                <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel" class="banner-img">
+            {% else %}
+                <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Imagem padrão do hotel" class="banner-img">
+            {% endif %}
+            <div class="banner-overlay">
+                <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}" class="hotel-avatar-link">
+                    <img src="{{ url_for('static', filename=hotel.foto) }}" class="hotel-avatar-img" alt="Foto do Hotel">
+                </a>
+                <h2 class="hotel-name-banner">{{ hotel.nome }}</h2>
+            </div>
+        </section>
+
+        <div class="grid-layout">
+            <!-- Coluna de Informações e Reserva -->
+            <div class="info-column">
+                <section class="card">
+                    <h2 class="section-title">Quarto {{ quarto.andar }}° Andar, Nº {{ quarto.numero_quarto }}</h2>
+                    <p class="quarto-descricao">{{ quarto.descricao }}</p>
+                    <div class="quarto-preco">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <span>Diária: <strong>{{ quarto.preco }} R$</strong></span>
+                    </div>
+                </section>
+                <section class="card">
+                    <h2 class="section-title">Verificar Disponibilidade e Reservar</h2>
+                    <form action="{{ rota }}" method="POST" class="form-reserva">
+                        <div class="date-picker-group">
+                            <div class="form-group">
+                                <label for="checkin"><i class="fa-solid fa-calendar-day"></i> Check-in</label>
+                                <input type="text" id="checkin" name="checkin" required placeholder="Selecione a data">
+                            </div>
+                            <div class="form-group">
+                                <label for="checkout"><i class="fa-solid fa-calendar-day"></i> Check-out</label>
+                                <input type="text" id="checkout" name="checkout" required placeholder="Selecione a data">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-edit btn-reservar">{{ botao_reserva_texto }}</button>
+                    </form>
+                </section>
+            </div>
+            <!-- Coluna da Galeria -->
+            <div class="gallery-column">
+                <section class="card">
+                    <h2 class="section-title">Galeria de Fotos</h2>
+                    <div class="galeria-quarto">
+                        <!-- Imagens de exemplo. As classes controlam o layout. -->
+                        <img src="/imagens/ChatGPT Image 9 de ago. de 2025, 16_52_00.png" alt="1º foto do quarto" class="foto-principal">
+                        <img src="https://placehold.co/600x400/f1d487/000000?text=Banheiro+Moderno" alt="2º foto do quarto">
+                        <img src="https://placehold.co/600x400/fefce8/000000?text=Sacada" alt="3º foto do quarto">
+                        <img src="https://placehold.co/600x400/1e3a8a/FFFFFF?text=Detalhe+Decora%C3%A7%C3%A3o" alt="4º foto do quarto">
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+  </div>
+
+  <!-- Popup de Pagamento Redesenhado -->
   <div id="popup-pagamento" class="popup-pagamento">
-    <div class="popup-conteudo">
-      <span id="fechar-popup" class="fechar">&times;</span>
-      <h2>Escolha a forma de pagamento</h2>
-
-      <div class="opcao-pagamento">
-        <h3>Cartão de Crédito</h3>
-        <input type="text" placeholder="Número do Cartão">
-        <input type="text" placeholder="Nome no Cartão">
-        <input type="text" placeholder="Validade (MM/AA)">
-        <input type="text" placeholder="CVV">
+    <div class="popup-conteudo card">
+      <button id="fechar-popup" class="fechar-btn">&times;</button>
+      <h2 class="section-title">Forma de Pagamento</h2>
+      <div class="opcoes-pagamento">
+        <div class="opcao-pagamento">
+          <h3><i class="fa-regular fa-credit-card"></i> Cartão de Crédito</h3>
+          <input type="text" placeholder="Número do Cartão">
+          <input type="text" placeholder="Nome no Cartão">
+          <input type="text" placeholder="Validade (MM/AA)">
+          <input type="text" placeholder="CVV">
+        </div>
+        <div class="opcao-pagamento">
+          <h3><i class="fa-brands fa-pix"></i> PIX</h3>
+          <p>Chave PIX: <strong>{{hotel.chave_pix}}</strong></p>
+        </div>
+        <div class="opcao-pagamento">
+          <h3><i class="fa-solid fa-concierge-bell"></i> Pagamento no Check-in</h3>
+          <p>Você poderá pagar presencialmente no momento do check-in.</p>
+        </div>
       </div>
-
-      <div class="opcao-pagamento">
-        <h3>PIX</h3>
-        <p>Chave PIX: <strong>{{hotel.chave_pix}}</strong></p>
-      </div>
-
-      <div class="opcao-pagamento">
-        <h3>Pagamento no Check-in</h3>
-        <p>Você poderá pagar presencialmente no momento do check-in.</p>
-      </div>
-
-      <button id="confirmar-pagamento">Confirmar</button>
+      <button id="confirmar-pagamento" class="btn btn-edit">Confirmar Pagamento</button>
     </div>
   </div>
 
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-
-  <!-- Lightbox para Imagem em Tela Cheia -->
+  <!-- Lightbox para visualização de imagens -->
   <div id="lightbox" class="lightbox">
     <span class="lightbox-fechar" onclick="fecharLightbox()">&times;</span>
     <img class="lightbox-conteudo" id="lightbox-img" alt="Imagem em tela cheia">
   </div>
 
-
-  <footer class="rodape">
-    <h2>Contato da equipe</h2>
-    <p>cleverson.moura11@aluno.ifce.edu.br</p>
-    <p>oliveira.mario09@aluno.ifce.edu.br</p>
-    <p>iruan.moura63@aluno.ifce.edu.br</p>
-    <p>carla.mariana08@aluno.ifce.edu.br</p>
-    <p>gustavo.lemos08@aluno.ifce.edu.br</p>
-  </footer>
-
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    // Script do Menu Lateral
+    // Script do Menu Lateral (igual ao perfil_hotel)
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
     }
 
     // Script do Calendário (Flatpickr)
@@ -160,31 +177,39 @@
 
     // Script do Popup de Pagamento
     document.addEventListener("DOMContentLoaded", function () {
-      const btnReserva = document.querySelector(".btn_editar");
-      const popup = document.getElementById("popup-pagamento");
-      const fechar = document.getElementById("fechar-popup");
-      const confirmar = document.getElementById("confirmar-pagamento");
-      const formReserva = btnReserva.closest("form");
+      const formReserva = document.querySelector(".form-reserva");
+      if (formReserva) {
+        const popup = document.getElementById("popup-pagamento");
+        const fechar = document.getElementById("fechar-popup");
+        const confirmar = document.getElementById("confirmar-pagamento");
 
-      btnReserva.addEventListener("click", function (e) {
-        e.preventDefault();
-        popup.classList.add("ativo");
-      });
+        formReserva.addEventListener("submit", function (e) {
+          e.preventDefault();
+          popup.classList.add("ativo");
+        });
 
-      fechar.addEventListener("click", function () {
-        popup.classList.remove("ativo");
-      });
+        fechar.addEventListener("click", function () {
+          popup.classList.remove("ativo");
+        });
+        
+        // Adiciona funcionalidade para fechar o popup ao clicar fora do conteúdo
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.classList.remove("ativo");
+            }
+        });
 
-      confirmar.addEventListener("click", function () {
-        popup.classList.remove("ativo");
-        formReserva.submit();
-      });
+        confirmar.addEventListener("click", function () {
+          popup.classList.remove("ativo");
+          formReserva.submit();
+        });
+      }
     });
 
-    // --- NOVO SCRIPT PARA LIGHTBOX DA GALERIA ---
+    // Script do Lightbox (visualizador de imagens)
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    const galeriaImagens = document.querySelectorAll('.fotos-quarto img');
+    const galeriaImagens = document.querySelectorAll('.galeria-quarto img');
 
     galeriaImagens.forEach(img => {
         img.addEventListener('click', () => {
@@ -194,11 +219,13 @@
 
     function abrirLightbox(src) {
         lightboxImg.src = src;
-        lightbox.classList.add('ativo');
+        lightbox.style.display = 'flex';
+        setTimeout(() => lightbox.classList.add('ativo'), 10);
     }
 
     function fecharLightbox() {
         lightbox.classList.remove('ativo');
+        setTimeout(() => lightbox.style.display = 'none', 400); // Espera a transição terminar
     }
 
     // Fecha o lightbox ao clicar na área escura (fora da imagem)

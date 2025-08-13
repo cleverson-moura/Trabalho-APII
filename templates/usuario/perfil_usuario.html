@@ -2,113 +2,155 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil do Usuário</title>
+  
+  <!-- Link para o novo CSS -->
   <link rel="stylesheet" href="/static/estilos/perfil_dados.css">
+  
+  <!-- Fontes e Ícones do design de perfil de hotel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <header class="topo">
-    <h1>Perfil do Usuário</h1>
-  </header>
-  <div class="opcoes" onclick="toggleSidebar()">☰</div>
 
- <script defer>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-  </script>
-</head>
-<body>
-<!--Início das opções do canto-->
-  <div class="opcoes" onclick="toggleSidebar()">☰</div>
+  <!-- Overlay para o menu lateral -->
+  <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-  <!-- Menu lateral com as opções -->
+  <!-- Menu Lateral (Sidebar) -->
   <aside id="sidebar" class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/">Início</a></li>
-        <li><a href="/quem_somos">Quem Somos</a></li>
-        <li><a href="/">Quartos</a></li>
-        <li><a href="/pontos">Pontos turísticos</a></li>
-        <li><a href="/contato">Contato</a></li>
-        <li><a href="/templates/projeto.html">Projeto</a></li>
-      </ul>
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/"><i class="fa-solid fa-house"></i> Início</a>
+      <a href="/quem_somos"><i class="fa-solid fa-users"></i> Quem Somos</a>
+      <a href="/"><i class="fa-solid fa-bed"></i> Quartos</a>
+      <a href="/pontos"><i class="fa-solid fa-map-location-dot"></i> Pontos Turísticos</a>
+      <a href="/contato"><i class="fa-solid fa-envelope"></i> Contato</a>
+      <a href="/templates/projeto.html"><i class="fa-solid fa-diagram-project"></i> Projeto</a>
     </nav>
   </aside>
-   <!-- Fundo escurecido -->
-  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-  <main class="container">
-    <!--Fim das opções do canto-->
-    <section class="card-perfil">
-      <div class="foto-perfil">
-        <img src="{{ url_for('static', filename=usuario.imagem) }}" alt="Foto do usuário">
+
+  <div class="page-wrapper">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>Meu Perfil</h1>
+        </div>
+        <div class="header-right">
+           <a href="/editar_perfil_usuario" class="btn btn-edit">
+              <i class="fas fa-pencil-alt"></i>
+              <span>Editar Perfil</span>
+            </a>
+            <a href="/sair" class="btn btn-logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Fazer Logout</span>
+            </a>
+        </div>
       </div>
-      <!--Aqui deve-se integrar com o banco de dados-->
-      <h2>{{session['usuario']['nome']}}</h2>
-      <p class="email">CPF: {{session['usuario']['cpf']}}</p>
-      <p class="cpf">Email: {{session['usuario']['email']}}</p>
-      <!--Aqui deve-se integrar com o banco de dados-->
+    </header>
 
-      <a href="/editar_perfil_usuario" class="botao-editar">Editar Perfil</a>
-      <a href="/sair" class="botao-excluir">Fazer Logout</a>
-    </section>
-  </main>
-  <h2 style="text-align: center;">MINHAS RESERVAS</h2>
-  <table border="1" cellpadding="8" cellspacing="0" style="text-align: center;">
-    <thead>
-      <tr>
-        <th colspan="3">Reserva</th>
-        <th colspan="2">Quarto</th>
-        <th colspan="5">Hotel</th>
-      </tr>
-      <tr>
-        <th>ID</th>
-        <th>ID Quarto</th>
-        <th>Tempo de Estadia</th>
-
-        <th>Andar</th>
-        <th>Número</th>
-
-        <th>Nome</th>
-        <th>Cidade</th>
-        <th>Bairro</th>
-        <th>Rua</th>
-        <th>Número</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% if reservas %}
-        {% for item in reservas %}
-          <tr>
-            <td>{{ item.reserva.id_reserva }}</td>
-            <td>{{ item.reserva.id_quarto }}</td>
-            <td>Dia {{ item.checkin}}<br>até {{item.checkout}}</td>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+      <div class="grid-layout">
+        
+        <!-- Coluna do Perfil -->
+        <div class="profile-column">
+          <section class="card profile-card">
+            <div class="profile-photo-wrapper">
+              <img src="{{ url_for('static', filename=usuario.imagem) }}" alt="Foto do usuário" class="profile-photo">
+            </div>
             
+            <h2 class="profile-name">{{session['usuario']['nome']}}</h2>
+            
+            <div class="profile-info">
+              <p><i class="fa-solid fa-envelope"></i> <span>{{session['usuario']['email']}}</span></p>
+              <p><i class="fa-solid fa-id-card"></i> <span>CPF: {{session['usuario']['cpf']}}</span></p>
+            </div>
 
-            <td>{{ item.quarto.andar }}</td>
-            <td>{{ item.quarto.numero_quarto }}</td>
+            <!-- Botões para telas menores -->
+            <div class="mobile-buttons">
+              <a href="/editar_perfil_usuario" class="btn btn-edit">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Editar Perfil</span>
+              </a>
+              <a href="/sair" class="btn btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Fazer Logout</span>
+              </a>
+            </div>
+          </section>
+        </div>
 
-            <td>{{ item.hotel.nome }}</td>
-            <td>{{ item.hotel.cidade }}</td>
-            <td>{{ item.hotel.bairro }}</td>
-            <td>{{ item.hotel.rua }}</td>
-            <td>{{ item.hotel.numero }}</td>
-            <td>
-              <form action="/cancelar_reserva" method="post">
-                <input type="hidden" name="id_reserva" value="{{ item.reserva.id_reserva }}">
-                <button type="submit" class="botao-cancelar">Cancelar</button>
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
-      {% else %}
-        <tr>
-          <td colspan="11" style="text-align: center;">Nenhuma reserva encontrada.</td>
-        </tr>
-      {% endif %}
-    </tbody>
-    </table>
+        <!-- Coluna das Reservas -->
+        <div class="reservations-column">
+          <section class="card">
+            <h2 class="section-title">Minhas Reservas</h2>
+            <div class="table-wrapper">
+              <table class="reservations-table">
+                <thead>
+                  <tr>
+                    <th>Hotel</th>
+                    <th>Quarto</th>
+                    <th>Período</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if reservas %}
+                    {% for item in reservas %}
+                      <tr>
+                        <td data-label="Hotel">
+                          <div class="text-bold">{{ item.hotel.nome }}</div>
+                          <div class="text-small">{{ item.hotel.cidade }}</div>
+                        </td>
+                        <td data-label="Quarto">
+                          <div class="text-bold">Nº {{ item.quarto.numero_quarto }}</div>
+                          <div class="text-small">{{ item.quarto.andar }}º Andar</div>
+                        </td>
+                        <td data-label="Período">
+                          <div><span class="text-bold">Check-in:</span> {{ item.checkin }}</div>
+                          <div><span class="text-bold">Check-out:</span> {{ item.checkout }}</div>
+                        </td>
+                        <td data-label="Ação">
+                          <form action="/cancelar_reserva" method="post" class="form-cancel">
+                            <input type="hidden" name="id_reserva" value="{{ item.reserva.id_reserva }}">
+                            <button type="submit" class="btn-cancel">Cancelar</button>
+                          </form>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
+                    <tr>
+                      <td colspan="4" class="no-reservations">
+                        <i class="fas fa-bed"></i>
+                        <p class="text-bold">Nenhuma reserva encontrada.</p>
+                        <p class="text-small">Quando você fizer uma reserva, ela aparecerá aqui.</p>
+                      </td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+  </script>
+
 </body>
 </html>
