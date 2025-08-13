@@ -6,7 +6,7 @@ body {
 
 /* CABEÇALHO */
 header {
-    background: linear-gradient(to right, #3F8583, #ffecb2);
+    background: linear-gradient(to right, #3F8583, #3F8583);
     max-width: 100%;
     display: flex;
     justify-content: space-between;
@@ -43,7 +43,7 @@ header #menu-e-logo #menu {
     width: auto;
     height: 100%;
 }
-/* BOTÕES DE NAVEGAÇÃO (ESTILO PADRONIZADO) */
+/* BOTÕES */
 
 #btn-container {
     margin-top: 40px;
@@ -53,11 +53,10 @@ header #menu-e-logo #menu {
 }
 
 #btn-container #btn-background{
-    background-color: #0d89a3; /* Fundo da barra de botões */
+    background-color: #0d89a3;
     border-radius: 20px;
     display: flex;
     justify-content: center;
-    padding: 5px;
 }
 
 #btn-container button {
@@ -68,16 +67,16 @@ header #menu-e-logo #menu {
     font-size: large;
     font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 #btn-container .ativo{
-    background-color: #e1b951; /* Cor dourada para o botão ativo */
+    background-color: orange;
     border-radius: 20px;
 }
 
 #btn-container .ativo button{
     color: black;
+    border-radius: 20px;
 }
 
 #btn-container .inativo{
@@ -85,7 +84,7 @@ header #menu-e-logo #menu {
 }
 
 #btn-container .inativo button{
-    color: white;
+    color: rgb(255, 254, 254);
 }
 
 .logo {
@@ -103,6 +102,7 @@ main {
     margin-left: 5%;
     margin-right: 5%;
     border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
     width: 90%;
     display: flex;
     align-items: baseline;
@@ -209,7 +209,7 @@ main .ponto img{
     background: #a1cfa3 ;
     text-align: center;
     font-family: Arial, sans-serif;
-    color: #ffffff;
+    color: #144914;
     padding: 30px 20px;
     text-align: center;
     font-family: Arial, sans-serif;
@@ -311,164 +311,165 @@ main .ponto img{
  /* ####Opções#### */
 
 .carrossel {
-  position: relative;
-  width: 90%;
-  max-width: 1400px;
-  height: 300px; 
-  margin: 40px auto;
-  border-radius: 15px; 
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  display: flex;
-  padding: 2rem;
-  box-sizing: border-box;
-  pointer-events: none;
-}
-
-.slide.ativo {
-  opacity: 1;
-  pointer-events: auto;
-  z-index: 1;
-}
-
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.3);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 2;
-  transition: background-color 0.3s ease;
-}
-
-.prev:hover, .next:hover {
-  background: rgba(0,0,0,0.6);
-}
-
-.prev { left: 1.5rem; }
-.next { right: 1.5rem; }
-
-
-
-.banner-content {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    width: 90%;
+    max-width: 1400px;
+    height: 300px; 
+    margin: 40px auto;
+    border-radius: 15px; 
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+  
+  .slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start; 
-    color: white;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-}
-
-
-.banner-content.center {
-    align-items: center;
-    text-align: center;
-}
-.banner-content.right {
-    align-items: flex-end;
-    text-align: right;
-}
-
-.banner-text {
-    max-width: 55%;
-}
-.banner-content.center .banner-text {
-    max-width: 70%;
-}
-
-
-.banner-text h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin: 0;
-    font-weight: 700;
-    line-height: 1.1;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.banner-text p {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    margin-top: 1rem;
-    line-height: 1.5;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s 0.2s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.banner-cta {
-    margin-top: 1.5rem;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.slide.ativo .banner-text h2,
-.slide.ativo .banner-text p,
-.slide.ativo .banner-cta {
+    padding: 2rem;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  
+  .slide.ativo {
     opacity: 1;
-    transform: translateY(0);
-}
-
-.banner-cta a {
-    background-color: #E1B951;
-    color: #1a1a1a;
-    padding: 16px 32px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 50px; 
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-shadow: none;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    border: 2px solid transparent;
-    transform: translateZ(0); 
-}
-
-.banner-cta a:hover {
-    background-color: #F0D2A0;
-    transform: scale(1.05);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-
-.banner-cta a.btn-outline {
-    background-color: transparent;
-    border: 2px solid #fff;
+    pointer-events: auto;
+    z-index: 1;
+  }
+  
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.3);
     color: #fff;
-}
-
-.banner-cta a.btn-outline:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #1a1a1a;
-}
-
-
-
-@media (max-width: 768px) {
-    .banner-text {
-        max-width: 100%;
-    }
-    .banner-content,
-    .banner-content.right {
-        align-items: center;
-        text-align: center;
-    }
-}
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+  }
+  
+  .prev:hover, .next:hover {
+    background: rgba(0,0,0,0.6);
+  }
+  
+  .prev { left: 1.5rem; }
+  .next { right: 1.5rem; }
+  
+  
+  
+  .banner-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start; 
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  }
+  
+  
+  .banner-content.center {
+      align-items: center;
+      text-align: center;
+  }
+  .banner-content.right {
+      align-items: flex-end;
+      text-align: right;
+  }
+  
+  .banner-text {
+      max-width: 55%;
+  }
+  .banner-content.center .banner-text {
+      max-width: 70%;
+  }
+  
+  
+  .banner-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin: 0;
+      font-weight: 700;
+      line-height: 1.1;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .banner-text p {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      margin-top: 1rem;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .banner-cta {
+      margin-top: 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .slide.ativo .banner-text h2,
+  .slide.ativo .banner-text p,
+  .slide.ativo .banner-cta {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  
+  .banner-cta a {
+      background-color: #E1B951;
+      color: #1a1a1a;
+      padding: 16px 32px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 50px; 
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-shadow: none;
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      border: 2px solid transparent;
+      transform: translateZ(0); 
+  }
+  
+  .banner-cta a:hover {
+      background-color: #F0D2A0;
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  
+  .banner-cta a.btn-outline {
+      background-color: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+  }
+  
+  .banner-cta a.btn-outline:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #1a1a1a;
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+      .banner-text {
+          max-width: 100%;
+      }
+      .banner-content,
+      .banner-content.right {
+          align-items: center;
+          text-align: center;
+      }
+  }
+  

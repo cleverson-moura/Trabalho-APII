@@ -49,10 +49,15 @@
         <li><a href="/pontos">Pontos turísticos</a></li>
         <li><a href="/contato">Contato</a></li>
         <li><a href="/templates/projeto.html">Projeto</a></li>
+        <a href={{endereco}}>
+        <div class="icone-usuario">
+          <img src={{icone}} alt="Usuário" id="usuario-icon" />
+        </div>
+      </a>
       </ul>
     </nav>
   </aside>
-  
+    
   <!-- CARROSSEL -->
   <div class="carrossel">
     <!-- SLIDE 1 -->
@@ -154,8 +159,7 @@
     </main>
   </div>
 
-
- <!-- Rodapé -->
+  <!-- Rodapé -->
   <footer class="rodape">
     <h2>Contato da equipe</h2>
     <p>cleverson.moura11@aluno.ifce.edu.br</p>
@@ -165,34 +169,34 @@
     <p>gustavo.lemos08@aluno.ifce.edu.br</p>
   </footer>
 
-<script src="/static/scripts/pontos.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const slides = document.querySelectorAll('.carrossel .slide');
-  const prevBtn = document.querySelector('.carrossel .prev');
-  const nextBtn = document.querySelector('.carrossel .next');
-
-  let index = 0;
-
-  function showSlide(i) {
-    index = (i + slides.length) % slides.length;
-    slides.forEach((s, idx) => s.classList.toggle('ativo', idx === index));
-  }
-
-  function nextSlide() { showSlide(index + 1); }
-  function prevSlide() { showSlide(index - 1); }
-
-  nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
-  prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
-
-  let timer = setInterval(nextSlide, 5000);
-  function resetTimer() {
-    clearInterval(timer);
-    timer = setInterval(nextSlide, 5000);
-  }
-
-  showSlide(index);
-});
-</script>
+  <script src="/static/scripts/pontos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const slides = document.querySelectorAll('.carrossel .slide');
+      const prevBtn = document.querySelector('.carrossel .prev');
+      const nextBtn = document.querySelector('.carrossel .next');
+    
+      let index = 0;
+    
+      function showSlide(i) {
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s, idx) => s.classList.toggle('ativo', idx === index));
+      }
+    
+      function nextSlide() { showSlide(index + 1); }
+      function prevSlide() { showSlide(index - 1); }
+    
+      nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+      prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+    
+      let timer = setInterval(nextSlide, 5000);
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(nextSlide, 5000);
+      }
+    
+      showSlide(index);
+    });
+    </script>
 </body>
 </html>
