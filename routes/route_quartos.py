@@ -99,3 +99,47 @@ def salvar_quarto():
         return redirect(url_for('hotel.perfil_hotel'))
 
     return render_template('quartos/salvar_quartos.html')
+
+@quarto_bp.route('/imagens_quarto/<id_quarto>', methods=['POST'])
+def imagens_quarto(id_quarto):
+    # Permitir apenas hotel logado
+    if 'hotel' not in session:
+        flash("Você precisa estar logado como hotel para editar as imagens do quarto.")
+        return redirect(url_for('hotel.cadastro_hotel'))
+    
+    if request.method == 'POST':
+        # Lista das imagens do formulário
+        imagens = [
+            request.files.get('imagem1'),
+            request.files.get('imagem2'),
+            request.files.get('imagem3'),
+            request.files.get('imagem4'),
+            request.files.get('imagem5'),
+            request.files.get('imagem6')
+        ]
+
+        caminhos_relativos = []
+
+        for imagem_file in imagens:
+            caminho_relativo = None
+            if imagem_file and imagem_file.filename != '':
+                filename = secure_filename(imagem_file.filename)
+                caminho_completo = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                # Salva o arquivo no diretório de uploads
+                imagem_file.save(caminho_completo)
+                # Caminho relativo que você salvará no banco
+                caminho_relativo = f'uploads/{filename}'
+            caminhos_relativos.append(caminho_relativo)
+
+        quarto = QuartoModel(id_quarto=id_quarto)
+        quarto.inserir_imagens(
+            imagen1=caminhos_relativos[0],
+            imagen2=caminhos_relativos[1],
+            imagen3=caminhos_relativos[2],
+            imagen4=caminhos_relativos[3],
+            imagen5=caminhos_relativos[4],
+            imagen6=caminhos_relativos[5]
+        )
+
+    return redirect(url_for('hotel.perfil_hotel'))
+

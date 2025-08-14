@@ -480,3 +480,19 @@ body {
     grid-row: span 1;
   }
 }
+
+/* popud de adicionar fotos */
+.inputs-imagens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.inputs-imagens label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+.inputs-imagens input[type="file"] {
+  margin-top: 0.3rem;
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
+
 <body>
 
   <!-- Estrutura de Sidebar e Overlay, consistente com a página de perfil -->
@@ -47,77 +49,85 @@
           <h1>Detalhes do Quarto</h1>
         </div>
         <div class="header-right">
-           <a href="{{endereco}}" class="btn btn-edit">
-              <i class="fas fa-user"></i>
-              <span>Ver Perfil</span>
-            </a>
-            <a href="/sair" class="btn btn-logout">
-              <i class="fas fa-sign-out-alt"></i>
-              <span>Sair</span>
-            </a>
+          <a href="{{endereco}}" class="btn btn-edit">
+            <i class="fas fa-user"></i>
+            <span>Ver Perfil</span>
+          </a>
+          <a href="/sair" class="btn btn-logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sair</span>
+          </a>
         </div>
       </div>
     </header>
 
     <!-- Conteúdo Principal Adaptado para a página de quartos -->
     <main class="main-content">
-        <!-- Banner do Hotel -->
-        <section class="hotel-banner">
-            {% if hotel.background %}
-                <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel" class="banner-img">
-            {% else %}
-                <img src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg" alt="Imagem padrão do hotel" class="banner-img">
-            {% endif %}
-            <div class="banner-overlay">
-                <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}" class="hotel-avatar-link">
-                    <img src="{{ url_for('static', filename=hotel.foto) }}" class="hotel-avatar-img" alt="Foto do Hotel">
-                </a>
-                <h2 class="hotel-name-banner">{{ hotel.nome }}</h2>
-            </div>
-        </section>
-
-        <div class="grid-layout">
-            <!-- Coluna de Informações e Reserva -->
-            <div class="info-column">
-                <section class="card">
-                    <h2 class="section-title">Quarto {{ quarto.andar }}° Andar, Nº {{ quarto.numero_quarto }}</h2>
-                    <p class="quarto-descricao">{{ quarto.descricao }}</p>
-                    <div class="quarto-preco">
-                        <i class="fa-solid fa-dollar-sign"></i>
-                        <span>Diária: <strong>{{ quarto.preco }} R$</strong></span>
-                    </div>
-                </section>
-                <section class="card">
-                    <h2 class="section-title">Verificar Disponibilidade e Reservar</h2>
-                    <form action="{{ rota }}" method="POST" class="form-reserva">
-                        <div class="date-picker-group">
-                            <div class="form-group">
-                                <label for="checkin"><i class="fa-solid fa-calendar-day"></i> Check-in</label>
-                                <input type="text" id="checkin" name="checkin" required placeholder="Selecione a data">
-                            </div>
-                            <div class="form-group">
-                                <label for="checkout"><i class="fa-solid fa-calendar-day"></i> Check-out</label>
-                                <input type="text" id="checkout" name="checkout" required placeholder="Selecione a data">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-edit btn-reservar">{{ botao_reserva_texto }}</button>
-                    </form>
-                </section>
-            </div>
-            <!-- Coluna da Galeria -->
-            <div class="gallery-column">
-                <section class="card">
-                    <h2 class="section-title">Galeria de Fotos</h2>
-                    <div class="galeria-quarto">
-                        <!-- Imagens de exemplo. As classes controlam o layout. -->
-                        <img src="/imagens/ChatGPT Image 9 de ago. de 2025, 16_52_00.png" alt="1º foto do quarto" class="foto-principal">
-                        <img src="https://placehold.co/600x400/f1d487/000000?text=Banheiro+Moderno" alt="2º foto do quarto">
-                        <img src="https://placehold.co/600x400/fefce8/000000?text=Sacada" alt="3º foto do quarto">
-                        <img src="https://placehold.co/600x400/1e3a8a/FFFFFF?text=Detalhe+Decora%C3%A7%C3%A3o" alt="4º foto do quarto">
-                    </div>
-                </section>
-            </div>
+      <!-- Banner do Hotel -->
+      <section class="hotel-banner">
+        {% if hotel.background %}
+        <img src="{{ url_for('static', filename=hotel.background) }}" alt="Imagem do hotel" class="banner-img">
+        {% else %}
+        <img
+          src="https://www.kayak.com.br/news/wp-content/uploads/sites/12/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg"
+          alt="Imagem padrão do hotel" class="banner-img">
+        {% endif %}
+        <div class="banner-overlay">
+          <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}" class="hotel-avatar-link">
+            <img src="{{ url_for('static', filename=hotel.foto) }}" class="hotel-avatar-img" alt="Foto do Hotel">
+          </a>
+          <h2 class="hotel-name-banner">{{ hotel.nome }}</h2>
         </div>
+      </section>
+
+      <div class="grid-layout">
+        <!-- Coluna de Informações e Reserva -->
+        <div class="info-column">
+          <section class="card">
+            <h2 class="section-title">Quarto {{ quarto.andar }}° Andar, Nº {{ quarto.numero_quarto }}</h2>
+            <p class="quarto-descricao">{{ quarto.descricao }}</p>
+            <div class="quarto-preco">
+              <i class="fa-solid fa-dollar-sign"></i>
+              <span>Diária: <strong>{{ quarto.preco }} R$</strong></span>
+            </div>
+          </section>
+          <section class="card">
+            <h2 class="section-title">Verificar Disponibilidade e Reservar</h2>
+            <form action="{{ rota }}" method="POST" class="form-reserva">
+              <div class="date-picker-group">
+                <div class="form-group">
+                  <label for="checkin"><i class="fa-solid fa-calendar-day"></i> Check-in</label>
+                  <input type="text" id="checkin" name="checkin" required placeholder="Selecione a data">
+                </div>
+                <div class="form-group">
+                  <label for="checkout"><i class="fa-solid fa-calendar-day"></i> Check-out</label>
+                  <input type="text" id="checkout" name="checkout" required placeholder="Selecione a data">
+                </div>
+              </div>
+              {% if 'usuario' in session%}
+              <button type="submit" class="btn btn-edit btn-reservar">{{ botao_reserva_texto }}</button>
+              {%endif%}
+            </form>
+            {% if 'hotel' in session %}
+            <a href="#" id="btn-editar-imagens">Editar imagens do quarto</a>
+            {%endif%}
+          </section>
+        </div>
+        <!-- Coluna da Galeria -->
+        <div class="gallery-column">
+          <section class="card">
+            <h2 class="section-title">Galeria de Fotos</h2>
+            <div class="galeria-quarto">
+              <!-- Imagens de exemplo. As classes controlam o layout. -->
+              <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="1º foto do quarto" class="foto-principal">
+              <img src="https://placehold.co/600x400/f1d487/000000?text=Banheiro+Moderno" alt="2º foto do quarto">
+              <img src="https://placehold.co/600x400/fefce8/000000?text=Sacada" alt="3º foto do quarto">
+              <img src="https://placehold.co/600x400/1e3a8a/FFFFFF?text=Detalhe+Decora%C3%A7%C3%A3o"
+                alt="4º foto do quarto">
+            </div>
+          </section>
+        </div>
+      </div>
     </main>
   </div>
 
@@ -152,6 +162,26 @@
     <span class="lightbox-fechar" onclick="fecharLightbox()">&times;</span>
     <img class="lightbox-conteudo" id="lightbox-img" alt="Imagem em tela cheia">
   </div>
+
+  <!-- Popup de Edição de Imagens -->
+  <div id="popup-editar-imagens" class="popup-pagamento">
+    <div class="popup-conteudo card">
+      <button id="fechar-popup-imagens" class="fechar-btn">&times;</button>
+      <h2 class="section-title">Editar Imagens do Quarto</h2>
+      <form action="/imagens_quarto/{{ quarto.id_quarto }}" method="POST" enctype="multipart/form-data">
+        <div class="inputs-imagens">
+          <label>Imagem 1: <input type="file" name="imagem1" accept="image/*"></label>
+          <label>Imagem 2: <input type="file" name="imagem2" accept="image/*"></label>
+          <label>Imagem 3: <input type="file" name="imagem3" accept="image/*"></label>
+          <label>Imagem 4: <input type="file" name="imagem4" accept="image/*"></label>
+          <label>Imagem 5: <input type="file" name="imagem5" accept="image/*"></label>
+          <label>Imagem 6: <input type="file" name="imagem6" accept="image/*"></label>
+        </div>
+        <button type="submit" class="btn btn-edit">Salvar Imagens</button>
+      </form>
+    </div>
+  </div>
+
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -191,12 +221,12 @@
         fechar.addEventListener("click", function () {
           popup.classList.remove("ativo");
         });
-        
+
         // Adiciona funcionalidade para fechar o popup ao clicar fora do conteúdo
         popup.addEventListener('click', (e) => {
-            if (e.target === popup) {
-                popup.classList.remove("ativo");
-            }
+          if (e.target === popup) {
+            popup.classList.remove("ativo");
+          }
         });
 
         confirmar.addEventListener("click", function () {
@@ -212,36 +242,65 @@
     const galeriaImagens = document.querySelectorAll('.galeria-quarto img');
 
     galeriaImagens.forEach(img => {
-        img.addEventListener('click', () => {
-            abrirLightbox(img.src);
-        });
+      img.addEventListener('click', () => {
+        abrirLightbox(img.src);
+      });
     });
 
     function abrirLightbox(src) {
-        lightboxImg.src = src;
-        lightbox.style.display = 'flex';
-        setTimeout(() => lightbox.classList.add('ativo'), 10);
+      lightboxImg.src = src;
+      lightbox.style.display = 'flex';
+      setTimeout(() => lightbox.classList.add('ativo'), 10);
     }
 
     function fecharLightbox() {
-        lightbox.classList.remove('ativo');
-        setTimeout(() => lightbox.style.display = 'none', 400); // Espera a transição terminar
+      lightbox.classList.remove('ativo');
+      setTimeout(() => lightbox.style.display = 'none', 400); // Espera a transição terminar
     }
 
     // Fecha o lightbox ao clicar na área escura (fora da imagem)
     lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            fecharLightbox();
-        }
+      if (e.target === lightbox) {
+        fecharLightbox();
+      }
     });
 
     // Fecha o lightbox ao pressionar a tecla 'Esc'
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            fecharLightbox();
-        }
+      if (e.key === 'Escape') {
+        fecharLightbox();
+      }
     });
+
+    // Script do Popup de Edição de Imagens
+    document.addEventListener("DOMContentLoaded", function () {
+  const btnEditar = document.getElementById("btn-editar-imagens");
+  const popupImagens = document.getElementById("popup-editar-imagens");
+  const fecharImagens = document.getElementById("fechar-popup-imagens");
+
+  if (btnEditar) {
+    btnEditar.addEventListener("click", function (e) {
+      e.preventDefault();
+      popupImagens.classList.add("ativo");
+    });
+  }
+
+  if (fecharImagens) {
+    fecharImagens.addEventListener("click", function () {
+      popupImagens.classList.remove("ativo");
+    });
+  }
+
+  // Fecha ao clicar fora
+  popupImagens.addEventListener('click', (e) => {
+    if (e.target === popupImagens) {
+      popupImagens.classList.remove("ativo");
+    }
+  });
+});
+
   </script>
 
 </body>
+
 </html>

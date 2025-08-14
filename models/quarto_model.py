@@ -52,3 +52,11 @@ class QuartoModel:
         db.execute(sql, (self.andar, self.numero, self.preco, self.imagem, self.id_hotel, self.id_quarto))
         db.commit()
         db.close()
+
+    def inserir_imagens(self, imagen1=None, imagen2=None, imagen3=None, imagen4=None, imagen5=None, imagen6=None):
+        db = Database()
+        db.connect()
+        sql = "INSERT INTO IMG_QUARTOS (id_quarto, img1, img2, img3, img4, img5, img_extra) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        db.execute(sql, (self.id_quarto, imagen1, imagen2, imagen3, imagen4, imagen5, imagen6))
+        db.commit()
+        db.close()
