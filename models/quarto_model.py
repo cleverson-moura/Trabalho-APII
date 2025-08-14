@@ -69,3 +69,11 @@ class QuartoModel:
         imagens = db.fetchone()
         db.close()
         return imagens
+
+    def deletar_quarto(self):
+        db = Database()
+        db.connect()
+        sql = "DELETE FROM quartos WHERE id_quarto=?"
+        db.execute(sql, (self.id_quarto,))
+        db.commit()
+        db.close()

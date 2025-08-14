@@ -63,6 +63,7 @@ def quartos_reserva(id_hotel, id_quarto):
             return redirect(url_for("gerais.login"))
 
     return render_template('quartos/quartos_hotel.html', icone=icone, endereco=endereco, hotel=hotel, quarto=quarto, imagens_quarto=imagens_quarto, rota=rota, botao_reserva_texto=botao_reserva_texto, datas_ocupadas=json.dumps(datas_ocupadas))
+
 @quarto_bp.route('/salvar_quarto', methods=['GET', 'POST'])
 def salvar_quarto():
     # Permitir apenas hotel logado
@@ -145,3 +146,14 @@ def imagens_quarto(id_quarto):
 
     return redirect(url_for('hotel.perfil_hotel'))
 
+@quarto_bp.route('/deletar_quarto/<id_quarto>', methods=["POST"])
+def deletar_quarto(id_quarto):
+    # Permitir apenas hotel logado
+    if 'hotel' not in session:
+        flash("Você precisa estar logado como hotel para editar as imagens do quarto.")
+        return redirect(url_for('hotel.cadastro_hotel'))
+    else:
+        quarto_model = QuartoModel(id_quarto=id_quarto)
+        deletar = quarto_model.deletar_quarto()
+    
+    return redirect(url_for('hotel.perfil_hotel'))

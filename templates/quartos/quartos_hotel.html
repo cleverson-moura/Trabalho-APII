@@ -108,8 +108,9 @@
               <button type="submit" class="btn btn-edit btn-reservar">{{ botao_reserva_texto }}</button>
               {%endif%}
             </form>
-            {% if 'hotel' in session %}
-            <a href="#" id="btn-editar-imagens">Editar imagens do quarto</a>
+            {% if 'hotel' in session and session["hotel"]["id"] == quarto["id_hotel"] %}
+            <a href="#" id="btn-editar-imagens">Editar imagens do quarto</a><br>
+            <a href="#" id="btn-deletar-quarto">Deletar quarto</a>
             {%endif%}
           </section>
         </div>
@@ -196,6 +197,17 @@
           </label>
         </div>
         <button type="submit" class="btn btn-edit">Salvar Imagens</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Popup de Deletar Quartos -->
+  <div id="popup-deletar-quarto" class="popup-pagamento">
+    <div class="popup-conteudo card">
+      <button id="fechar-popup-deletar" class="fechar-btn">&times;</button>
+      <h2 class="section-title">Tem certeza que quer deletar o quarto?</h2>
+      <form action="/deletar_quarto/{{ quarto.id_quarto }}" method="POST">
+        <button type="submit" class="btn btn-edit">Deletar</button>
       </form>
     </div>
   </div>
@@ -317,6 +329,32 @@
       });
     });
 
+    // Script do Popup de Deletar Quartos
+    document.addEventListener("DOMContentLoaded", function () {
+      const btnDeletar = document.getElementById("btn-deletar-quarto");
+      const popupDeletar = document.getElementById("popup-deletar-quarto");
+      const fecharDeletar = document.getElementById("fechar-popup-deletar");
+
+      if (btnDeletar) {
+        btnDeletar.addEventListener("click", function (e) {
+          e.preventDefault();
+          popupDeletar.classList.add("ativo");
+        });
+      }
+
+      if (fecharDeletar) {
+        fecharDeletar.addEventListener("click", function () {
+          popupDeletar.classList.remove("ativo");
+        });
+      }
+
+      // Fecha ao clicar fora
+      popupDeletar.addEventListener('click', (e) => {
+        if (e.target === popupDeletar) {
+          popupDeletar.classList.remove("ativo");
+        }
+      });
+    });
 
     //previzualizar imagems
     function previewThumb(event, id) {

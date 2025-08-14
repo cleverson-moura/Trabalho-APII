@@ -11,6 +11,7 @@ from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 from models.pontos_turisticos_model import PontoTuristicoModel
 
+
 def registrar():
     ip_usuario = request.remote_addr
     tempo_acesso = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
