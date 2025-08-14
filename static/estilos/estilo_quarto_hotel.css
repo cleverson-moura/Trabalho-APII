@@ -480,3 +480,42 @@ body {
     grid-row: span 1;
   }
 }
+
+/* popud de adicionar fotos */
+.inputs-imagens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.input-imagem {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #aaa;
+  transition: border-color 0.3s;
+}
+
+.input-imagem:hover {
+  border-color: #888;
+}
+
+.input-imagem input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
