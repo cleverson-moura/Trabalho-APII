@@ -60,3 +60,12 @@ class QuartoModel:
         db.execute(sql, (self.id_quarto, imagen1, imagen2, imagen3, imagen4, imagen5, imagen6))
         db.commit()
         db.close()
+
+    def buscar_imagens_do_quarto(self):
+        db = Database()
+        db.connect()
+        sql = "SELECT * FROM IMG_QUARTOS WHERE id_quarto=?"
+        db.execute(sql, (self.id_quarto,))
+        imagens = db.fetchone()
+        db.close()
+        return imagens

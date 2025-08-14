@@ -33,6 +33,8 @@ def quartos_reserva(id_hotel, id_quarto):
     quarto_model = QuartoModel(id_quarto=id_quarto)
     quarto = quarto_model.buscar_por_quarto()
 
+    imagens_quarto = quarto_model.buscar_imagens_do_quarto()
+
     reserva_model = ReservaModel(id_quarto=id_quarto)
     reservas = reserva_model.buscar_todas_reservas()
     
@@ -60,7 +62,7 @@ def quartos_reserva(id_hotel, id_quarto):
         else:
             return redirect(url_for("gerais.login"))
 
-    return render_template('quartos/quartos_hotel.html', icone=icone, endereco=endereco, hotel=hotel, quarto=quarto, rota=rota, botao_reserva_texto=botao_reserva_texto, datas_ocupadas=json.dumps(datas_ocupadas))
+    return render_template('quartos/quartos_hotel.html', icone=icone, endereco=endereco, hotel=hotel, quarto=quarto, imagens_quarto=imagens_quarto, rota=rota, botao_reserva_texto=botao_reserva_texto, datas_ocupadas=json.dumps(datas_ocupadas))
 @quarto_bp.route('/salvar_quarto', methods=['GET', 'POST'])
 def salvar_quarto():
     # Permitir apenas hotel logado
