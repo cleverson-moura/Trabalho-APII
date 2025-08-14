@@ -170,12 +170,30 @@
       <h2 class="section-title">Editar Imagens do Quarto</h2>
       <form action="/imagens_quarto/{{ quarto.id_quarto }}" method="POST" enctype="multipart/form-data">
         <div class="inputs-imagens">
-          <label>Imagem 1: <input type="file" name="imagem1" accept="image/*"></label>
-          <label>Imagem 2: <input type="file" name="imagem2" accept="image/*"></label>
-          <label>Imagem 3: <input type="file" name="imagem3" accept="image/*"></label>
-          <label>Imagem 4: <input type="file" name="imagem4" accept="image/*"></label>
-          <label>Imagem 5: <input type="file" name="imagem5" accept="image/*"></label>
-          <label>Imagem 6: <input type="file" name="imagem6" accept="image/*"></label>
+          <label class="input-imagem" style="background-image: none;" id="l-img1">
+            <span>+</span>
+            <input type="file" name="imagem1" accept="image/*" onchange="previewThumb(event, 'img1')">
+          </label>
+          <label class="input-imagem" style="background-image: none;" id="l-img2">
+            <span>+</span>
+            <input type="file" name="imagem2" accept="image/*" onchange="previewThumb(event, 'img2')">
+          </label>
+          <label class="input-imagem" style="background-image: none;" id="l-img3">
+            <span>+</span>
+            <input type="file" name="imagem3" accept="image/*" onchange="previewThumb(event, 'img3')">
+          </label>
+          <label class="input-imagem" style="background-image: none;" id="l-img4">
+            <span>+</span>
+            <input type="file" name="imagem4" accept="image/*" onchange="previewThumb(event, 'img4')">
+          </label>
+          <label class="input-imagem" style="background-image: none;" id="l-img5">
+            <span>+</span>
+            <input type="file" name="imagem5" accept="image/*" onchange="previewThumb(event, 'img5')">
+          </label>
+          <label class="input-imagem" style="background-image: none;" id="l-img6">
+            <span>+</span>
+            <input type="file" name="imagem6" accept="image/*" onchange="previewThumb(event, 'img6')">
+          </label>
         </div>
         <button type="submit" class="btn btn-edit">Salvar Imagens</button>
       </form>
@@ -274,31 +292,42 @@
 
     // Script do Popup de Edição de Imagens
     document.addEventListener("DOMContentLoaded", function () {
-  const btnEditar = document.getElementById("btn-editar-imagens");
-  const popupImagens = document.getElementById("popup-editar-imagens");
-  const fecharImagens = document.getElementById("fechar-popup-imagens");
+      const btnEditar = document.getElementById("btn-editar-imagens");
+      const popupImagens = document.getElementById("popup-editar-imagens");
+      const fecharImagens = document.getElementById("fechar-popup-imagens");
 
-  if (btnEditar) {
-    btnEditar.addEventListener("click", function (e) {
-      e.preventDefault();
-      popupImagens.classList.add("ativo");
+      if (btnEditar) {
+        btnEditar.addEventListener("click", function (e) {
+          e.preventDefault();
+          popupImagens.classList.add("ativo");
+        });
+      }
+
+      if (fecharImagens) {
+        fecharImagens.addEventListener("click", function () {
+          popupImagens.classList.remove("ativo");
+        });
+      }
+
+      // Fecha ao clicar fora
+      popupImagens.addEventListener('click', (e) => {
+        if (e.target === popupImagens) {
+          popupImagens.classList.remove("ativo");
+        }
+      });
     });
-  }
 
-  if (fecharImagens) {
-    fecharImagens.addEventListener("click", function () {
-      popupImagens.classList.remove("ativo");
-    });
-  }
 
-  // Fecha ao clicar fora
-  popupImagens.addEventListener('click', (e) => {
-    if (e.target === popupImagens) {
-      popupImagens.classList.remove("ativo");
+    //previzualizar imagems
+    function previewThumb(event, id) {
+      const file = event.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        const label = document.getElementById("l-" + id);
+        label.style.backgroundImage = `url(${url})`;
+        label.querySelector('span').textContent = ''; // remove o "+" quando a imagem aparece
+      }
     }
-  });
-});
-
   </script>
 
 </body>
