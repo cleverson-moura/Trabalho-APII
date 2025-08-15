@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="/static/estilos/estilo_quarto_hotel.css">
 
   <!-- Fontes e Ícones do design de perfil -->
+  <!-- Adiciona o Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -109,8 +111,8 @@
               {%endif%}
             </form>
             {% if 'hotel' in session and session["hotel"]["id"] == quarto["id_hotel"] %}
-            <a href="#" id="btn-editar-imagens">Editar imagens do quarto</a><br>
-            <a href="#" id="btn-deletar-quarto">Deletar quarto</a>
+            <a href="#" id="btn-editar-imagens"><i class="fas fa-edit"></i> Editar imagens do quarto</a><br>
+            <a href="#" id="btn-deletar-quarto"><i class="fas fa-trash-alt"></i> Deletar quarto</a>
             {%endif%}
           </section>
         </div>
