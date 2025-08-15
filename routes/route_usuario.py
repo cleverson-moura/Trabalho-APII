@@ -74,6 +74,7 @@ def perfil_usuario():
         reservas_detalhadas = []
 
         for i, reserva in enumerate(reservas):
+            id_quarto = reserva['id_quarto']
             # Pega o quarto
             quarto_model = QuartoModel(id_quarto=reserva['id_quarto'])
             quarto = quarto_model.buscar_por_quarto()

@@ -54,11 +54,11 @@ def quartos_reserva(id_hotel, id_quarto):
 
     if request.method == "POST":
         if "usuario" in session:
-            reserva = ReservaModel(None, session["usuario"]["id"], id_hotel, None, data_checkin, data_checkout)
+            reserva = ReservaModel(id_usuario=session["usuario"]["id"], id_quarto=quarto['id_quarto'] , data_checkin=data_checkin, data_checkout=data_checkout)
             reserva.fazer_reserva()
-        elif "hotel" in session:
-            reserva = ReservaModel(None, session["usuario"]["id"], id_hotel, None, data_checkin, data_checkout)
-            reserva.fazer_reserva()
+        # elif "hotel" in session:
+        #     reserva = ReservaModel(None, session["usuario"]["id"], id_hotel, None, data_checkin, data_checkout)
+        #     reserva.fazer_reserva()
         else:
             return redirect(url_for("gerais.login"))
 
