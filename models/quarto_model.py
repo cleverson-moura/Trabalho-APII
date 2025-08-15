@@ -61,6 +61,14 @@ class QuartoModel:
         db.commit()
         db.close()
 
+    def atualizar_imagens(self, imagen1=None, imagen2=None, imagen3=None, imagen4=None, imagen5=None, imagen6=None):
+        db = Database()
+        db.connect()
+        sql = "UPDATE IMG_QUARTOS SET img1=?, img2=?, img3=?, img4=?, img5=?, img_extra=? WHERE id_quarto=?"
+        db.execute(sql, (imagen1, imagen2, imagen3, imagen4, imagen5, imagen6, self.id_quarto))
+        db.commit()
+        db.close()
+
     def buscar_imagens_do_quarto(self):
         db = Database()
         db.connect()

@@ -136,7 +136,7 @@ body {
 }
 
 /* Botões */
-.btn {
+.btn{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -150,7 +150,7 @@ body {
   transition: background-color 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
-.btn-edit {
+.btn-edit{
   background-color: var(--cor-primaria);
   color: white;
 }
@@ -518,4 +518,47 @@ body {
   width: 100%;
   height: 100%;
   cursor: pointer;
+}
+
+#btn-editar-imagens,
+#btn-deletar-quarto {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Espaço entre ícone e texto */
+    padding: 10px 18px;
+    margin: 6px 0;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Botão editar */
+#btn-editar-imagens {
+    background-color: #3498db;
+    color: white;
+}
+
+#btn-editar-imagens:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Botão deletar */
+#btn-deletar-quarto {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#btn-deletar-quarto:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Ícones */
+#btn-editar-imagens i,
+#btn-deletar-quarto i {
+    font-size: 16px;
 }

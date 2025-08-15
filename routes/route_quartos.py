@@ -105,13 +105,11 @@ def salvar_quarto():
 
 @quarto_bp.route('/imagens_quarto/<id_quarto>', methods=['POST'])
 def imagens_quarto(id_quarto):
-    # Permitir apenas hotel logado
     if 'hotel' not in session:
         flash("Você precisa estar logado como hotel para editar as imagens do quarto.")
         return redirect(url_for('hotel.cadastro_hotel'))
     
     if request.method == 'POST':
-        # Lista das imagens do formulário
         imagens = [
             request.files.get('imagem1'),
             request.files.get('imagem2'),
@@ -121,30 +119,44 @@ def imagens_quarto(id_quarto):
             request.files.get('imagem6')
         ]
 
-        caminhos_relativos = []
+        # Busca imagens já salvas para preencher as faltantes
+        quarto = QuartoModel(id_quarto=id_quarto)
+        img_banco = quarto.buscar_imagens_do_quarto()
 
-        for imagem_file in imagens:
-            caminho_relativo = None
-            if imagem_file and imagem_file.filename != '':
+        # Sempre terá uma lista com 6 posições
+        caminhos_relativos = [None] * 6  
+
+        for i, imagem_file in enumerate(imagens):
+            if imagem_file and imagem_file.filename.strip() != '':
                 filename = secure_filename(imagem_file.filename)
                 caminho_completo = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                # Salva o arquivo no diretório de uploads
                 imagem_file.save(caminho_completo)
-                # Caminho relativo que você salvará no banco
-                caminho_relativo = f'uploads/{filename}'
-            caminhos_relativos.append(caminho_relativo)
+                caminhos_relativos[i] = f'uploads/{filename}'
+            else:
+                # Se não enviou, pega do banco caso exista
+                if img_banco and img_banco[i]:
+                    caminhos_relativos[i] = img_banco[i+2]
 
-        quarto = QuartoModel(id_quarto=id_quarto)
-        quarto.inserir_imagens(
-            imagen1=caminhos_relativos[0],
-            imagen2=caminhos_relativos[1],
-            imagen3=caminhos_relativos[2],
-            imagen4=caminhos_relativos[3],
-            imagen5=caminhos_relativos[4],
-            imagen6=caminhos_relativos[5]
-        )
+        if img_banco:
+            quarto.atualizar_imagens(
+                imagen1=caminhos_relativos[0],
+                imagen2=caminhos_relativos[1],
+                imagen3=caminhos_relativos[2],
+                imagen4=caminhos_relativos[3],
+                imagen5=caminhos_relativos[4],
+                imagen6=caminhos_relativos[5]
+            )
+        else:
+            quarto.inserir_imagens(
+                imagen1=caminhos_relativos[0],
+                imagen2=caminhos_relativos[1],
+                imagen3=caminhos_relativos[2],
+                imagen4=caminhos_relativos[3],
+                imagen5=caminhos_relativos[4],
+                imagen6=caminhos_relativos[5]
+            )
 
-    return redirect(url_for('hotel.perfil_hotel'))
+    return redirect(url_for('quarto.quartos_reserva', id_hotel=session['hotel']['id'], id_quarto=id_quarto))
 
 @quarto_bp.route('/deletar_quarto/<id_quarto>', methods=["POST"])
 def deletar_quarto(id_quarto):
