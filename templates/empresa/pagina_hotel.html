@@ -112,6 +112,50 @@
         </div>
       </section>
 
+      <!-- Avaliacoes -->
+      <section class="card">
+        <h2 class="section-title">Avaliações</h2>
+        {% if avaliacoes %}
+            <div class="avaliacoes">
+                {% for avaliacao in avaliacoes %}
+                    <div class="avaliacao">
+                        <p><strong>{{ avaliacao[0] }}</strong></p>
+                        <p>
+                            {% for i in range(avaliacao[1]) %}
+                                ⭐
+                            {% endfor %}
+                            ({{ avaliacao[1] }}/5)
+                        </p>
+                        <p>{{ avaliacao[2] }}</p>
+                        <small>Data: {{ avaliacao[3] }}</small>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Este hotel ainda não possui avaliações.</p>
+        {% endif %}
+        <!-- Formulário para avaliar -->
+        {% if pode_avaliar %}
+            <h3>Deixe sua avaliação</h3>
+            <form method="POST" action="{{ url_for('hotel.pagina_hotel', id_hotel=hotel['id_hotel']) }}">
+                <label for="estrelas">Nota:</label>
+                <select name="estrelas" id="estrelas" required>
+                    <option value="1">⭐ 1</option>
+                    <option value="2">⭐⭐ 2</option>
+                    <option value="3">⭐⭐⭐ 3</option>
+                    <option value="4">⭐⭐⭐⭐ 4</option>
+                    <option value="5">⭐⭐⭐⭐⭐ 5</option>
+                </select>
+
+                <br><br>
+                <textarea name="comentario" placeholder="Escreva seu comentário..." required></textarea>
+                <br><br>
+                <button type="submit">Enviar Avaliação</button>
+            </form>
+        {% endif %}
+        </div>
+      </section>
     </main>
   </div>
 

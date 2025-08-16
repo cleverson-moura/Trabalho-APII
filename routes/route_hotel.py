@@ -6,6 +6,7 @@ from models.usuario_model import UsuarioModel
 from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
+from models.avaliacao_hotel_model import AvaliacaoHotelModel
 from datetime import datetime
 
 
@@ -195,13 +196,43 @@ def editar_perfil_hotel():
 
     return render_template('empresa/editar_hotel.html', hotel=session['hotel'])
 
-@hotel_bp.route('/pagina_hotel/<int:id_hotel>', methods=['GET'])
+@hotel_bp.route('/pagina_hotel/<int:id_hotel>', methods=['GET', 'POST'])
 def pagina_hotel(id_hotel):
-    if 'usuario' in session:
-        icone = "/static/{}".format(session['usuario']['imagem'])
+    avaliacao_hotel_model = AvaliacaoHotelModel(id_hotel=id_hotel)
+
+    # --- Para envio do formulário (POST) ---
+    if request.method == "POST":
+        if "usuario" not in session:
+            flash("Você precisa estar logado para avaliar.", "error")
+            return redirect(url_for("usuario.login"))
+
+        id_usuario = session["usuario"]["id"]
+        estrelas = int(request.form.get("estrelas"))
+        comentario = request.form.get("comentario")
+
+        sucesso = avaliacao_hotel_model.inserir_avaliacao(
+            id_usuario=id_usuario,
+            id_hotel=id_hotel,
+            estrelas=estrelas,
+            comentario=comentario
+        )
+
+        if sucesso:
+            flash("Avaliação enviada com sucesso!", "success")
+        else:
+            flash("Você já avaliou este hotel.", "error")
+
+        return redirect(url_for("hotel.pagina_hotel", id_hotel=id_hotel))
+
+    # --- Apenas para mostrar página(GET) ---
+    pode_avaliar = False
+    if "usuario" in session:
+        icone = f"/static/{session['usuario']['imagem']}"
         endereco = "/perfil_usuario"
-    elif 'hotel' in session:
-        icone = "/static/{}".format(session['hotel']['foto'])
+        id_usuario = session["usuario"]["id"]
+        pode_avaliar = avaliacao_hotel_model.pode_avaliar_hotel(id_usuario, id_hotel)
+    elif "hotel" in session:
+        icone = f"/static/{session['hotel']['foto']}"
         endereco = "/perfil_hotel"
     else:
         icone = "/static/imagens/user.png"
@@ -213,4 +244,14 @@ def pagina_hotel(id_hotel):
     quarto_model = QuartoModel(id_hotel=id_hotel)
     quartos = quarto_model.buscar_todos_quartos_do_hotel()
 
-    return render_template('empresa/pagina_hotel.html', hotel=hotel, quartos=quartos, icone=icone, endereco=endereco)
+    avaliacoes = avaliacao_hotel_model.buscar_avaliacoes_hotel()
+
+    return render_template(
+        "empresa/pagina_hotel.html",
+        hotel=hotel,
+        quartos=quartos,
+        avaliacoes=avaliacoes,
+        pode_avaliar=pode_avaliar,
+        icone=icone,
+        endereco=endereco
+    )
