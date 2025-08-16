@@ -1,7 +1,11 @@
 import sqlite3
 
 class AvaliacaoQuartoModel:
-    @staticmethod
+    
+    def __init__(self):
+        self.con = sqlite3.connect("database/banco/SITE.db")
+        self.cursor = self.con.cursor()
+
     def inserir_avaliacao(id_usuario, id_hotel, id_quarto, estrelas, comentario):
         try:
             con = sqlite3.connect("database/banco/SITE.db")
@@ -14,7 +18,6 @@ class AvaliacaoQuartoModel:
         finally:
             con.close()
 
-    @staticmethod
     def buscar_avaliacoes_quarto(id_hotel, id_quarto):
         con = sqlite3.connect("database/banco/SITE.db")
         cursor = con.cursor()
@@ -28,7 +31,6 @@ class AvaliacaoQuartoModel:
         con.close()
         return avaliacoes
 
-    @staticmethod
     def calcular_media_estrelas(id_hotel, id_quarto):
         con = sqlite3.connect("database/banco/SITE.db")
         cursor = con.cursor()
