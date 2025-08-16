@@ -122,7 +122,12 @@
             <h2 class="section-title">Galeria de Fotos</h2>
             <div class="galeria-quarto">
               <!-- Imagens de exemplo. As classes controlam o layout. -->
+              {% if quarto.imagem %}
               <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="1º foto do quarto" class="foto-principal">
+              {% else %}
+              <img src="https://placehold.co/600x400/d3a625/FFFFFF?text=Quarto" alt="1º foto do quarto" class="foto-principal">
+              {% endif %}
+
               {% if imagens %}
               {% for img in imagens %}
               <img src="{{ url_for('static', filename=img) }}" alt="foto do quarto">
