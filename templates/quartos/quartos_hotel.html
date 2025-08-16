@@ -123,10 +123,11 @@
             <div class="galeria-quarto">
               <!-- Imagens de exemplo. As classes controlam o layout. -->
               <img src="{{ url_for('static', filename=quarto.imagem) }}" alt="1º foto do quarto" class="foto-principal">
-              <img src="{{ url_for('static', filename=imagens_quarto.img1) }}" alt="2º foto do quarto">
-              <img src="{{ url_for('static', filename=imagens_quarto.img2) }}" alt="3º foto do quarto">
-              <img src="{{ url_for('static', filename=imagens_quarto.img3) }}" alt="4º foto do quarto">
-              <img src="{{ url_for('static', filename=imagens_quarto.img4) }}" alt="4º foto do quarto">
+              {% if imagens %}
+              {% for img in imagens %}
+              <img src="{{ url_for('static', filename=img) }}" alt="foto do quarto">
+              {% endfor %}
+              {% endif %}
             </div>
           </section>
         </div>
