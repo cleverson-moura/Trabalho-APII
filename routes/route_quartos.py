@@ -34,7 +34,6 @@ def quartos_reserva(id_hotel, id_quarto):
     quarto = quarto_model.buscar_por_quarto()
 
     imagens_quarto = quarto_model.buscar_imagens_do_quarto()
-    print("DEBUG imagens_quarto:", imagens_quarto)
 
     imagens = []
     if imagens_quarto:  # garante que não é None
@@ -44,7 +43,6 @@ def quartos_reserva(id_hotel, id_quarto):
             if img:  # só adiciona se não for None ou vazio
                 imagens.append(img)
 
-    print("DEBUG lista imagens:", imagens)
 
 
     reserva_model = ReservaModel(id_quarto=id_quarto)
@@ -68,6 +66,7 @@ def quartos_reserva(id_hotel, id_quarto):
         if "usuario" in session:
             reserva = ReservaModel(id_usuario=session["usuario"]["id"], id_quarto=quarto['id_quarto'] , data_checkin=data_checkin, data_checkout=data_checkout)
             reserva.fazer_reserva()
+            return redirect(url_for("usuario.perfil_usuario"))
         # elif "hotel" in session:
         #     reserva = ReservaModel(None, session["usuario"]["id"], id_hotel, None, data_checkin, data_checkout)
         #     reserva.fazer_reserva()
