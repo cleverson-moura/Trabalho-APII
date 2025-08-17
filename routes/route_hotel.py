@@ -249,6 +249,7 @@ def pagina_hotel(id_hotel):
     quartos = quarto_model.buscar_todos_quartos_do_hotel()
 
     avaliacoes = avaliacao_hotel_model.buscar_avaliacoes_hotel()
+    media_estrelas = avaliacao_hotel_model.calcular_media_estrelas()
 
      # endereço completo do hotel vindo do banco
     endereco = f"{hotel['rua']}, {hotel['bairro']}, {hotel['cidade']}"
@@ -261,6 +262,7 @@ def pagina_hotel(id_hotel):
         quartos=quartos,
         avaliacoes=avaliacoes,
         pode_avaliar=pode_avaliar,
+        media_estrelas=media_estrelas,
         icone=icone,
         endereco=endereco,
         lat=lat, lng=lng
