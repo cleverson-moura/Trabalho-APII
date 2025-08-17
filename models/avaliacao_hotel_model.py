@@ -45,7 +45,7 @@ class AvaliacaoHotelModel:
         )
         return self.cursor.fetchall()
 
-    def calcular_media_estrelas(self, id_hotel):
+    def calcular_media_estrelas(self):
         self.cursor.execute(
             '''SELECT AVG(estrelas), COUNT(*) 
                FROM avaliacoes_hoteis 
@@ -53,7 +53,12 @@ class AvaliacaoHotelModel:
             (self.id_hotel,)
         )
         media, total = self.cursor.fetchone()
-        return (round(media, 1) if media else 0, total)
-
+        if media:
+            media = round(media, 1)
+            media = str(media).replace(".", ",")  # troca ponto por vírgula
+        else:
+            media = "0"
+        return media
+        
     def fechar(self):
         self.con.close()
