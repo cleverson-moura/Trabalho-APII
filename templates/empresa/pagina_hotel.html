@@ -13,6 +13,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style>
+    /* reset para evitar que o mapa herde altura total */
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* aqui você controla o tamanho do mapa */
+    #map {
+      height: 400px;   /* altura fixa */
+      width: 100%;     /* largura ocupando o espaço do container */
+      /* max-width: 800px; */
+      margin: 50px auto; /* centraliza com margem */
+      border: 2px solid #ccc;
+      border-radius: 12px;
+    }
+  </style>
 </head>
 <body>
 
@@ -47,7 +66,7 @@
           <h1>{{ hotel.nome }}</h1>
         </div>
         <div class="header-right">
-           <a href="{{endereco}}" class="btn btn-edit">
+           <a href="/perfil_hotel" class="btn btn-edit">
               <i class="fas fa-user"></i>
               <span>Ver Perfil</span>
             </a>
@@ -76,6 +95,26 @@
             <h2 class="hotel-name-banner">{{ hotel.nome }}</h2>
         </div>
       </section>
+
+      <div id="map" data-lat="{{ lat }}" data-lng="{{ lng }}"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const mapDiv = document.getElementById("map");
+    const lat = parseFloat(mapDiv.dataset.lat);
+    const lng = parseFloat(mapDiv.dataset.lng);
+
+    const map = L.map('map').setView([lat, lng], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker([lat, lng]).addTo(map)
+      .bindPopup("Aqui é o hotel")
+      .openPopup();
+  </script>
+
 
       <!-- Seção de Quartos Disponíveis -->
       <section class="card">

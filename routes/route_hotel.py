@@ -7,10 +7,14 @@ from models.reserva_model import ReservaModel
 from models.quarto_model import QuartoModel
 from models.hotel_model import HotelModel
 from models.avaliacao_hotel_model import AvaliacaoHotelModel
+
+from models.geocode import GeocodeHelper
+
 from datetime import datetime
 
 
 hotel_bp = Blueprint('hotel', __name__, template_folder='../templates')
+geocoder = GeocodeHelper()
 
 @hotel_bp.route('/cadastro_hotel', methods=['GET', 'POST'])
 def cadastro_hotel():
@@ -246,6 +250,11 @@ def pagina_hotel(id_hotel):
 
     avaliacoes = avaliacao_hotel_model.buscar_avaliacoes_hotel()
 
+     # endereço completo do hotel vindo do banco
+    endereco = f"{hotel['rua']}, {hotel['bairro']}, {hotel['cidade']}"
+
+    lat, lng = geocoder.endereco_para_latlng(endereco)
+
     return render_template(
         "empresa/pagina_hotel.html",
         hotel=hotel,
@@ -253,5 +262,6 @@ def pagina_hotel(id_hotel):
         avaliacoes=avaliacoes,
         pode_avaliar=pode_avaliar,
         icone=icone,
-        endereco=endereco
+        endereco=endereco,
+        lat=lat, lng=lng
     )
