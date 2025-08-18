@@ -1,0 +1,435 @@
+/* ===================================================================
+   ESTILOS BASE (Consistente com a página de perfil do hotel)
+   =================================================================== */
+
+:root {
+  --cor-fundo: #FDFBF5;
+  --cor-fundo-card: #FFFFFF;
+  --cor-primaria: #d3a625;
+  --cor-primaria-hover: #b68b1c;
+  --cor-texto-principal: #4d3a14;
+  --cor-texto-secundario: #7a6846;
+  --cor-perigo: #d32525;
+  --cor-perigo-hover: #b61c1c;
+  --cor-info: #17a2b8;
+  --cor-info-hover: #138496;
+  --cor-borda: #E5E7EB;
+  --sombra-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-principal);
+  line-height: 1.6;
+}
+
+/* Sidebar e Overlay */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: var(--cor-fundo-card);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar.active {
+  transform: translateX(0);
+}
+.sidebar-header {
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+.sidebar-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.sidebar-nav {
+  padding: 0.5rem;
+  flex-grow: 1;
+}
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--cor-texto-secundario);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: color 0.2s, background-color 0.2s;
+}
+.sidebar-nav a:hover {
+  background-color: #f3f4f6;
+  color: var(--cor-texto-principal);
+}
+.sidebar-nav a i {
+  width: 20px;
+  text-align: center;
+}
+
+/* Layout Principal e Cabeçalho */
+.page-wrapper {
+  transition: margin-left 0.3s ease-in-out;
+}
+.header {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 990;
+}
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.header-left h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--cor-texto-principal);
+}
+.header-right {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Botões */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.btn-edit{
+  background-color: var(--cor-primaria);
+  color: white;
+}
+.btn-edit:hover {
+  background-color: var(--cor-primaria-hover);
+  box-shadow: 0 4px 10px rgba(211, 166, 37, 0.3);
+}
+.btn-logout {
+  background-color: var(--cor-perigo);
+  color: white;
+}
+.btn-logout:hover {
+  background-color: var(--cor-perigo-hover);
+  box-shadow: 0 4px 10px rgba(211, 37, 37, 0.3);
+}
+
+/* Conteúdo Principal e Cards */
+.main-content {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.card {
+  background-color: var(--cor-fundo-card);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--sombra-card);
+}
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+/* ===================================================================
+   NOVOS ESTILOS (Específicos para a página de detalhes do Ponto)
+   =================================================================== */
+
+/* Banner do Ponto */
+.ponto-banner {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: var(--sombra-card);
+}
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    gap: 1rem;
+}
+
+.hotel-name-banner {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Layout da Página */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* Coluna de Informações */
+.ponto-descricao {
+    color: var(--cor-texto-secundario);
+    margin-bottom: 1.5rem;
+}
+/* Galeria de Fotos */
+.galeria-ponto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-rows: 150px;
+    grid-auto-flow: dense;
+    gap: 1rem;
+}
+.galeria-ponto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+.galeria-ponto img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    position: relative;
+}
+.galeria-ponto img.foto-principal {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+
+/* Lightbox */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+.lightbox.ativo {
+    display: flex;
+    opacity: 1;
+}
+.lightbox-conteudo {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    animation: zoom 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+@keyframes zoom {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.lightbox-fechar {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+.lightbox-fechar:hover {
+    color: #bbb;
+    transform: scale(1.1);
+}
+
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .header-right .btn span {
+    display: none;
+  }
+  .header-right .btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+    padding: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .grid-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+  .galeria-quarto {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-auto-rows: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-right {
+    display: none;
+  }
+  .main-content, .header-content {
+    padding: 1rem;
+  }
+  .hotel-banner {
+      height: 200px;
+  }
+  .hotel-avatar-img {
+      width: 120px; /* Dobro do tamanho original para mobile */
+      height: 120px; /* Dobro do tamanho original para mobile */
+  }
+  .hotel-name-banner {
+      font-size: 1.5rem;
+  }
+  .galeria-quarto img.foto-principal {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+/* popud de adicionar fotos */
+.inputs-imagens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.input-imagem {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #aaa;
+  transition: border-color 0.3s;
+}
+
+.input-imagem:hover {
+  border-color: #888;
+}
+
+.input-imagem input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+#btn-editar-imagens,
+#btn-deletar-quarto {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Espaço entre ícone e texto */
+    padding: 10px 18px;
+    margin: 6px 0;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Botão editar */
+#btn-editar-imagens {
+    background-color: #3498db;
+    color: white;
+}
+
+#btn-editar-imagens:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Botão deletar */
+#btn-deletar-quarto {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#btn-deletar-quarto:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Ícones */
+#btn-editar-imagens i,
+#btn-deletar-quarto i {
+    font-size: 16px;
+}
