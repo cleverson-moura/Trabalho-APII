@@ -36,14 +36,26 @@ class AvaliacaoHotelModel:
 
     def buscar_avaliacoes_hotel(self):
         self.cursor.execute(
-            '''SELECT u.nome, a.estrelas, a.comentario, a.data_avaliacao
-               FROM avaliacoes_hoteis a
-               JOIN usuarios u ON a.id_usuario = u.id_usuario
-               WHERE a.id_hotel = ?
-               ORDER BY a.data_avaliacao DESC''',
+            '''SELECT a.id_avaliacao, u.nome, a.estrelas, a.comentario, a.data_avaliacao
+            FROM avaliacoes_hoteis a
+            JOIN usuarios u ON a.id_usuario = u.id_usuario
+            WHERE a.id_hotel = ?
+            ORDER BY a.data_avaliacao DESC''',
             (self.id_hotel,)
         )
         return self.cursor.fetchall()
+
+    def deletar_avaliacao(self, id_avaliacao, id_usuario):
+        try:
+            self.cursor.execute(
+                "DELETE FROM avaliacoes_hoteis WHERE id_avaliacao=? AND id_usuario=?",
+                (id_avaliacao, id_usuario)
+            )
+            self.con.commit()
+            return True
+        except Exception:
+            return False
+            
 
     def calcular_media_estrelas(self):
         self.cursor.execute(

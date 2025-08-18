@@ -3,5 +3,72 @@
     font-weight: 600;
     margin-left: 8px;
     margin-right: 4px;
-    color: #f5b301; /* dourado */
+    color: #f5b301;
   }
+  .star-rating {
+    direction: rtl; 
+    display: inline-flex;
+    font-size: 2rem;
+  }
+  
+  .star-rating input {
+    display: none;
+  }
+  
+  .star-rating label {
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    color: #f5b301;
+  }
+  
+  .star-rating input:checked ~ label {
+    color: #f5b301; /* estrelas douradas quando selecionadas */
+  }
+
+.btn-delete {
+  background-color: #b31c1c;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.btn-delete:hover {
+  background-color: #b31c1c;
+}
+.btn-enviar {
+  background-color: #ecba2e;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.btn-enviar:hover {
+  background-color: #ecba2e;
+}
+
+.star-rating.readonly {
+  display: inline-flex;
+  font-size: 1.4rem;
+  direction: ltr; /* garante que vá da esquerda para a direita */
+}
+
+.star-rating.readonly span.filled {
+  color: #f5b301; /* estrelas preenchidas */
+}
+
+.star-rating.readonly span {
+  color: #ccc; /* estrelas vazias */
+}

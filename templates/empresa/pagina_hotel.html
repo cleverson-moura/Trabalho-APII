@@ -163,19 +163,28 @@
         {% if avaliacoes %}
             <div class="avaliacoes">
                 {% for avaliacao in avaliacoes %}
-                    <div class="avaliacao">
-                        <p><strong>{{ avaliacao[0] }}</strong></p>
-                        <p>
-                            {% for i in range(avaliacao[1]) %}
-                                ⭐
-                            {% endfor %}
-                            ({{ avaliacao[1] }}/5)
-                        </p>
-                        <p>{{ avaliacao[2] }}</p>
-                        <small>Data: {{ avaliacao[3] }}</small>
-                    </div>
-                    <hr>
-                {% endfor %}
+                <div class="avaliacao">
+                    <p><strong>{{ avaliacao[1] }}</strong></p>
+                    <p>
+                      <div class="star-rating readonly">
+                        {% for i in range(1, 6) %}
+                            <span class="{% if i <= avaliacao[2] %}filled{% endif %}">★</span>
+                        {% endfor %}
+                        &nbsp;<small>{{ avaliacao[2] }}/5</small>
+                      </div>
+                    </p>
+                    <p>{{ avaliacao[3] }}</p>
+                    <small>Data: {{ avaliacao[4] }}</small>
+            
+                    {% if "usuario" in session and session["usuario"]["nome"] == avaliacao[1] %}
+                        <form method="POST" action="{{ url_for('hotel.deletar_avaliacao', id_hotel=hotel['id_hotel'], id_avaliacao=avaliacao[0]) }}">
+                            <button type="submit" class="btn-delete">Excluir</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <hr>
+            {% endfor %}
+          
             </div>
         {% else %}
             <p>Este hotel ainda não possui avaliações.</p>
@@ -185,18 +194,17 @@
             <h3>Deixe sua avaliação</h3>
             <form method="POST" action="{{ url_for('hotel.pagina_hotel', id_hotel=hotel['id_hotel']) }}">
                 <label for="estrelas">Nota:</label>
-                <select name="estrelas" id="estrelas" required>
-                    <option value="1">⭐ 1</option>
-                    <option value="2">⭐⭐ 2</option>
-                    <option value="3">⭐⭐⭐ 3</option>
-                    <option value="4">⭐⭐⭐⭐ 4</option>
-                    <option value="5">⭐⭐⭐⭐⭐ 5</option>
-                </select>
-
+                <div class="star-rating">
+                  <input type="radio" name="estrelas" id="estrela5" value="5"><label for="estrela5">★</label>
+                  <input type="radio" name="estrelas" id="estrela4" value="4"><label for="estrela4">★</label>
+                  <input type="radio" name="estrelas" id="estrela3" value="3"><label for="estrela3">★</label>
+                  <input type="radio" name="estrelas" id="estrela2" value="2"><label for="estrela2">★</label>
+                  <input type="radio" name="estrelas" id="estrela1" value="1"><label for="estrela1">★</label>
+                </div>
                 <br><br>
                 <textarea name="comentario" placeholder="Escreva seu comentário..." required></textarea>
                 <br><br>
-                <button type="submit">Enviar Avaliação</button>
+                <button type="submit" class="btn-enviar">Enviar Avaliação</button>
             </form>
         {% endif %}
         </div>
