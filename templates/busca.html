@@ -74,7 +74,7 @@
         {% endfor %}
     </div>
     {% else %}
-    <h1>Nenhum hotel encontrado para "{{ termo }}"</h1>
+    <h1>Nenhum resultado encontrado para "{{ termo }}"</h1>
     <!-- Barra de pesquisa -->
     <form method="get" action="/buscar">
         <input type="text" name="q" placeholder="Digite o nome do hotel" value="{{ termo }}">
