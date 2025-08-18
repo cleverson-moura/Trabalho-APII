@@ -267,3 +267,20 @@ def pagina_hotel(id_hotel):
         endereco=endereco,
         lat=lat, lng=lng
     )
+
+@hotel_bp.route('/deletar_avaliacao/<int:id_hotel>/<int:id_avaliacao>', methods=['POST'])
+def deletar_avaliacao(id_hotel, id_avaliacao):
+    if "usuario" not in session:
+        flash("Você precisa estar logado para excluir sua avaliação.", "error")
+        return redirect(url_for("usuario.login"))
+
+    id_usuario = session["usuario"]["id"]
+    avaliacao_model = AvaliacaoHotelModel(id_hotel=id_hotel)
+    sucesso = avaliacao_model.deletar_avaliacao(id_avaliacao, id_usuario)
+
+    if sucesso:
+        flash("Comentário excluído com sucesso!", "success")
+    else:
+        flash("Erro ao excluir comentário.", "error")
+
+    return redirect(url_for("hotel.pagina_hotel", id_hotel=id_hotel))
