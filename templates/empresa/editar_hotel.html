@@ -36,7 +36,7 @@
 
         <div class="form-group">
             <i class="fa-brands fa-pix"></i>
-            <input type="text" id="chave_pix" name="chave_pix" required value="{{ hotel['chave_pix'] }}">
+            <input type="text" id="chave_pix" name="chave_pix" placeholder="Chave Pix" required value="{{ hotel['chave_pix'] }}">
         </div>
         
         <div class="form-group file-group">
@@ -45,6 +45,14 @@
               <span>Alterar foto do hotel</span>
           </label>
           <input type="file" name="imagem" id="imagem">
+        </div>
+
+        <div class="form-group file-group">
+          <label for="imagem" class="file-label">
+              <i class="fa-solid fa-camera"></i>
+              <span>Alterar foto de fundo</span>
+          </label>
+          <input type="file" name="background" id="background">
         </div>
         
         <div class="form-actions">

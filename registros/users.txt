@@ -50,3 +50,9 @@ None | None
 None | None
 None | None
 Tralalero Tralala | 00000000000 | Tralala@gmail.com
+Pasárgada Hotel | Crato | Lameiro | Av. José Horácio Pequeno | 0 | 123456789 | pasargada@gmail.com | 123
+Hotel Encosta do Horto | Juazeiro do Norte | Centro | CE-060 | 50 | 123131213131231542 | encosta@gmail.com | 123
+João Antônio Pereira | 131321415151 | joao@gmail.com
+Ana Maria da Conceição | 644646489 | maria@gmail.com
+adada | dadada | adada | 1231 | 13132 | 123131 | ada@gmail.com | 123
+Nord Luxxor Juazeiro | Juazeiro do Norte | Lagoa Seca | Av. Leão Sampaio | 1623 | 4891747174891 | luxxor@gmail.com | 123

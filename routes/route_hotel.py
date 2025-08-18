@@ -29,6 +29,7 @@ def cadastro_hotel():
         email = request.form.get("email")
         senha = request.form.get("senha")
         foto = request.files.get("foto")
+        background = request.files.get("background")
         chave_pix = request.form.get("chave_pix")
         banner = request.files.get("banner")
         with open('registros/users.txt', 'a', encoding='utf-8') as arquivo:
@@ -40,6 +41,13 @@ def cadastro_hotel():
             foto.save(caminho_foto)
             
             caminho_relativo_foto = f'uploads/{filename}'
+
+        if background:
+            filename = secure_filename(background.filename)
+            caminho_background = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            background.save(caminho_background)
+            
+            caminho_relativo_background = f'uploads/{filename}'
 
 
         # Verifica se o CNPJ é válido
@@ -58,6 +66,7 @@ def cadastro_hotel():
             email=email,
             senha=senha,
             foto=caminho_relativo_foto,
+            background=caminho_relativo_background,
             chave_pix=chave_pix
         )
 
@@ -166,6 +175,7 @@ def editar_perfil_hotel():
         nome = request.form.get('nome')
         senha = request.form.get('senha')
         imagem = request.files.get('imagem')
+        background = request.files.get('background')
         chave_pix = request.form.get('chave_pix')
 
         # Usa a foto antiga como padrão
@@ -176,8 +186,16 @@ def editar_perfil_hotel():
             imagem.save(caminho_foto)
             foto_path = f'uploads/{filename}'
 
+        # Usa o background como padrão
+        background_path = session['hotel']['foto']
+        if background and background.filename != '':
+            filename = secure_filename(background.filename)
+            caminho_background = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            imagem.save(caminho_background)
+            background_path = f'uploads/{filename}'
+
         # Atualiza no banco
-        hotel_model = HotelModel(id_hotel=id_hotel, nome=nome, senha=senha, foto=foto_path, chave_pix=chave_pix)
+        hotel_model = HotelModel(id_hotel=id_hotel, nome=nome, senha=senha, foto=foto_path, chave_pix=chave_pix, background=background_path)
         hotel_model.atualizar()
 
         # Atualiza todos os dados da sessão com os valores mais recentes do banco

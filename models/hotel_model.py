@@ -3,7 +3,7 @@ from flask import flash
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class HotelModel:
-    def __init__(self, id_hotel=None, nome=None, cidade=None, bairro=None,rua=None,numero=None,cnpj=None,email=None,senha=None,foto=None,chave_pix=None):
+    def __init__(self, id_hotel=None, nome=None, cidade=None, bairro=None,rua=None,numero=None,cnpj=None,email=None,senha=None,foto=None,chave_pix=None, background=None):
         self.id_hotel = id_hotel
         self.nome = nome
         self.cidade = cidade
@@ -14,6 +14,7 @@ class HotelModel:
         self.email = email
         self.senha = senha
         self.foto = foto
+        self.background = background
         self.chave_pix = chave_pix
 
     def buscar_por_hotel(self):
@@ -49,8 +50,8 @@ class HotelModel:
             return True
         else:
             senha_hash = generate_password_hash(self.senha)
-            sql = "INSERT INTO hoteis  (nome, cidade, bairro, rua, numero, cnpj, email, senha, foto, chave_pix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-            db.execute(sql, (self.nome, self.cidade, self.bairro, self.rua, self.numero, self.cnpj, self.email, senha_hash, self.foto, self.chave_pix))
+            sql = "INSERT INTO hoteis  (nome, cidade, bairro, rua, numero, cnpj, email, senha, foto, chave_pix, background) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            db.execute(sql, (self.nome, self.cidade, self.bairro, self.rua, self.numero, self.cnpj, self.email, senha_hash, self.foto, self.chave_pix, self.background))
             db.commit()
             db.close()
             return False
@@ -73,10 +74,10 @@ class HotelModel:
         db.connect()
         if self.senha:
             senha_hash = generate_password_hash(self.senha)
-            sql = """UPDATE hoteis SET chave_pix=?, nome=?, senha=?, foto=? WHERE id_hotel=?"""
-            db.execute(sql, (self.chave_pix, self.nome, senha_hash, self.foto, self.id_hotel))
+            sql = """UPDATE hoteis SET chave_pix=?, nome=?, senha=?, foto=?, background=? WHERE id_hotel=?"""
+            db.execute(sql, (self.chave_pix, self.nome, senha_hash, self.foto, self.background, self.id_hotel))
         else:
-            sql = """UPDATE hoteis SET chave_pix=?, nome=?, foto=? WHERE id_hotel=?"""
-            db.execute(sql, (self.chave_pix, self.nome, self.foto, self.id_hotel))
+            sql = """UPDATE hoteis SET chave_pix=?, nome=?, foto=?, background=? WHERE id_hotel=?"""
+            db.execute(sql, (self.chave_pix, self.nome, self.foto, self.background, self.id_hotel))
         db.commit()
         db.close()
