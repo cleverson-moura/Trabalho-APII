@@ -111,11 +111,47 @@
     </main>
   </div>
 
+  <!-- NOVO: Estrutura do Lightbox para Tela Cheia -->
+  <div id="lightbox-overlay" class="lightbox-overlay">
+    <span id="lightbox-close" class="lightbox-close">&times;</span>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Imagem em tela cheia">
+    </div>
+  </div>
+
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
       document.getElementById("overlay").classList.toggle("active");
     }
+
+    // NOVO: Script para o Lightbox
+    document.addEventListener('DOMContentLoaded', () => {
+      const galleryImages = document.querySelectorAll('.galeria-ponto img');
+      const lightboxOverlay = document.getElementById('lightbox-overlay');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxClose = document.getElementById('lightbox-close');
+
+      galleryImages.forEach(img => {
+        img.addEventListener('click', () => {
+          const imgSrc = img.getAttribute('src');
+          lightboxImg.setAttribute('src', imgSrc);
+          lightboxOverlay.classList.add('active');
+        });
+      });
+
+      const closeLightbox = () => {
+        lightboxOverlay.classList.remove('active');
+      };
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxOverlay.addEventListener('click', (e) => {
+        // Fecha somente se clicar no fundo, não na imagem
+        if (e.target === lightboxOverlay) {
+          closeLightbox();
+        }
+      });
+    });
   </script>
 
 </body>
