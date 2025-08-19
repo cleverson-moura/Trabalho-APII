@@ -89,11 +89,19 @@
         <!-- Coluna de Informações e Reserva -->
         <div class="info-column">
           <section class="card">
-            <h2 class="section-title">Quarto {{ quarto.andar }}° Andar, Nº {{ quarto.numero_quarto }}</h2>
+            {%if quarto.andar == "0" %}
+              <h2 class="section-title">Quarto Térreo, Nº {{ quarto.numero_quarto }}</h2>
+            {% else %}
+              <h2 class="section-title">Quarto {{ quarto.andar }}° Andar, Nº {{ quarto.numero_quarto }}</h2>
+            {% endif %}
             <p class="quarto-descricao">{{ quarto.descricao }}</p>
             <div class="quarto-preco">
               <i class="fa-solid fa-dollar-sign"></i>
               <span>Diária: <strong>{{ quarto.preco }} R$</strong></span>
+            </div>
+            <div class="quarto-preco">
+              <i class="fa-solid fa-map-marked-alt"></i>
+              <span>Localização: <strong>{{ hotel.rua }}, {{ hotel.numero }}, {{ hotel.bairro }}, {{ hotel.cidade }}</strong></span>
             </div>
           </section>
           <section class="card">
