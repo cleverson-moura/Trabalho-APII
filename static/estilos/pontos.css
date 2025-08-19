@@ -341,11 +341,13 @@ a {
     z-index: 1000;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 1rem;
+    /* Alterado para alinhar no topo e permitir rolagem */
+    align-items: flex-start;
+    padding: 2rem 1rem; /* Adicionado mais padding vertical */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease-in-out;
+    overflow-y: auto; /* Permite rolagem do overlay inteiro */
 }
 .popup-overlay.active {
     opacity: 1;
@@ -353,9 +355,12 @@ a {
 }
 .popup-card {
     width: 100%;
-    max-width: 550px;
+    max-width: 600px; /* Aumentado um pouco a largura máxima */
     transform: scale(0.95);
     transition: transform 0.3s ease-in-out;
+    display: flex; /* Adicionado para controle interno */
+    flex-direction: column; /* Adicionado para controle interno */
+    max-height: 90vh; /* Garante que o card não seja maior que a tela */
 }
 .popup-overlay.active .popup-card {
     transform: scale(1);
@@ -370,6 +375,13 @@ a {
 }
 .popup-header h2 { font-size: 1.5rem; font-weight: 700; }
 .btn-close { background: none; border: none; font-size: 2rem; line-height: 1; cursor: pointer; color: var(--cor-texto-secundario); }
+
+/* Alterado para permitir rolagem interna */
+.popup-body {
+    overflow-y: auto;
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+}
+
 .popup-form { display: flex; flex-direction: column; gap: 1.25rem; }
 .popup-form .form-group { position: relative; }
 .popup-form .form-group i { position: absolute; left: 15px; top: 18px; color: var(--cor-texto-secundario); }
@@ -380,6 +392,28 @@ a {
 .file-label:hover { background-color: #f9fafb; border-color: var(--cor-primaria); }
 .file-label i { position: static; transform: none; }
 
+/* NOVO: Estilos para o grid de upload de imagens */
+.image-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Colunas mais flexíveis */
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+.image-upload-grid .main-image {
+    grid-column: 1 / -1; /* Faz a imagem de capa ocupar a largura total */
+}
+.image-upload-grid .file-label {
+    flex-direction: column;
+    height: 100px;
+    font-size: 0.8rem; /* Fonte menor para caber melhor */
+    padding: 0.5rem; /* Menos padding */
+}
+.image-upload-grid .file-label i {
+    font-size: 1.2rem; /* Ícone menor */
+    margin-bottom: 0.3rem;
+}
+
+
 /* Responsividade */
 @media (max-width: 1024px) {
   .header-right span { display: none; }
@@ -388,4 +422,5 @@ a {
   .main-content, .header-content { padding: 1rem; }
   .navigation-bar { flex-direction: column; align-items: stretch; }
   .carrossel { height: 300px; }
+  .popup-overlay { padding: 1rem 0.5rem; }
 }

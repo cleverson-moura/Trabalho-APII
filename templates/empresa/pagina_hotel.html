@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+  
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <link rel="stylesheet" href="/static/estilos/estilo_avaliacoes.css">
   <style>
@@ -70,6 +70,9 @@
               <i class="fa-solid fa-star"></i> {{ media_estrelas }}
             </span>
           </h1>
+          <img
+          src="https://cdn.discordapp.com/attachments/528355309639696419/1406897968501489675/Dream_tour_logo.png?ex=68a42356&is=68a2d1d6&hm=a90147212d1a2e97c4bad53c9b159da8755b06216a3f107d37e410289e133286"
+          alt="Logo">
         </div>
         <div class="header-right">
            <a href="/perfil_hotel" class="btn btn-edit">
@@ -102,7 +105,7 @@
         </div>
       </section>
 
-      <div id="map" data-lat="{{ lat }}" data-lng="{{ lng }}"></div>
+        <div id="map" data-lat="{{ lat }}" data-lng="{{ lng }}"></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
