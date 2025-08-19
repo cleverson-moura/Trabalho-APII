@@ -84,7 +84,17 @@ def pontos():
 
 @app.route('/quem_somos')
 def quem_somos():
-    return render_template('quem_somos.html')
+    if 'usuario' in session:
+        icone = "/static/{}".format(session['usuario']['imagem'])
+        endereco = "/perfil_usuario"
+    elif 'hotel' in session:
+        icone = "/static/{}".format(session['hotel']['foto'])
+        endereco = "/perfil_hotel"
+    else:
+        icone = "/static/imagens/user.png"
+        endereco = "/login"
+    texto = "Vamos ver"
+    return render_template('quem_somos.html', icone=icone, endereco=endereco)
 
 @app.route('/salvar_quartos', methods=['GET'])
 def exibir_formulario_quarto():
