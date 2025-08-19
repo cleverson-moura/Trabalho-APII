@@ -43,8 +43,12 @@ def cancelar_reserva():
         reserva_model = ReservaModel(id_reserva=reserva_id)
         reserva_model.cancelar_reserva()
         
-        flash('Reserva cancelada com sucesso!', 'success')
-        return redirect(url_for('usuario.perfil_usuario'))
+        if 'usuario' in session:
+            flash('Reserva cancelada com sucesso!', 'success')
+            return redirect(url_for('usuario.perfil_usuario'))
+        elif 'hotel' in session:
+            flash('Reserva cancelada com sucesso!', 'success')
+            return redirect(url_for('hotel.perfil_hotel'))
     
     flash('Erro ao cancelar a reserva.', 'error')
     return redirect(url_for('usuario.perfil_usuario'))
