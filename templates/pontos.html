@@ -110,13 +110,16 @@
           {% if pontos %}
             {% for ponto in pontos %}
               <div class="ponto-card">
+                <a href="{{ url_for('ponto.detalhes_ponto', id_ponto=ponto['id_ponto_turistico']) }}">
                 <div class="ponto-card-imagem-wrapper">
-                  <img src="{{ url_for('static', filename=ponto['imagem']) }}" alt="Imagem do ponto turístico" class="ponto-card-imagem" />
+                  <!-- ATENÇÃO: Alterar 'imagem' para 'imagem_capa' quando a busca for atualizada -->
+                  <img src="{{ url_for('static', filename=ponto['imagem_capa']) if ponto['imagem_capa'] else '/static/imagens/default.png' }}" alt="Imagem do ponto turístico" class="ponto-card-imagem" />
                 </div>
                 <div class="ponto-card-info">
                   <h3 class="ponto-card-nome">{{ ponto['nome'] }}</h3>
-                  <p class="ponto-card-descricao">{{ ponto['descricao'] }}</p>
+                  <p class="ponto-card-descricao">{{ ponto['info_ponto_turistico'] }}</p>
                 </div>
+                </a>
               </div>
             {% endfor %}
           {% else %}
@@ -153,7 +156,7 @@
         <button id="fechar-popup" class="btn-close">&times;</button>
       </div>
       <div class="popup-body">
-        <form id="form-ponto" method="POST" action="/adicionar_ponto" enctype="multipart/form-data" class="popup-form">
+        <form id="form-ponto" method="POST" action="{{ url_for('ponto.adicionar_ponto') }}" enctype="multipart/form-data" class="popup-form">
           <div class="form-group">
             <i class="fas fa-monument"></i>
             <input type="text" id="nome" name="nome" required placeholder="Nome do Local">
@@ -174,13 +177,46 @@
             <i class="fas fa-align-left"></i>
             <textarea id="descricao" name="descricao" rows="4" required placeholder="Descrição do local..."></textarea>
           </div>
-          <div class="form-group file-group">
-            <label for="imagem" class="file-label">
-                <i class="fa-solid fa-camera"></i>
-                <span>Imagem do Local</span>
-            </label>
-            <input type="file" id="imagem" name="imagem" accept="image/*">
+          
+          <!-- Grid de Upload de Imagens com NOMES CORRIGIDOS -->
+          <div class="image-upload-grid">
+            <div class="form-group file-group main-image">
+              <label for="imagem_capa" class="file-label">
+                  <i class="fa-solid fa-camera"></i>
+                  <span>Imagem de Capa*</span>
+              </label>
+              <input type="file" id="imagem_capa" name="imagem_capa" accept="image/*" required>
+            </div>
+            <div class="form-group file-group">
+              <label for="imagem_extra_1" class="file-label">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Extra 1</span>
+              </label>
+              <input type="file" id="imagem_extra_1" name="imagem_extra_1" accept="image/*">
+            </div>
+            <div class="form-group file-group">
+              <label for="imagem_extra_2" class="file-label">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Extra 2</span>
+              </label>
+              <input type="file" id="imagem_extra_2" name="imagem_extra_2" accept="image/*">
+            </div>
+            <div class="form-group file-group">
+              <label for="imagem_extra_3" class="file-label">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Extra 3</span>
+              </label>
+              <input type="file" id="imagem_extra_3" name="imagem_extra_3" accept="image/*">
+            </div>
+             <div class="form-group file-group">
+              <label for="imagem_extra_4" class="file-label">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Extra 4</span>
+              </label>
+              <input type="file" id="imagem_extra_4" name="imagem_extra_4" accept="image/*">
+            </div>
           </div>
+
           <button type="submit" class="btn btn-add">Salvar Ponto</button>
         </form>
       </div>

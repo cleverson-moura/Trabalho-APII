@@ -78,9 +78,12 @@ criar_tabela_IMG_PT = '''CREATE TABLE IF NOT EXISTS
 IMG_PT 
 (
     id_img_PT INTEGER PRIMARY KEY AUTOINCREMENT,
-    imagem_PT TEXT,
-    info TEXT,
     id_ponto_turistico INTEGER,
+    imagem_capa TEXT,
+    imagem_extra_1 TEXT,
+    imagem_extra_2 TEXT,
+    imagem_extra_3 TEXT,
+    imagem_extra_4 TEXT,
     FOREIGN KEY (id_ponto_turistico) REFERENCES pontos_turisticos(id_ponto_turistico)
 )'''
 cursor.execute(criar_tabela_IMG_PT)
@@ -143,6 +146,8 @@ avaliacoes_quartos
 
 )'''
 cursor.execute(criar_tabela_avaliacoes_quartos)
+
+
 
 con.commit()
 con.close()

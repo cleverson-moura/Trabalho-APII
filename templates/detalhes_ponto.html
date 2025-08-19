@@ -6,22 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalhes do Ponto - {{ ponto.nome }}</title>
 
-  <!-- Link para o NOVO CSS -->
+  <!-- Link para o CSS atualizado -->
   <link rel="stylesheet" href="/static/estilos/estilo_detalhes_ponto.css">
 
-  <!-- Fontes e Ícones do design de perfil -->
-  <!-- Adiciona o Font Awesome -->
+  <!-- Fontes e Ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
 <body>
 
-  <!-- Estrutura de Sidebar e Overlay, consistente com a página de perfil -->
   <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
   <aside id="sidebar" class="sidebar">
@@ -31,17 +27,13 @@
     <nav class="sidebar-nav">
       <a href="/"><i class="fa-solid fa-house"></i> Início</a>
       <a href="/quem_somos"><i class="fa-solid fa-users"></i> Quem Somos</a>
-      <a href="/"><i class="fa-solid fa-bed"></i> Quartos</a>
       <a href="/pontos"><i class="fa-solid fa-map-location-dot"></i> Pontos Turísticos</a>
       <a href="/contato"><i class="fa-solid fa-envelope"></i> Contato</a>
       <a href="/templates/projeto.html"><i class="fa-solid fa-diagram-project"></i> Projeto</a>
-      <!-- Link de volta para o perfil do hotel -->
-      <a href="{{ url_for('hotel.perfil_hotel') }}"><i class="fa-solid fa-user-shield"></i> Perfil do Hotel</a>
     </nav>
   </aside>
 
   <div class="page-wrapper">
-    <!-- Cabeçalho consistente com a página de perfil -->
     <header class="header">
       <div class="header-content">
         <div class="header-left">
@@ -49,47 +41,82 @@
             <i class="fas fa-bars"></i>
           </button>
           <h1>Detalhes do Ponto Turístico</h1>
-        <img
-          src="https://cdn.discordapp.com/attachments/528355309639696419/1406897968501489675/Dream_tour_logo.png?ex=68a42356&is=68a2d1d6&hm=a90147212d1a2e97c4bad53c9b159da8755b06216a3f107d37e410289e133286"
-          alt="Logo">
         </div>
-        <div>
         <div class="header-right">
           <a href="{{endereco}}" class="btn btn-edit">
             <i class="fas fa-user"></i>
             <span>Ver Perfil</span>
           </a>
-          <a href="/sair" class="btn btn-logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Sair</span>
-          </a>
         </div>
       </div>
     </header>
 
-    <!-- Conteúdo Principal Adaptado para a página de pontos -->
     <main class="main-content">
-      <!-- Banner do Ponto -->
+      <!-- Banner do Ponto com Imagem de Capa -->
       <section class="ponto-banner">
-        {% if ponto.background %}
-        <img src="{{ url_for('static', filename=imagemdolocal.background) }}" alt="Imagem do ponto" class="banner-img">
-        {% else %}
-        <img
-          src="https://s2-g1.glbimg.com/JsLq8C4FTm0aliODOg8QMKDYSuE=/0x0:1198x898/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/n/K/iiEAshQ8aethCsx2Azdw/padre-cicero-gustavo-pellizon-svm.jpeg"
-          alt="Imagem padrão do ponto" class="banner-img">
-        {% endif %}
+        <img src="{{ url_for('static', filename=ponto.imagem_capa) if ponto.imagem_capa else '/static/imagens/default_banner.jpg' }}" alt="Imagem principal de {{ ponto.nome }}" class="banner-img">
         <div class="banner-overlay">
-          <a href="{{url_for('hotel.pagina_hotel', id_hotel=hotel.id_hotel)}}" class="hotel-avatar-link">
-          
-          </a>
           <h2 class="ponto-name-banner">{{ ponto.nome }}</h2>
         </div>
       </section>
 
       <div class="grid-layout">
-        <!-- Coluna de Informações-->
+        <!-- Coluna de Informações -->
         <div class="info-column">
           <section class="card">
-            
-            <p class="ponto-descricao">{{ ponto.descricao }}</p>
+            <h3 class="section-title">Sobre o Local</h3>
+            <p class="ponto-descricao">{{ ponto.info_ponto_turistico }}</p>
+            <div class="info-list">
+                <div class="info-item">
+                    <i class="fas fa-city"></i>
+                    <span>{{ ponto.cidade }}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>{{ ponto.bairro }}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-road"></i>
+                    <span>{{ ponto.rua }}</span>
+                </div>
+            </div>
+          </section>
+        </div>
 
+        <!-- Coluna da Galeria -->
+        <div class="gallery-column">
+            <section class="card">
+                <h3 class="section-title">Galeria de Fotos</h3>
+                <div class="galeria-ponto">
+                    <!-- Imagens extras são adicionadas aqui se existirem -->
+                    {% if ponto.imagem_extra_1 %}
+                        <img src="{{ url_for('static', filename=ponto.imagem_extra_1) }}" alt="Imagem extra 1 de {{ ponto.nome }}">
+                    {% endif %}
+                    {% if ponto.imagem_extra_2 %}
+                        <img src="{{ url_for('static', filename=ponto.imagem_extra_2) }}" alt="Imagem extra 2 de {{ ponto.nome }}">
+                    {% endif %}
+                    {% if ponto.imagem_extra_3 %}
+                        <img src="{{ url_for('static', filename=ponto.imagem_extra_3) }}" alt="Imagem extra 3 de {{ ponto.nome }}">
+                    {% endif %}
+                    {% if ponto.imagem_extra_4 %}
+                        <img src="{{ url_for('static', filename=ponto.imagem_extra_4) }}" alt="Imagem extra 4 de {{ ponto.nome }}">
+                    {% endif %}
+                </div>
+                 {% if not ponto.imagem_extra_1 and not ponto.imagem_extra_2 and not ponto.imagem_extra_3 and not ponto.imagem_extra_4 %}
+                    <p class="no-images-text">Nenhuma imagem adicional disponível.</p>
+                {% endif %}
+            </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>
