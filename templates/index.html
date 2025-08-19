@@ -126,7 +126,11 @@
                     {% endif %}
                   </div>
                   <div class="quarto-card-info">
-                    <h3 class="quarto-card-nome">{{ quarto.andar }}° andar, Nº {{ quarto.numero_quarto }}</h3>
+                    {% if quarto.andar == "0" %}
+                      <h3 class="quarto-card-nome">Térreo, Nº {{ quarto.numero_quarto }}</h3>
+                    {% else %}
+                      <h3 class="quarto-card-nome">{{ quarto.andar }}° andar, Nº {{ quarto.numero_quarto }}</h3>
+                    {% endif %}
                     <p class="quarto-card-descricao">{{ quarto.descricao }}</p>
                     <div class="quarto-card-preco">
                       <span>R$</span> {{ quarto.preco }} <span>/ noite</span>

@@ -56,3 +56,5 @@ João Antônio Pereira | 131321415151 | joao@gmail.com
 Ana Maria da Conceição | 644646489 | maria@gmail.com
 adada | dadada | adada | 1231 | 13132 | 123131 | ada@gmail.com | 123
 Nord Luxxor Juazeiro | Juazeiro do Norte | Lagoa Seca | Av. Leão Sampaio | 1623 | 4891747174891 | luxxor@gmail.com | 123
+Hotel Gran Marquise | Fortaleza | Mucuripe | Avenida Beira Mar | 3980 | 7371937189312 | marquise@gmail.com | 123
+The Chili Beach | Jijoca de Jericoacoara | Centro | Rua da Matriz | 250 | 491789471 | chili@gmail.com | 123
